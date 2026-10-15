@@ -1,0 +1,62 @@
+[
+  {
+    "number": 1,
+    "title": "一个价值千万的布尔值",
+    "description": "决策模型、推理成本与 Agent 安全"
+  },
+  {
+    "number": 2,
+    "title": "扩散语言模型的叛乱",
+    "description": "自回归与扩散，语言生成的两条道路"
+  },
+  {
+    "number": 3,
+    "title": "永不下班的数字员工",
+    "description": "Runtime、沙箱、任务持久化与恢复"
+  },
+  {
+    "number": 4,
+    "title": "智能体的失忆症",
+    "description": "上下文、记忆提取与经验检索"
+  },
+  {
+    "number": 5,
+    "title": "一百个模型组成一个大脑",
+    "description": "模型路由、协作与动态工作流"
+  },
+  {
+    "number": 6,
+    "title": "AI 开始听见和看见世界",
+    "description": "原生音频、多模态与实时交互"
+  },
+  {
+    "number": 7,
+    "title": "三维世界的觉醒",
+    "description": "世界模型、具身智能与动作预测"
+  },
+  {
+    "number": 8,
+    "title": "把大模型塞进口袋",
+    "description": "量化、蒸馏、推测解码与端云协同"
+  },
+  {
+    "number": 9,
+    "title": "Coding Agent 的军备竞赛",
+    "description": "工具、上下文、权限与工程实践"
+  },
+  {
+    "number": 10,
+    "title": "AI 操作系统的诞生",
+    "description": "调度、共享状态与分布式执行"
+  },
+  {
+    "number": 11,
+    "title": "模型战争与架构演进",
+    "description": "Transformer、MoE、Mamba 与架构选择"
+  },
+  {
+    "number": 12,
+    "title": "真正的 AI 应用工程",
+    "description": "RAG、评测、可观测性与生产系统"
+  }
+]

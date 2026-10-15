@@ -1,0 +1,919 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="AI 纪元：从语言模型到智能体文明，十二章小说式技术科普。"><title>AI 开始听见和看见世界 · AI 纪元</title><link rel="stylesheet" href="style.css"><script src="app.js" defer></script></head><body class="reading"><header><a class="brand" href="index.html">AI 纪元<span>THE AI ERA</span></a><div class="controls"><button id="smaller" aria-label="缩小字号">A−</button><button id="larger" aria-label="增大字号">A＋</button><button id="theme" aria-label="切换深浅色">◐</button></div></header><div class="reader-layout"><aside><a href="index.html">← 全书目录</a><p class="eyebrow">本章导航</p><div class="toc">
+<ul>
+<li><a href="#_1">第一幕：三个工厂组成的语音助手</a><ul>
+<li><a href="#1-asr">1. ASR：把声音变成文字</a></li>
+<li><a href="#2-llm">2. LLM：处理文本</a></li>
+<li><a href="#3-tts">3. TTS：把文字变回声音</a></li>
+</ul>
+</li>
+<li><a href="#_2">第二幕：延迟——一场由毫秒组成的战争</a><ul>
+<li><a href="#1">1. 流水线并行</a></li>
+</ul>
+</li>
+<li><a href="#vadai">第三幕：VAD——AI 怎样知道你说完了？</a><ul>
+<li><a href="#1-vadvoice-activity-detection">1. VAD：Voice Activity Detection</a></li>
+<li><a href="#2-vad">2. VAD 不等于轮次结束检测</a></li>
+</ul>
+</li>
+<li><a href="#_3">第四幕：从文字理解到原生音频模型</a><ul>
+<li><a href="#1_1">1. 音频的数字化</a></li>
+<li><a href="#2-token">2. 音频 Token 是什么？</a></li>
+<li><a href="#3">3. 原生音频模型的潜在优势</a></li>
+</ul>
+</li>
+<li><a href="#ai">第五幕：全双工——AI 终于学会边听边说</a><ul>
+<li><a href="#1_2">1. 半双工式交互</a></li>
+<li><a href="#2">2. 全双工交互</a></li>
+<li><a href="#3-aecacoustic-echo-cancellation">3. AEC：Acoustic Echo Cancellation</a></li>
+</ul>
+</li>
+<li><a href="#ai_1">第六幕：打断机制——AI 为什么必须学会闭嘴？</a><ul>
+<li><a href="#1-barge-in">1. Barge-in：用户插话</a></li>
+<li><a href="#2_1">2. 一个隐藏的状态问题</a></li>
+</ul>
+</li>
+<li><a href="#interaction-models">第七幕：Interaction Models——不只是回答，而是参与</a><ul>
+<li><a href="#1_3">1. 对话不仅仅是内容</a></li>
+<li><a href="#2-backchannel">2. Backchannel：简短反馈</a></li>
+<li><a href="#3-turn-taking">3. Turn-taking：话轮管理</a></li>
+</ul>
+</li>
+<li><a href="#ai_2">第八幕：AI 开始看见屏幕</a><ul>
+<li><a href="#1_4">1. 视频为什么不能简单当成图片？</a></li>
+<li><a href="#2_2">2. 视频理解需要时间信息</a></li>
+<li><a href="#3_1">3. 多模态时间同步</a></li>
+</ul>
+</li>
+<li><a href="#agent">第九幕：实时 Agent 的工程架构</a><ul>
+<li><a href="#1_5">1. 一个简化的实时事件流</a></li>
+</ul>
+</li>
+<li><a href="#_4">第十幕：真正困难的是状态一致性</a><ul>
+<li><a href="#1_6">1. 推测执行与实际执行必须分离</a></li>
+<li><a href="#2_3">2. 延迟与安全的矛盾</a></li>
+</ul>
+</li>
+<li><a href="#_5">第十一幕：从语音助手到实时协作伙伴</a></li>
+<li><a href="#_6">第六章：技术归档</a><ul>
+<li><a href="#_7">本章最重要的五个结论</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</aside><main id="main"><div class="chapter-heading"><p class="eyebrow">CHAPTER 06 / 12</p><h1>AI 开始听见和看见世界</h1><p>原生音频、多模态与实时交互</p></div><details class="mobile-toc"><summary>展开本章目录</summary><div class="toc">
+<ul>
+<li><a href="#_1">第一幕：三个工厂组成的语音助手</a><ul>
+<li><a href="#1-asr">1. ASR：把声音变成文字</a></li>
+<li><a href="#2-llm">2. LLM：处理文本</a></li>
+<li><a href="#3-tts">3. TTS：把文字变回声音</a></li>
+</ul>
+</li>
+<li><a href="#_2">第二幕：延迟——一场由毫秒组成的战争</a><ul>
+<li><a href="#1">1. 流水线并行</a></li>
+</ul>
+</li>
+<li><a href="#vadai">第三幕：VAD——AI 怎样知道你说完了？</a><ul>
+<li><a href="#1-vadvoice-activity-detection">1. VAD：Voice Activity Detection</a></li>
+<li><a href="#2-vad">2. VAD 不等于轮次结束检测</a></li>
+</ul>
+</li>
+<li><a href="#_3">第四幕：从文字理解到原生音频模型</a><ul>
+<li><a href="#1_1">1. 音频的数字化</a></li>
+<li><a href="#2-token">2. 音频 Token 是什么？</a></li>
+<li><a href="#3">3. 原生音频模型的潜在优势</a></li>
+</ul>
+</li>
+<li><a href="#ai">第五幕：全双工——AI 终于学会边听边说</a><ul>
+<li><a href="#1_2">1. 半双工式交互</a></li>
+<li><a href="#2">2. 全双工交互</a></li>
+<li><a href="#3-aecacoustic-echo-cancellation">3. AEC：Acoustic Echo Cancellation</a></li>
+</ul>
+</li>
+<li><a href="#ai_1">第六幕：打断机制——AI 为什么必须学会闭嘴？</a><ul>
+<li><a href="#1-barge-in">1. Barge-in：用户插话</a></li>
+<li><a href="#2_1">2. 一个隐藏的状态问题</a></li>
+</ul>
+</li>
+<li><a href="#interaction-models">第七幕：Interaction Models——不只是回答，而是参与</a><ul>
+<li><a href="#1_3">1. 对话不仅仅是内容</a></li>
+<li><a href="#2-backchannel">2. Backchannel：简短反馈</a></li>
+<li><a href="#3-turn-taking">3. Turn-taking：话轮管理</a></li>
+</ul>
+</li>
+<li><a href="#ai_2">第八幕：AI 开始看见屏幕</a><ul>
+<li><a href="#1_4">1. 视频为什么不能简单当成图片？</a></li>
+<li><a href="#2_2">2. 视频理解需要时间信息</a></li>
+<li><a href="#3_1">3. 多模态时间同步</a></li>
+</ul>
+</li>
+<li><a href="#agent">第九幕：实时 Agent 的工程架构</a><ul>
+<li><a href="#1_5">1. 一个简化的实时事件流</a></li>
+</ul>
+</li>
+<li><a href="#_4">第十幕：真正困难的是状态一致性</a><ul>
+<li><a href="#1_6">1. 推测执行与实际执行必须分离</a></li>
+<li><a href="#2_3">2. 延迟与安全的矛盾</a></li>
+</ul>
+</li>
+<li><a href="#_5">第十一幕：从语音助手到实时协作伙伴</a></li>
+<li><a href="#_6">第六章：技术归档</a><ul>
+<li><a href="#_7">本章最重要的五个结论</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</details><article><p><img loading="lazy" decoding="async" alt="Google Gemini 3.8 Live: What Extended Thinking Changes" src="https://images.openai.com/static-rsc-4/pjqAGfEl-_VZR9mKjTJIg4c6c-Ui4OcQwPF6NEhkwtagzbKLDfTcFSMc2WY1oH_DE4JivmhfIlhYFaXDUIQJFmEGJUm1QhDExR_doQ9cm87W9rX2dHV9tLuPM15O8i9ylmLDxaPcRwYQ-0IMMF9nBz0lEW7gnp4JhW-c_rp83KI?purpose=inline" /></p>
+<p><a href="https://windowsforum.com/news/google-gemini-3-8-live-what-extended-thinking-changes.444515/">windowsforum.com</a></p>
+<p>2026 年 10 月，上午 9:17。</p>
+<p>林远坐在电脑前，正在调试一个复杂的 Java 项目。</p>
+<p>屏幕上，<code>PaymentService.java</code> 抛出了一个令人头疼的异常。</p>
+<p>他打开 AI 语音助手。</p>
+<p>“帮我看看这个空指针异常，应该是第……”</p>
+<p>话还没说完，AI 就回答：</p>
+<blockquote>
+<p>好的，请把错误日志发给我。</p>
+</blockquote>
+<p>林远皱了皱眉。</p>
+<p>“我还没说完。”</p>
+<p>AI 没有回应。</p>
+<p>他继续说道：</p>
+<p>“应该是第 137 行的 <code>requestId</code> 没有判空，但是……”</p>
+<p>AI 又开始说话：</p>
+<blockquote>
+<p>根据你的描述，可以增加空值校验……</p>
+</blockquote>
+<p>“等等！你能不能先听我说完？”</p>
+<p>AI 继续念着已经生成的答案。</p>
+<p>林远忍无可忍，关闭了语音功能。</p>
+<p>十分钟后，他找到架构师陈默。</p>
+<p>“陈工，我们的语音 Agent 明明接入了最先进的大模型，为什么交流起来还像在使用十年前的语音客服？”</p>
+<p>陈默没有回答。</p>
+<p>他拿起手机，打开一个实时语音演示。</p>
+<p>“林远，帮我分析一下……”</p>
+<p>话说到一半，陈默突然停住。</p>
+<p>AI 没有抢答。</p>
+<p>两秒钟后，他继续：</p>
+<p>“……这个支付系统的并发问题。”</p>
+<p>AI 开始解释。</p>
+<p>然而刚说了半句话，陈默突然插嘴：</p>
+<p>“不对，我说的是重复回调，不是并发扣款。”</p>
+<p>AI 立即停止原来的回答。</p>
+<p>随后重新组织语言：</p>
+<blockquote>
+<p>明白了，我们重点分析支付回调的幂等性问题。</p>
+</blockquote>
+<p>林远睁大了眼睛。</p>
+<p>“这不就是正常人类对话吗？”</p>
+<p>陈默笑了。</p>
+<p>“你终于发现问题了。”</p>
+<p>过去的 AI 主要在学习如何回答问题。现在，我们开始让它学习如何参与交流。</p>
+<h2 id="_1">第一幕：三个工厂组成的语音助手</h2>
+<p>陈默打开了林远编写的语音系统。</p>
+<pre><code>用户语音
+   ↓
+ASR：语音识别
+   ↓
+LLM：文本理解与生成
+   ↓
+TTS：语音合成
+   ↓
+AI 语音回答
+</code></pre>
+<p>“这套架构有问题吗？”陈默问。</p>
+<p>林远回答：</p>
+<p>“没有啊，业界用了很多年。”</p>
+<p>“确实。它现在仍然很有价值。”</p>
+<p>“但它有一个结构性特点。”</p>
+<p>陈默在白板上画了三座工厂。</p>
+<p>第一座工厂，把声音变成文字。</p>
+<p>第二座工厂，把文字变成答案。</p>
+<p>第三座工厂，把答案重新变成声音。</p>
+<p>“每座工厂都很优秀，但它们之间需要交接。”</p>
+<h3 id="1-asr">1. ASR：把声音变成文字</h3>
+<p>林远说：</p>
+<p>“ASR 就是 Automatic Speech Recognition。”</p>
+<p>“没错。”</p>
+<p>陈默播放了一段录音。</p>
+<blockquote>
+<p>我觉得这个 Redis 锁……嗯……可能不太对。</p>
+</blockquote>
+<p>ASR 输出：</p>
+<pre><code>我觉得这个 Redis 锁可能不太对。
+</code></pre>
+<p>林远说：</p>
+<p>“识别得挺准确。”</p>
+<p>陈默问：</p>
+<p>“可是中间的停顿、犹豫、语气呢？”</p>
+<p>“丢了。”</p>
+<p>“如果说话人是很不确定地提出猜测，和非常肯定地指出错误，这两种语气有没有区别？”</p>
+<p>“有。”</p>
+<p>“但是当下游 LLM 只能看到文字时，部分声学信息已经丢失了。”</p>
+<p>陈默又播放两句话。</p>
+<p>第一句：</p>
+<blockquote>
+<p>你可真厉害。</p>
+</blockquote>
+<p>第二句：</p>
+<blockquote>
+<p>你可真厉害……</p>
+</blockquote>
+<p>文字完全一样。</p>
+<p>但第一句是真诚赞美。</p>
+<p>第二句可能是讽刺。</p>
+<p>“单纯的文本转写，不一定能保留这些信息。”</p>
+<h3 id="2-llm">2. LLM：处理文本</h3>
+<p>ASR 完成后，文本被发送给语言模型。</p>
+<pre><code>{
+  &quot;role&quot;: &quot;user&quot;,
+  &quot;content&quot;: &quot;我觉得这个 Redis 锁可能不太对&quot;
+}
+</code></pre>
+<p>模型生成：</p>
+<blockquote>
+<p>你可以检查锁的过期时间、释放方式以及是否存在误删其他请求锁的问题。</p>
+</blockquote>
+<p>答案没有问题。</p>
+<p>但 LLM 不知道用户是否还在说话。</p>
+<p>也不知道用户刚才是在犹豫，还是已经说完。</p>
+<p>因为在传统架构里，这些信息通常由其他组件负责处理。</p>
+<h3 id="3-tts">3. TTS：把文字变回声音</h3>
+<p>最后，TTS 将回答合成为语音。</p>
+<p>林远说：</p>
+<p>“所以这套架构的主要问题，是信息在每个阶段之间不断转换。”</p>
+<p>“对，但不能简单说转换就一定不好。”</p>
+<p>陈默解释：</p>
+<p>“模块化架构容易替换组件、检查转写结果、控制成本，也适合客服、会议转写和语音播报。”</p>
+<p>“真正的问题是，当我们希望 AI 像人一样实时交流时，串行的处理流程会暴露局限。”</p>
+<h2 id="_2">第二幕：延迟——一场由毫秒组成的战争</h2>
+<p><img loading="lazy" decoding="async" alt="SentiOne Voice: Alternativas com Agentes de Voz e IA | Toolzz Blog" src="https://images.openai.com/static-rsc-4/YaalwX7jTtzGD-zXr3YQGgLMw2K-j0pwhTWdK-CfVvM4nAN76GG8L0-6yU4XuyKONBhCs1y6T-g2qnTVLI_hT1J6qLi5nZNJaxx2Eq36Kz0YFSDsZdeM9GsgDun22g675VyeqJT7EN4_D6jUIdj56K1BuPGSBHQwgyHD0X1YMRI?purpose=inline" /></p>
+<p><a href="https://blog.toolzz.net/blog/alternativas-ao-sentione-voice-agentes-de-voz-ia-dc04723e/">blog.toolzz.net</a></p>
+<p>“你觉得语音助手为什么经常让人感觉反应迟钝？”陈默问。</p>
+<p>林远回答：</p>
+<p>“模型生成速度慢？”</p>
+<p>“只是其中一个原因。”</p>
+<p>陈默写下一条公式：</p>
+<p>[ T_{\text{response}} = T_{\text{endpoint}} + T_{\text{ASR}} + T_{\text{LLM}} + T_{\text{TTS}} + T_{\text{network}} ]</p>
+<p>“这里是一个简化模型。实际流水线可以重叠执行，所以不一定完全相加。”</p>
+<p>“我们做一个假设。”</p>
+<table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>假设耗时</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>等待判断用户说完</td>
+<td>500 ms</td>
+</tr>
+<tr>
+<td>ASR 完成当前转写</td>
+<td>250 ms</td>
+</tr>
+<tr>
+<td>LLM 生成首段回答</td>
+<td>400 ms</td>
+</tr>
+<tr>
+<td>TTS 生成首段声音</td>
+<td>250 ms</td>
+</tr>
+<tr>
+<td>网络及缓冲</td>
+<td>100 ms</td>
+</tr>
+<tr>
+<td>合计</td>
+<td>1,500 ms</td>
+</tr>
+</tbody>
+</table>
+<p>林远说：</p>
+<p>“一秒半，好像也不是特别慢。”</p>
+<p>陈默摇头。</p>
+<p>“对一个网页问答来说，一秒半可能不错。”</p>
+<p>“但面对面交流时，你说完一句话，对方每次都沉默一秒半，你会不会觉得奇怪？”</p>
+<p>“会。”</p>
+<p>“如果他还经常抢话、无法被打断呢？”</p>
+<p>“那就更难受了。”</p>
+<p>陈默说：</p>
+<p>“实时语音交互优化的不只是模型推理速度。”</p>
+<p>“它优化的是整个感知、决策和响应链路。”</p>
+<h3 id="1">1. 流水线并行</h3>
+<p>林远提出：</p>
+<p>“我们能不能让 ASR 边听边转写，让 LLM 提前生成，让 TTS 边生成边播放？”</p>
+<p>“当然可以。”</p>
+<p>这叫流式流水线。</p>
+<pre><code>时间 →
+
+用户语音：████████████████
+ASR 转写：    ███████████████
+LLM 生成：         ██████████████
+TTS 合成：             █████████████
+声音播放：                ███████████
+</code></pre>
+<p>“通过阶段重叠，可以显著减少等待。”</p>
+<p>“但如果 ASR 的中间结果后来发生变化呢？”</p>
+<p>林远回答：</p>
+<p>“那 LLM 可能已经根据错误的转写开始回答了。”</p>
+<p>“对。”</p>
+<p>“所以实时系统需要在速度与稳定性之间权衡。”</p>
+<h2 id="vadai">第三幕：VAD——AI 怎样知道你说完了？</h2>
+<p>陈默突然停止讲解。</p>
+<p>他看着林远。</p>
+<p>三秒钟。</p>
+<p>五秒钟。</p>
+<p>林远终于忍不住问：</p>
+<p>“陈工，你怎么不说了？”</p>
+<p>陈默笑了。</p>
+<p>“你刚才为什么没有立刻打断我？”</p>
+<p>“因为我以为你在思考。”</p>
+<p>“那你怎么判断我可能已经说完了？”</p>
+<p>林远愣住。</p>
+<p>“好像是根据停顿、语气和上下文。”</p>
+<p>“这就是语音交互中的一个核心问题。”</p>
+<p>什么时候应该开始回答？</p>
+<h3 id="1-vadvoice-activity-detection">1. VAD：Voice Activity Detection</h3>
+<p>VAD，即语音活动检测。</p>
+<p>它的基本任务是判断当前音频片段中是否存在语音活动。</p>
+<p>例如：</p>
+<p>VAD 时间轴示意</p>
+<p>示意音频能量变化。真实 VAD 不仅仅是音量阈值判断。</p>
+<p>林远说：</p>
+<p>“那只要连续静音 500 毫秒，就认为用户说完了？”</p>
+<p>陈默问：</p>
+<p>“假设用户说：”</p>
+<blockquote>
+<p>这个问题我觉得……可能和事务隔离级别有关。</p>
+</blockquote>
+<p>“中间停顿了一秒。”</p>
+<p>“如果系统在停顿时开始回答，会怎么样？”</p>
+<p>“它就抢话了。”</p>
+<p>“没错。”</p>
+<h3 id="2-vad">2. VAD 不等于轮次结束检测</h3>
+<p>陈默写下两个概念：</p>
+<p>VAD：有没有人在说话。</p>
+<p>Turn Detection：用户这一轮是否已经结束。</p>
+<p>“这两件事情不是同一个问题。”</p>
+<p>VAD 主要关注声音活动。</p>
+<p>而轮次结束检测还可以结合：</p>
+<ul>
+<li>
+<p>静音持续时间</p>
+</li>
+<li>
+<p>语音韵律</p>
+</li>
+<li>
+<p>语义是否完整</p>
+</li>
+<li>
+<p>说话人的停顿习惯</p>
+</li>
+<li>
+<p>当前对话状态</p>
+</li>
+</ul>
+<p>林远说：</p>
+<p>“所以如果用户说‘我觉得这个方案……’，系统应该更倾向于等待。”</p>
+<p>“对。”</p>
+<p>“如果用户说‘这就是我的全部问题’，就可以更快地响应。”</p>
+<p>“没错。”</p>
+<p>但陈默又补充：</p>
+<p>“语义判断也可能出错。真实系统通常需要组合多种信号，而不是完全依赖模型猜测。”</p>
+<h2 id="_3">第四幕：从文字理解到原生音频模型</h2>
+<p><img loading="lazy" decoding="async" alt="Which Is the Best App to Improve English Speaking Skills in 2026?" src="https://images.openai.com/static-rsc-4/_88Tiom0KmwdR_VDslBEzuxkOnGeqLYb9_iMhNjB-tEeKulWMzvcY7GPAdIIEgIHyB194k8TlWnRvJs6PZhfYYIKLInd-B2jC_lmrVoqqjQuiITc882aNSPKqcbbaJMeWzoaqpFWpKfwhr9s-COgGAiGiXfL-3L1PNqn3NFbBDU?purpose=inline" /></p>
+<p><a href="https://atse.in/which-is-the-best-app-to-improve-english-speaking-skills-in">atse.in</a></p>
+<p>当天晚上，陈默给林远展示了一条不同的技术路线。</p>
+<p>它不再要求先把所有语音完整转成文字，再交给 LLM。</p>
+<p>而是让模型直接处理音频表示。</p>
+<p>林远问：</p>
+<p>“声音不是连续信号吗？Transformer 怎么处理？”</p>
+<p>陈默回答：</p>
+<p>“和图像类似，首先需要把原始输入转换成模型可以处理的表示。”</p>
+<h3 id="1_1">1. 音频的数字化</h3>
+<p>人说话时，空气中的压力随时间变化。</p>
+<p>麦克风将这种变化转换成电信号。</p>
+<p>再经过采样和量化，得到数字音频。</p>
+<p>例如：</p>
+<pre><code>原始声音
+   ↓
+采样波形
+   ↓
+音频特征 / 音频编码器
+   ↓
+模型内部表示
+</code></pre>
+<p>“传统 ASR 会把音频映射成文字。”</p>
+<p>“而原生音频模型可以直接在音频表示上学习理解和生成。”</p>
+<p>林远问：</p>
+<p>“那它是不是完全不需要文字？”</p>
+<p>“不一定。”</p>
+<p>“不同系统可能采用音频编码器加语言模型、音频 Token、文本与音频联合建模等方式。”</p>
+<p>“有些系统依然会利用文本监督和转写任务训练。”</p>
+<p>“原生音频的重点不是彻底消灭文字，而是让模型能够直接利用音频信息，并可能直接生成语音。”</p>
+<h3 id="2-token">2. 音频 Token 是什么？</h3>
+<p>陈默举了一个例子。</p>
+<p>普通语言模型处理：</p>
+<pre><code>[&quot;你好&quot;, &quot;今天&quot;, &quot;天气&quot;, &quot;怎么样&quot;]
+</code></pre>
+<p>音频生成模型可能处理一系列离散化的音频编码：</p>
+<pre><code>[a_102, a_087, a_231, a_054, ...]
+</code></pre>
+<p>“这些数字不是汉字。”</p>
+<p>“它们代表某种学习到的音频表示。”</p>
+<p>“通过音频解码器，可以把它们还原成声音。”</p>
+<p>林远说：</p>
+<p>“所以模型不一定需要先生成文字，再通过独立 TTS 转换？”</p>
+<p>“对。有些架构可以直接预测音频表示，或者联合生成文本和音频。”</p>
+<h3 id="3">3. 原生音频模型的潜在优势</h3>
+<p>它可以更直接地利用：</p>
+<ul>
+<li>
+<p>语调和情绪线索</p>
+</li>
+<li>
+<p>停顿与说话节奏</p>
+</li>
+<li>
+<p>说话人特征</p>
+</li>
+<li>
+<p>非语言声音</p>
+</li>
+<li>
+<p>音频与文本之间的对齐信息</p>
+</li>
+</ul>
+<p>但陈默提醒：</p>
+<p>“原生音频不自动意味着更准确、更低延迟。”</p>
+<p>“训练难度、数据质量、音频编码效率、流式解码方式和系统实现都很重要。”</p>
+<h2 id="ai">第五幕：全双工——AI 终于学会边听边说</h2>
+<p>林远打开一段视频通话。</p>
+<p>他问：</p>
+<p>“传统语音助手和实时语音模型最大的体验差异是什么？”</p>
+<p>陈默回答：</p>
+<p>“一个重要差异是交互方式。”</p>
+<h3 id="1_2">1. 半双工式交互</h3>
+<p>在许多传统语音助手中，系统采用类似轮流发言的模式。</p>
+<pre><code>用户说话 → 用户停止 → AI 思考 → AI 回答 → 用户继续
+</code></pre>
+<p>当 AI 正在播放回答时，系统可能不接受新的用户语音，或者无法及时处理。</p>
+<p>林远说：</p>
+<p>“像对讲机。”</p>
+<p>“对，虽然具体实现不一定严格是通信意义上的半双工。”</p>
+<h3 id="2">2. 全双工交互</h3>
+<p>全双工语音系统可以在播放 AI 声音的同时，继续接收和处理用户声音。</p>
+<pre><code>用户输入音频：████████      ███████████
+AI 输出音频：       █████████████
+</code></pre>
+<p>“这意味着系统可以边说边听。”</p>
+<p>陈默说。</p>
+<p>“但这里有一个关键问题。”</p>
+<p>“什么问题？”</p>
+<p>“AI 播放的声音，也可能被麦克风重新采集。”</p>
+<p>林远恍然大悟。</p>
+<p>“它会听到自己的声音！”</p>
+<p>“没错。”</p>
+<p>这就是回声消除要解决的问题之一。</p>
+<h3 id="3-aecacoustic-echo-cancellation">3. AEC：Acoustic Echo Cancellation</h3>
+<p>如果 AI 正在通过扬声器说：</p>
+<blockquote>
+<p>你可以先检查 Redis 的过期时间……</p>
+</blockquote>
+<p>麦克风可能同时采集到这段声音。</p>
+<p>如果系统不加区分，就可能把自己的回答当成用户输入。</p>
+<p>因此，实时语音系统通常需要考虑：</p>
+<p>AEC：回声消除。</p>
+<p>以及噪声抑制、自动增益控制等音频处理。</p>
+<p>陈默说：</p>
+<p>“真正的全双工不是简单地打开麦克风和扬声器。”</p>
+<p>“而是让系统能够区分自己的声音、用户的声音和环境噪声。”</p>
+<h2 id="ai_1">第六幕：打断机制——AI 为什么必须学会闭嘴？</h2>
+<p><img loading="lazy" decoding="async" alt="Microsoft decide no lanzar su nueva IA generativa de voz al alcanzar 'paridad humana' y ser demasiado realista" src="https://images.openai.com/static-rsc-4/W8J1B6u0rbpGpYlJwG-V2X_3Y96d9bJutADehxhXBUtjQEByLb7Tpvoc0Pn4_I6DFQF4xaRQa-E9vHhs9CP6cMG0blnhC_iod07dwtZTsnWz4Bz8S1Nx_jDbj8hzenYXuXDhtNkyy6ZhaJSiNzn50Ckqs6-vpO_Y4wwm5buGk14?purpose=inline" /></p>
+<p><a href="https://www.larazon.es/tecnologia/microsoft-decide-lanzar-nueva-generativa-voces-alcanzar-paridad-humana-ser-demasiado-realista_20240711669008c8099c890001612f3c.html">larazon.es</a></p>
+<p>某天，林远正在测试新的实时语音 Agent。</p>
+<p>AI 开始解释：</p>
+<blockquote>
+<p>Java 中的线程池主要由核心线程数、最大线程数、工作队列……</p>
+</blockquote>
+<p>林远突然打断：</p>
+<p>“不用讲基础概念，直接告诉我拒绝策略。”</p>
+<p>AI 停顿了一瞬间。</p>
+<p>随后回答：</p>
+<blockquote>
+<p>明白。Java 线程池常见的拒绝策略包括 AbortPolicy、CallerRunsPolicy、DiscardPolicy 和 DiscardOldestPolicy。</p>
+</blockquote>
+<p>林远笑了。</p>
+<p>“这才对。”</p>
+<p>陈默问：</p>
+<p>“你觉得刚才系统内部发生了什么？”</p>
+<p>“检测到用户开始说话，然后停止 TTS？”</p>
+<p>“还不够。”</p>
+<h3 id="1-barge-in">1. Barge-in：用户插话</h3>
+<p>Barge-in 指用户在系统回答过程中插话，系统能够及时响应。</p>
+<p>完整处理通常包括：</p>
+<ol>
+<li>
+<p>检测新的用户语音。</p>
+</li>
+<li>
+<p>判断是有效插话还是背景噪声。</p>
+</li>
+<li>
+<p>停止或降低当前音频播放。</p>
+</li>
+<li>
+<p>取消或暂停正在生成的回答。</p>
+</li>
+<li>
+<p>更新对话状态。</p>
+</li>
+<li>
+<p>根据新输入重新生成。</p>
+</li>
+</ol>
+<p>陈默说：</p>
+<p>“这里最难的，不只是停止声音。”</p>
+<p>“而是保持状态一致。”</p>
+<h3 id="2_1">2. 一个隐藏的状态问题</h3>
+<p>假设模型已经生成了下面这段回答：</p>
+<blockquote>
+<p>Java 线程池有四种常见拒绝策略。第一种是 AbortPolicy，第二种是 CallerRunsPolicy，第三种是……</p>
+</blockquote>
+<p>但用户只听到了：</p>
+<blockquote>
+<p>Java 线程池有四种常见拒绝策略。</p>
+</blockquote>
+<p>随后就打断了。</p>
+<p>林远问：</p>
+<p>“那对话历史里应该保存什么？”</p>
+<p>陈默回答：</p>
+<p>“这正是难点。”</p>
+<p>“模型已经生成的内容，不等于用户实际听到的内容。”</p>
+<p>如果系统把完整生成文本都当成已经说给用户听了，下一轮可能出现奇怪的情况。</p>
+<p>例如，AI 说：</p>
+<blockquote>
+<p>刚才提到的第三种策略……</p>
+</blockquote>
+<p>但用户根本没有听到第三种策略。</p>
+<p>所以系统需要区分：</p>
+<ul>
+<li>
+<p>已生成内容</p>
+</li>
+<li>
+<p>已合成音频</p>
+</li>
+<li>
+<p>已发送音频</p>
+</li>
+<li>
+<p>估计已经播放的音频</p>
+</li>
+<li>
+<p>已确认的对话状态</p>
+</li>
+</ul>
+<p>林远说：</p>
+<p>“原来打断机制还涉及音频播放进度和对话历史同步。”</p>
+<p>“没错。”</p>
+<p>“这已经是实时分布式状态管理问题了。”</p>
+<h2 id="interaction-models">第七幕：Interaction Models——不只是回答，而是参与</h2>
+<p>陈默在白板上写下：</p>
+<p>Interaction Models</p>
+<p>“过去的语言模型主要优化什么？”</p>
+<p>林远回答：</p>
+<p>“给定输入，生成高质量输出。”</p>
+<p>“对。”</p>
+<p>“但实时交互系统还需要学习另一类能力。”</p>
+<p>“什么时候应该说话，什么时候应该等待，什么时候应该打断自己，什么时候应该发出简短反馈。”</p>
+<h3 id="1_3">1. 对话不仅仅是内容</h3>
+<p>陈默模拟一段人类对话。</p>
+<p>林远：</p>
+<p>“我昨天看了一个新的 Agent Runtime 设计……”</p>
+<p>陈默：</p>
+<p>“嗯。”</p>
+<p>林远：</p>
+<p>“它把任务调度和模型执行分离了……”</p>
+<p>陈默：</p>
+<p>“然后呢？”</p>
+<p>林远：</p>
+<p>“但我觉得 Checkpoint 的一致性处理还有问题。”</p>
+<p>陈默：</p>
+<p>“你是担心重复执行外部操作？”</p>
+<p>林远点头。</p>
+<p>“你看，”陈默说，“刚才我并不是每次都等你完全说完再生成一段完整回答。”</p>
+<p>“我有时候只是表示我在听。”</p>
+<p>“有时候是在邀请你继续。”</p>
+<p>“有时候是在确认你的意思。”</p>
+<p>这些行为属于对话交互管理的一部分。</p>
+<h3 id="2-backchannel">2. Backchannel：简短反馈</h3>
+<p>在人类对话中，听者经常会说：</p>
+<p>“嗯。”</p>
+<p>“对。”</p>
+<p>“我明白。”</p>
+<p>这些短反馈通常不是为了抢占话轮，而是表达正在倾听。</p>
+<p>实时交互模型可以尝试学习类似行为。</p>
+<p>但必须小心。</p>
+<p>如果反馈太频繁，会显得烦人。</p>
+<p>如果反馈太少，又会显得迟钝。</p>
+<h3 id="3-turn-taking">3. Turn-taking：话轮管理</h3>
+<p>陈默提出一个更复杂的场景。</p>
+<p>用户说：</p>
+<blockquote>
+<p>我想先改 Redis 的设计，不过……</p>
+</blockquote>
+<p>系统应该立即回答吗？</p>
+<p>林远说：</p>
+<p>“不应该，因为‘不过’说明后面还有内容。”</p>
+<p>“很好。”</p>
+<p>“那如果用户说：”</p>
+<blockquote>
+<p>我想先改 Redis 的设计。你怎么看？</p>
+</blockquote>
+<p>“这时候可以回答。”</p>
+<p>“对。”</p>
+<p>“所以模型需要结合语义、语音韵律和对话历史，判断当前话轮的状态。”</p>
+<p>陈默补充：</p>
+<p>“Interaction Models 不是单一、统一的模型架构名称。它更适合用来描述以实时互动行为为重点的一类研究方向。”</p>
+<p>“实际系统可能使用独立的轮次预测模型，也可能把交互决策集成到多模态模型中。”</p>
+<h2 id="ai_2">第八幕：AI 开始看见屏幕</h2>
+<p><img loading="lazy" decoding="async" alt="Debug Faster: Use AI to Explain Complex Error Logs | WriterDock" src="https://images.openai.com/static-rsc-4/k5PkkNcK-hK-IW9Cwu04gxXmtnkQa6-VNozDNU2MTyA_HWFlUKVOqOGsJUZVYkOxKZmMDHbbRq6cide8Cg-T0l_IHL91-f42FhpcvBuj_qMIwKHi829Fk2tJk4MaP9qRDT1_3E59OpEJc8SYdWvVO6LryQENOJa-2IvDD9Go7U0?purpose=inline" /></p>
+<p><a href="https://writerdock.in/blog/debug-faster-using-ai-to-explain-complex-error-logs">writerdock.in</a></p>
+<p>几天后，林远给实时语音 Agent 增加了屏幕共享能力。</p>
+<p>他打开 IntelliJ IDEA。</p>
+<p>“你看一下这里为什么报错。”</p>
+<p>AI 回答：</p>
+<blockquote>
+<p>我看到你正在查看 <code>PaymentService.java</code>，但错误信息没有完整显示。可以展开异常堆栈吗？</p>
+</blockquote>
+<p>林远愣了一下。</p>
+<p>“它竟然知道屏幕上是什么。”</p>
+<p>陈默回答：</p>
+<p>“因为现在系统不仅有音频输入，还有视觉输入。”</p>
+<h3 id="1_4">1. 视频为什么不能简单当成图片？</h3>
+<p>一张图片只有一个时间点。</p>
+<p>而视频是一系列随时间变化的画面。</p>
+<p>假设每秒 30 帧。</p>
+<p>一分钟就有：</p>
+<p>[ 30\times60=1800 ]</p>
+<p>帧。</p>
+<p>如果把每一帧都完整送进视觉模型，计算和传输成本可能很高。</p>
+<p>林远问：</p>
+<p>“所以不能每帧都做完整视觉推理？”</p>
+<p>“很多场景没必要。”</p>
+<p>陈默解释：</p>
+<p>“可以采用抽帧、事件触发、关键帧选择、视觉特征缓存等方法。”</p>
+<h3 id="2_2">2. 视频理解需要时间信息</h3>
+<p>陈默举了一个例子。</p>
+<p>第一帧：</p>
+<pre><code>IDE 中显示 PaymentService.java
+</code></pre>
+<p>第二帧：</p>
+<pre><code>用户打开异常堆栈
+</code></pre>
+<p>第三帧：</p>
+<pre><code>用户跳转到第 137 行
+</code></pre>
+<p>“如果模型只看到第三帧，它可能知道当前代码内容。”</p>
+<p>“但如果理解了前面两帧，就更容易知道用户为什么跳转到这里。”</p>
+<p>林远说：</p>
+<p>“所以视频理解不仅要识别画面，还要理解画面之间的变化。”</p>
+<p>“对。”</p>
+<p>“这涉及时间建模。”</p>
+<h3 id="3_1">3. 多模态时间同步</h3>
+<p>现在系统同时收到：</p>
+<ul>
+<li>
+<p>用户语音</p>
+</li>
+<li>
+<p>屏幕视频</p>
+</li>
+<li>
+<p>鼠标点击</p>
+</li>
+<li>
+<p>键盘输入</p>
+</li>
+<li>
+<p>Agent 工具执行结果</p>
+</li>
+</ul>
+<p>陈默问：</p>
+<p>“用户说‘这里有问题’的时候，‘这里’指的是哪一帧？”</p>
+<p>林远想了想。</p>
+<p>“需要根据时间戳对齐。”</p>
+<p>“没错。”</p>
+<p>实时多模态系统的核心挑战之一，是不同模态之间的时间同步。</p>
+<h2 id="agent">第九幕：实时 Agent 的工程架构</h2>
+<p>林远决定把系统重新设计。</p>
+<p>不再是简单的：</p>
+<pre><code>ASR → LLM → TTS
+</code></pre>
+<p>而是建立完整的实时交互 Runtime。</p>
+<p>用户设备</p>
+<p>麦克风、扬声器、摄像头、屏幕</p>
+<p>实时传输层</p>
+<p>WebRTC / WebSocket 等</p>
+<p>实时会话管理</p>
+<p>VAD、话轮检测、打断、时间同步</p>
+<p>多模态模型</p>
+<p>语音理解、视觉理解、响应生成</p>
+<p>Agent Runtime</p>
+<p>工具调用、Memory、权限、任务状态</p>
+<p>陈默问：</p>
+<p>“为什么不能直接用 HTTP SSE？”</p>
+<p>林远回答：</p>
+<p>“SSE 适合服务器向客户端单向推送数据，但实时音视频通常需要双向传输。”</p>
+<p>“对。”</p>
+<p>“WebSocket 可以提供双向消息通道。”</p>
+<p>“WebRTC 则针对实时媒体传输提供了更多专门能力，例如媒体处理、网络适应和相关传输机制。”</p>
+<p>“不过具体选型仍然要看客户端环境、网络条件、媒体要求和部署复杂度。”</p>
+<h3 id="1_5">1. 一个简化的实时事件流</h3>
+<p>林远设计了事件模型。</p>
+<pre><code>{
+  &quot;type&quot;: &quot;input_audio.started&quot;,
+  &quot;sessionId&quot;: &quot;s_1024&quot;,
+  &quot;timestamp&quot;: 1730000000
+}
+</code></pre>
+<pre><code>{
+  &quot;type&quot;: &quot;user_turn.completed&quot;,
+  &quot;sessionId&quot;: &quot;s_1024&quot;
+}
+</code></pre>
+<pre><code>{
+  &quot;type&quot;: &quot;response.audio.chunk&quot;,
+  &quot;sessionId&quot;: &quot;s_1024&quot;,
+  &quot;sequence&quot;: 12
+}
+</code></pre>
+<pre><code>{
+  &quot;type&quot;: &quot;response.cancelled&quot;,
+  &quot;sessionId&quot;: &quot;s_1024&quot;,
+  &quot;reason&quot;: &quot;user_interruption&quot;
+}
+</code></pre>
+<p>陈默说：</p>
+<p>“这些只是我们设计的示例事件，不是某个厂商的标准 API。”</p>
+<p>“但思想是通用的。”</p>
+<p>“实时系统必须能够表示音频输入、话轮状态、生成进度和取消事件。”</p>
+<h2 id="_4">第十幕：真正困难的是状态一致性</h2>
+<p>凌晨两点。</p>
+<p>林远的实时 Agent 遇到了一个新问题。</p>
+<p>用户正在说：</p>
+<blockquote>
+<p>帮我删除这个测试文件……</p>
+</blockquote>
+<p>AI 听到前半句后，提前调用了删除工具。</p>
+<p>但用户紧接着说：</p>
+<blockquote>
+<p>……不是，我是说不要删除，先看看里面的内容。</p>
+</blockquote>
+<p>文件已经被删除。</p>
+<p>林远脸色瞬间变了。</p>
+<p>陈默看完日志，沉默了几秒。</p>
+<p>“这就是实时 Agent 最危险的问题之一。”</p>
+<p>“模型可以提前预测用户意图，但不能把所有预测都当成已经授权的命令。”</p>
+<h3 id="1_6">1. 推测执行与实际执行必须分离</h3>
+<p>陈默在白板上写下：</p>
+<p>Predict ≠ Commit</p>
+<p>“系统可以提前准备答案。”</p>
+<p>“可以提前搜索文件。”</p>
+<p>“可以提前计算可能的操作。”</p>
+<p>“但涉及删除文件、修改数据库、发送消息、执行支付等有副作用的操作，必须等待足够明确的指令和权限判断。”</p>
+<p>林远点头。</p>
+<p>“所以实时 Agent 需要把操作分成只读和有副作用两类。”</p>
+<p>“至少要有这样的区分。”</p>
+<p>“而且还应该根据风险等级决定是否需要人工确认。”</p>
+<h3 id="2_3">2. 延迟与安全的矛盾</h3>
+<p>实时系统追求低延迟。</p>
+<p>但安全系统需要确认。</p>
+<p>两者天然存在张力。</p>
+<p>陈默说：</p>
+<p>“对于查询类操作，可以更积极地预取和推测。”</p>
+<p>“对于高风险操作，宁愿慢一点，也不能把尚未说完的话当成最终授权。”</p>
+<p>“这不是模型能力问题，而是系统设计原则。”</p>
+<h2 id="_5">第十一幕：从语音助手到实时协作伙伴</h2>
+<p><img loading="lazy" decoding="async" alt="🚨 Codex Unleashed: The AI Dev Agent That Codes, Speaks, and Surfs the Web Is Now Yours" src="https://images.openai.com/static-rsc-4/7Fyo3c6qLF1fCjElMKKdoaJCdV4QmVS2eXL9odLbT9tdzxOy7m9bTMo2CQbeHypdRJmY3NXYlmXcz3VJAyoq0p-vIUMj7Ea5-iUDs6H1u84ZeeBSVQhlJrlgB7lVlMdDxX7B4mgPTiPj8ZssLXya4eGzcm3tB8urhGk5F7QLm5s?purpose=inline" /></p>
+<p><a href="https://think-ahead-with-ai-newsletter.beehiiv.com/p/codex-unleashed-the-ai-dev-agent-that-codes-speaks-and-surfs-the-web-is-now-yours">think-ahead-with-ai-newsletter.beehiiv.com</a></p>
+<p>2026 年 10 月。</p>
+<p>林远再次打开自己的实时 Agent。</p>
+<p>“帮我看看这个支付回调。”</p>
+<p>AI 没有立即回答。</p>
+<p>它先观察当前屏幕。</p>
+<p>然后说道：</p>
+<blockquote>
+<p>我看到你正在查看 <code>PaymentCallbackHandler</code>。你是想分析重复回调，还是事务一致性？</p>
+</blockquote>
+<p>林远回答：</p>
+<p>“重复回调。”</p>
+<p>AI 继续：</p>
+<blockquote>
+<p>好的。我注意到这里先更新订单状态，再写入回调记录。我们可以检查这两个操作是否处于同一事务中。</p>
+</blockquote>
+<p>林远打断：</p>
+<p>“等等，先别改代码。”</p>
+<p>AI 立即回应：</p>
+<blockquote>
+<p>明白。我只分析，不执行修改。</p>
+</blockquote>
+<p>随后，它根据屏幕内容继续讲解。</p>
+<p>林远看着这一幕，突然意识到：</p>
+<p>过去，他使用 AI 的方式是：</p>
+<p>输入问题。</p>
+<p>等待答案。</p>
+<p>复制结果。</p>
+<p>现在，他使用 AI 的方式变成了：</p>
+<p>共同观察、持续交流、随时纠正、协作完成任务。</p>
+<p>陈默走到他身边。</p>
+<p>“你现在明白实时多模态为什么重要了吗？”</p>
+<p>林远点头。</p>
+<p>“因为它改变的不只是输入输出格式。”</p>
+<p>“而是人和 AI 的协作方式。”</p>
+<h2 id="_6">第六章：技术归档</h2>
+<table>
+<thead>
+<tr>
+<th>技术</th>
+<th>解决的问题</th>
+<th>工程关注点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ASR</td>
+<td>语音转文字</td>
+<td>识别准确率、流式转写</td>
+</tr>
+<tr>
+<td>TTS</td>
+<td>文字转语音</td>
+<td>首包延迟、自然度</td>
+</tr>
+<tr>
+<td>原生音频模型</td>
+<td>直接利用音频表示</td>
+<td>语音理解与生成</td>
+</tr>
+<tr>
+<td>VAD</td>
+<td>检测语音活动</td>
+<td>噪声、误触发</td>
+</tr>
+<tr>
+<td>Turn Detection</td>
+<td>判断话轮结束</td>
+<td>抢话与等待</td>
+</tr>
+<tr>
+<td>Full-duplex</td>
+<td>边听边说</td>
+<td>回声、并发音频</td>
+</tr>
+<tr>
+<td>Barge-in</td>
+<td>用户打断 AI</td>
+<td>取消与状态同步</td>
+</tr>
+<tr>
+<td>Interaction Models</td>
+<td>实时交互决策</td>
+<td>话轮、反馈、响应时机</td>
+</tr>
+<tr>
+<td>视频流理解</td>
+<td>持续理解画面</td>
+<td>抽帧、时间建模</td>
+</tr>
+<tr>
+<td>多模态同步</td>
+<td>对齐不同输入</td>
+<td>时间戳、缓冲</td>
+</tr>
+<tr>
+<td>WebRTC</td>
+<td>实时媒体传输</td>
+<td>延迟、网络适应</td>
+</tr>
+<tr>
+<td>Realtime Agent Runtime</td>
+<td>交互与工具执行</td>
+<td>权限、状态、一致性</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_7">本章最重要的五个结论</h3>
+<p>第一：传统 ASR → LLM → TTS 架构没有过时。</p>
+<p>它仍然适合大量语音应用，但在低延迟、自然打断和音频信息保留方面可能受到结构限制。</p>
+<p>第二：实时语音的关键不只是模型生成速度。</p>
+<p>还包括 VAD、话轮检测、音频缓冲、回声消除、传输和取消机制。</p>
+<p>第三：全双工不等于简单地同时打开麦克风和扬声器。</p>
+<p>它需要系统能够持续感知、处理打断并维护一致的对话状态。</p>
+<p>第四：实时多模态的难点是时间。</p>
+<p>声音、画面、鼠标操作和工具结果必须正确对齐。</p>
+<p>第五：实时 Agent 必须把推测与执行分开。</p>
+<p>提前理解用户意图可以降低延迟，但不能把未确认的意图直接转换成高风险操作。</p></article><nav class="chapter-nav" aria-label="章节切换"><a href="chapter-05.html">← 上一章</a><a href="chapter-07.html">下一章 →</a></nav></main></div><footer>AI 纪元 · 从语言模型到智能体文明<br><small>小说式技术科普 · 技术案例保留原文，未逐条核实</small></footer></body></html>

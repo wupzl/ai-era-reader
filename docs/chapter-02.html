@@ -1,0 +1,489 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="AI 纪元：从语言模型到智能体文明，十二章小说式技术科普。"><title>扩散语言模型的叛乱 · AI 纪元</title><link rel="stylesheet" href="style.css"><script src="app.js" defer></script></head><body class="reading"><header><a class="brand" href="index.html">AI 纪元<span>THE AI ERA</span></a><div class="controls"><button id="smaller" aria-label="缩小字号">A−</button><button id="larger" aria-label="增大字号">A＋</button><button id="theme" aria-label="切换深浅色">◐</button></div></header><div class="reader-layout"><aside><a href="index.html">← 全书目录</a><p class="eyebrow">本章导航</p><div class="toc">
+<ul>
+<li><a href="#_1">第一幕：一个无法打破的顺序</a><ul>
+<li><a href="#1">1. 自回归模型的规则</a></li>
+<li><a href="#2-token">2. 为什么不能直接让它一次预测一百个 Token？</a></li>
+</ul>
+</li>
+<li><a href="#_2">第二幕：来自图像世界的叛军</a><ul>
+<li><a href="#1_1">1. 图像扩散模型的思路</a></li>
+</ul>
+</li>
+<li><a href="#_3">第三幕：给语言添加噪声</a><ul>
+<li><a href="#1_2">1. 从填空到生成</a></li>
+<li><a href="#2">2. 扩散语言模型的数学直觉</a></li>
+</ul>
+</li>
+<li><a href="#mercury">第四幕：Mercury 的挑战</a><ul>
+<li><a href="#1_3">1. 为什么扩散模型可能更快？</a></li>
+<li><a href="#2_1">2. 真正的性能取决于什么？</a></li>
+</ul>
+</li>
+<li><a href="#kv-cache">第五幕：一个致命的反击——KV Cache</a><ul>
+<li><a href="#1_4">1. 自回归模型为什么需要缓存？</a></li>
+</ul>
+</li>
+<li><a href="#coding-agent">第六幕：Coding Agent 的新机会</a><ul>
+<li><a href="#1_5">1. 一个可能的混合架构</a></li>
+</ul>
+</li>
+<li><a href="#_4">第七幕：扩散模型真的能随意修改中间内容吗？</a></li>
+<li><a href="#_5">第八幕：两条路线的最终对决</a></li>
+<li><a href="#_6">第二章·技术总结</a></li>
+</ul>
+</div>
+</aside><main id="main"><div class="chapter-heading"><p class="eyebrow">CHAPTER 02 / 12</p><h1>扩散语言模型的叛乱</h1><p>自回归与扩散，语言生成的两条道路</p></div><details class="mobile-toc"><summary>展开本章目录</summary><div class="toc">
+<ul>
+<li><a href="#_1">第一幕：一个无法打破的顺序</a><ul>
+<li><a href="#1">1. 自回归模型的规则</a></li>
+<li><a href="#2-token">2. 为什么不能直接让它一次预测一百个 Token？</a></li>
+</ul>
+</li>
+<li><a href="#_2">第二幕：来自图像世界的叛军</a><ul>
+<li><a href="#1_1">1. 图像扩散模型的思路</a></li>
+</ul>
+</li>
+<li><a href="#_3">第三幕：给语言添加噪声</a><ul>
+<li><a href="#1_2">1. 从填空到生成</a></li>
+<li><a href="#2">2. 扩散语言模型的数学直觉</a></li>
+</ul>
+</li>
+<li><a href="#mercury">第四幕：Mercury 的挑战</a><ul>
+<li><a href="#1_3">1. 为什么扩散模型可能更快？</a></li>
+<li><a href="#2_1">2. 真正的性能取决于什么？</a></li>
+</ul>
+</li>
+<li><a href="#kv-cache">第五幕：一个致命的反击——KV Cache</a><ul>
+<li><a href="#1_4">1. 自回归模型为什么需要缓存？</a></li>
+</ul>
+</li>
+<li><a href="#coding-agent">第六幕：Coding Agent 的新机会</a><ul>
+<li><a href="#1_5">1. 一个可能的混合架构</a></li>
+</ul>
+</li>
+<li><a href="#_4">第七幕：扩散模型真的能随意修改中间内容吗？</a></li>
+<li><a href="#_5">第八幕：两条路线的最终对决</a></li>
+<li><a href="#_6">第二章·技术总结</a></li>
+</ul>
+</div>
+</details><article><p><img loading="lazy" decoding="async" alt="GPT-6 Astra vs. Gemini vs. Claude: The New Frontier Model War | Shanaka" src="https://images.openai.com/static-rsc-4/pn2WWmeyp5Z8PucGKJYtg_JozxpGIXWh1xZ3JyRYWKy5yECLjwimrV1NtNIllmpEpdgoDdPj1cuW-8q2OpN0wj7EP5RFrnSRnlYDFbLbXPpyJ7wSWW-TlI3xnbf2lhzWkekqf-FZoMo7UuN7aO99pZ2jvTKuUhSevFSrMBGTQD8?purpose=inline" /></p>
+<p><a href="https://shanaka.dev/blog/gpt-6-astra-vs-gemini-vs-claude-the-new-frontier-model-war">shanaka.dev</a></p>
+<p>2026 年，AI 世界发生了一件奇怪的事。</p>
+<p>过去几年，人们一直在努力让大语言模型变得更聪明。</p>
+<p>从 GPT 到 Claude，从 DeepSeek 到 Qwen，模型的参数规模越来越大，推理能力越来越强，能够解决的问题也越来越复杂。</p>
+<p>然而，一个看似简单的问题，却始终困扰着研究人员。</p>
+<p>为什么一个能够在几秒钟内理解数万字文档的模型，输出答案时，却还要一个 Token、一个 Token 地往外吐？</p>
+<p>有人开始怀疑：</p>
+<p>也许，问题不在于模型不够聪明。</p>
+<p>而在于它们生成语言的方式，从一开始就受到了某种限制。</p>
+<p>于是，一条曾经主要活跃于图像生成领域的技术路线，开始向语言模型发起挑战。</p>
+<p>它的名字叫——</p>
+<p>扩散语言模型（Diffusion Language Model，DLM）。</p>
+<h2 id="_1">第一幕：一个无法打破的顺序</h2>
+<p>凌晨一点。</p>
+<p>某 AI 公司的推理基础设施实验室里，工程师林远正在测试最新的编程模型。</p>
+<p>屏幕上是一段 Java 代码。</p>
+<pre><code>public int add(int a, int b) {
+    return a + b;
+}
+</code></pre>
+<p>他给模型发送了一条指令：</p>
+<p>“写一个线程安全的单例模式。”</p>
+<p>模型立刻开始生成。</p>
+<pre><code>public
+</code></pre>
+<p>几十毫秒后。</p>
+<pre><code>public class
+</code></pre>
+<p>又过了一会儿。</p>
+<pre><code>public class Singleton {
+</code></pre>
+<p>林远皱了皱眉。</p>
+<p>“它不是已经理解我的问题了吗？为什么不能一次把整个类生成出来？”</p>
+<p>架构师陈默走了过来。</p>
+<p>“因为它采用的是自回归生成。”</p>
+<p>“自回归？”</p>
+<p>“对。你可以把它想象成一个非常聪明，但必须从左往右写字的作家。”</p>
+<h3 id="1">1. 自回归模型的规则</h3>
+<p>陈默在白板上写下：</p>
+<p>[ P(x_1,\ldots,x_n)=\prod_{t=1}^{n}P(x_t\mid x_1,\ldots,x_{t-1}) ]</p>
+<p>“假设模型要生成一句话：”</p>
+<blockquote>
+<p>今天的天气非常好。</p>
+</blockquote>
+<p>“它会先预测第一个 Token，再根据已经生成的内容预测下一个。”</p>
+<p>自回归生成示意</p>
+<p>今天</p>
+<p>的</p>
+<p>天气</p>
+<p>?</p>
+<p>?</p>
+<p>?</p>
+<p>开始</p>
+<p>完成</p>
+<p>已经生成 3 / 6 个示意 Token。下一步依赖前面已经生成的内容。</p>
+<p>生成下一步</p>
+<p>“这里的关键是，”陈默说，“下一个 Token 的概率分布，依赖已经生成的 Token。”</p>
+<p>林远想了一会儿。</p>
+<p>“那是不是意味着，即使有一万张 GPU，也不能同时生成所有 Token？”</p>
+<p>“对于标准的自回归解码，确实不能直接并行生成彼此依赖的所有 Token。”</p>
+<p>“但要区分两件事：Transformer 在处理已有上下文时可以进行大量并行计算；真正存在顺序依赖的是逐 Token 的输出过程。”</p>
+<p>林远恍然大悟。</p>
+<p>“也就是说，模型内部计算可以高度并行，但生成过程仍然要一轮接一轮。”</p>
+<p>“正是如此。”</p>
+<h3 id="2-token">2. 为什么不能直接让它一次预测一百个 Token？</h3>
+<p>林远不服气。</p>
+<p>“既然 GPU 擅长并行计算，我们为什么不让模型一次预测一百个 Token？”</p>
+<p>陈默笑了。</p>
+<p>“你终于问到了核心。”</p>
+<p>他写下一句话：</p>
+<blockquote>
+<p>我今天去了银行，因为我要……</p>
+</blockquote>
+<p>“现在预测下一个词。”</p>
+<p>“取钱？”</p>
+<p>“有可能。也可能是办理贷款、开账户。”</p>
+<p>“那再往后预测呢？”</p>
+<p>林远沉默了。</p>
+<p>陈默继续说：</p>
+<p>“如果第一个词选择了‘取钱’，后面的内容就应该围绕取钱展开。”</p>
+<p>“如果选择了‘贷款’，后面的内容可能完全不同。”</p>
+<p>“你还没有确定前面的内容，就同时生成后面的一百个词，可能产生大量不一致。”</p>
+<p>这就是自回归模型采用顺序生成的一个重要原因。</p>
+<p>后面的语言，依赖前面已经确定的语言。</p>
+<p>当然，这并不意味着并行生成完全不可能。</p>
+<p>推测解码、多 Token 预测、块级生成等技术，都在尝试减少顺序执行的开销。</p>
+<p>但研究人员开始思考一个更加激进的方案。</p>
+<p>既然逐 Token 生成存在顺序瓶颈……</p>
+<p>为什么一定要从左到右生成？</p>
+<h2 id="_2">第二幕：来自图像世界的叛军</h2>
+<p><img loading="lazy" decoding="async" alt="How AI Creates Images From Pure Noise | by Shreyas Naphad | Pen With Paper | Medium" src="https://images.openai.com/static-rsc-4/X9uOlDaKFnjYJp88YDp0dhBjyTKFGnx_nAXkNPCyxSU1t-0kcKydSwjTm8l9_mi747bZAWVKrYDffh7l66QavkH9rGOe6zuYoheCu1lKfh9DFTFIoudVAER6e8-omITHQKN1tOAFFVZ07591cWwmSDxuIgw88ejcm8-RQMTvSYs?purpose=inline" /></p>
+<p><a href="https://medium.com/pen-with-paper/how-ai-creates-images-from-pure-noise-39bb7197de66">medium.com</a></p>
+<p>几天后。</p>
+<p>陈默带着林远来到图像生成实验室。</p>
+<p>实验室里，一名研究员正在使用扩散模型生成图片。</p>
+<p>屏幕上最初只有一片随机噪声。</p>
+<p>接着，模糊的轮廓逐渐出现。</p>
+<p>然后，猫的耳朵、眼睛、毛发开始清晰。</p>
+<p>最后，一只完整的猫出现在屏幕中央。</p>
+<p>林远看得入神。</p>
+<p>“等等，它不是先画猫耳朵，再画猫眼睛，然后画身体？”</p>
+<p>研究员摇头。</p>
+<p>“不是。它通过多轮去噪，逐渐构建整幅图像。”</p>
+<p>陈默问：</p>
+<p>“如果语言也可以这样生成呢？”</p>
+<h3 id="1_1">1. 图像扩散模型的思路</h3>
+<p>在典型的图像扩散模型中，训练过程可以理解为：</p>
+<p>首先有一张真实图片。</p>
+<p>不断向图片中加入噪声。</p>
+<p>直到图像中的结构几乎完全消失。</p>
+<p>然后训练模型学习如何逆转这个过程。</p>
+<p><img loading="lazy" decoding="async" alt="Ginger cat is posing for a portrait on a white background" src="https://images.openai.com/static-rsc-4/1CgZm17Bkh8ixDTy9_-MtAKxrMzO7DNQiTwA2NBtYoSL4cm66pF18jYAkPQsrUedQnEBAWpyy94m49ka8E5d8ytY-9Bb1oNAC1tm61ksBEXRrL58N4yIQ0JehG36ae1AG6qm1ZBR8r24XU2UISga1AXLEYCfpZ9bj52te7-DXEE-OemYNOBrLLufR9eLE9P9?purpose=inline" /></p>
+<p>原始图像</p>
+<p><img loading="lazy" decoding="async" alt="A Glance at Digital Signal Processing | by Lavender Yao Jiang | Medium" src="https://images.openai.com/static-rsc-4/bgRKMqSS9KA4yH0YVHUZDhhkKsqslYHWt-THZEtp97l9CNDeyxmg3cLqWW-EzxHi_NXRcN3-n33IRGGHqxswG0gnwpdqgwy4uk2HuA_IuY_y9bG7liaStHLP31jGEXco2KYGMemoK8LTi9KO2w0ZEUhd_9DlFhZLj2LarPbGhjw?purpose=inline" /></p>
+<p>添加噪声</p>
+<p><img loading="lazy" decoding="async" alt="Abstract dark background with the figure of a cat" src="https://images.openai.com/static-rsc-4/fHCndjuiZgzo0zl_mqcnlcCEZSXgjCzpI96CdnxnFFUvDzpN3nhb5D3VuAmsG7fmDkVfq7uWO85KjKPClYHTWEafbXVn5M7nlUPHx00RfwDCbkS_o_djBWx06gXdGXyUKMSL5eJ4f1RgibSilaL4D1PD2tCdTUDAGt6v-HDnMcStyR0t5YSfOPLfJ_HE5IZR?purpose=inline" /></p>
+<p>高噪声</p>
+<p><img loading="lazy" decoding="async" alt="Noise on the TV screen" src="https://images.openai.com/static-rsc-4/yJG9TJ3wAD45j3Re7Pl-U8eMHHXxFevjNpGtvnjIH35vM_nz5vNoH6jveTSF1rYmnXTFtnfVgxgn9NnbrHQnRnpqPOnXwEUx1Ie7t23Fl6Mxfk3xN-IawnYoS6N3_bUIDUWd_YnCdsOU4J34pe_In3vvBdR6OpNk3EUuNY1tz9B1fkfu5Tr2WYV1L5_gFkeZ?purpose=inline" /></p>
+<p>近似纯噪声</p>
+<p>概念示意：训练时逐步破坏图像信息，生成时学习从噪声恢复结构。不同扩散模型的具体实现并不相同。</p>
+<p>林远点了点头。</p>
+<p>“所以生成时，就从噪声开始，逐渐还原出一张合理的图片。”</p>
+<p>“对。”</p>
+<p>“那文本呢？文本又不是像素，怎么添加噪声？”</p>
+<p>陈默说：</p>
+<p>“这就是问题所在。”</p>
+<h2 id="_3">第三幕：给语言添加噪声</h2>
+<p>陈默在白板上写下一段话。</p>
+<blockquote>
+<p>Redis 可以用于缓存数据，降低数据库访问压力。</p>
+</blockquote>
+<p>然后，他拿起笔，把其中几个词遮住。</p>
+<p>原始文本</p>
+<p>Redis 可以用于缓存数据，降低数据库访问压力。</p>
+<p>随机遮盖部分 Token</p>
+<p>Redis 可以用于 [MASK] 数据，降低 [MASK] 访问压力。</p>
+<p>林远立刻回答：</p>
+<p>“缓存、数据库。”</p>
+<p>“没错。你根据整句话的上下文，同时推断出了两个位置的内容。”</p>
+<p>“这和 BERT 的 Masked Language Modeling 很像。”</p>
+<p>陈默点头。</p>
+<p>“确实有联系。掩码扩散语言模型会借鉴类似的预测方式，但它不仅仅是在做一次填空。”</p>
+<p>“它会设计一个从完整文本逐渐变成掩码文本的破坏过程，再训练模型执行多轮反向恢复。”</p>
+<h3 id="1_2">1. 从填空到生成</h3>
+<p>陈默写下一条指令：</p>
+<p>“解释什么是 Redis 缓存穿透。”</p>
+<p>这次模型不从左到右生成，而是先准备一组待填充的位置。</p>
+<pre><code>[MASK] [MASK] [MASK] [MASK] [MASK]
+[MASK] [MASK] [MASK] [MASK] [MASK]
+</code></pre>
+<p>第一次预测，可能恢复出部分高置信度 Token。</p>
+<pre><code>缓存 [MASK] 是指 [MASK] 请求
+[MASK] 不存在的 [MASK] [MASK]
+</code></pre>
+<p>第二次恢复：</p>
+<pre><code>缓存穿透是指查询请求
+访问不存在的数据 [MASK]
+</code></pre>
+<p>经过后续迭代，得到完整输出。</p>
+<pre><code>缓存穿透是指查询请求访问
+不存在的数据，导致请求绕过
+缓存并到达数据库。
+</code></pre>
+<p>“看见区别了吗？”</p>
+<p>林远说：</p>
+<p>“自回归模型是在不断延长句子，而扩散语言模型是在不断完善一段文本。”</p>
+<p>“对，这就是两种不同的生成思路。”</p>
+<p>但陈默马上补充：</p>
+<p>“我们这里展示的是一种典型的离散掩码扩散思路，并不是所有扩散语言模型都采用完全相同的机制。”</p>
+<p>“有些方法使用连续空间扩散，有些使用不同的离散状态转移，还有一些采用分块生成。”</p>
+<h3 id="2">2. 扩散语言模型的数学直觉</h3>
+<p>对于一种简化的掩码扩散过程，可以把训练分成三步：</p>
+<ol>
+<li>
+<p>从训练文本中抽取完整序列。</p>
+</li>
+<li>
+<p>随机选择噪声水平，遮盖一定比例的 Token。</p>
+</li>
+<li>
+<p>训练模型根据未遮盖的上下文，预测被遮盖的内容。</p>
+</li>
+</ol>
+<p>模型学习的是类似下面的条件分布：</p>
+<p>[ p_\theta(x_{\text{masked}}\mid x_{\text{visible}},t) ]</p>
+<p>这里的 (t) 表示噪声水平或扩散阶段。</p>
+<p>与标准自回归模型不同，掩码位置的预测可以利用左右两侧已经可见的上下文。</p>
+<p>不过，在生成阶段，如果多个位置同时预测，仍可能出现相互矛盾的问题。</p>
+<p>因此，模型通常需要多轮修正、重新掩码或者逐步确定部分 Token。</p>
+<p>扩散语言模型不是没有顺序计算，而是把逐 Token 的顺序依赖，改造成多轮文本精炼。</p>
+<h2 id="mercury">第四幕：Mercury 的挑战</h2>
+<p><img loading="lazy" decoding="async" alt="The AI datacenter, Nvidia's integrated AI factory vs Broadcom's open fabric" src="https://images.openai.com/static-rsc-4/PHaFgJ3TYmcWxC00EeqYYdI8vLHk2Pp0ks58VELeneFKt2VKwrOEvcY-7yTofSWWx3fuhf4V-CzgF43prOhdvptnjnTpVxHj25Pr-Q4BlM1qWK7nS9_uO3hCeEkXidp266xi-TA9Rbqu6npPuUQK_ybDMicsIXl32duzJh3wMZU?purpose=inline" /></p>
+<p><a href="https://www.techinvestments.io/p/the-ai-datacenter-nvidias-integrated">techinvestments.io</a></p>
+<p>2026 年，实验室里出现了一份关于 Mercury 系列扩散语言模型的研究资料。</p>
+<p>陈默把它放在林远面前。</p>
+<p>“这就是我们要研究的另一条路线。”</p>
+<p>“它和 GPT、Claude 最大的区别是什么？”</p>
+<p>“首先，不是名字，不是参数量，也不是排行榜成绩。”</p>
+<p>“而是生成机制。”</p>
+<p>Mercury 所代表的扩散语言模型路线，尝试利用并行的 Token 预测和迭代精炼，减少对严格逐 Token 解码的依赖。</p>
+<p>林远立即想到一个问题：</p>
+<p>“如果一次可以预测多个 Token，是不是一定比自回归模型快？”</p>
+<p>“未必。”</p>
+<h3 id="1_3">1. 为什么扩散模型可能更快？</h3>
+<p>陈默写下一个简化的例子。</p>
+<p>假设要生成 1,000 个 Token。</p>
+<p>传统自回归模型需要约 1,000 次顺序解码步骤（不考虑特殊的并行解码优化）。</p>
+<p>而某个假想的扩散模型，可以一次处理一个 1,000 Token 的候选块，并进行 20 轮精炼。</p>
+<p>假设性的顺序步骤对比</p>
+<p>自回归</p>
+<h1 id="1000">1,000</h1>
+<p>顺序解码步骤</p>
+<p>假想扩散方案</p>
+<h1 id="20">20</h1>
+<p>精炼轮次</p>
+<p>这是教学假设，不是 Mercury 的实测性能。每一步的计算量不同，不能由步骤数直接推导出加速倍数。</p>
+<p>林远兴奋地说：</p>
+<p>“那岂不是快了 50 倍？”</p>
+<p>陈默摇头。</p>
+<p>“你忽略了每轮计算的成本。”</p>
+<p>“自回归模型可以利用 KV Cache，避免每次重新计算全部历史上下文。”</p>
+<p>“而某些扩散方案需要反复处理一个较大的 Token 块。”</p>
+<p>“所以虽然顺序轮次更少，但单轮计算可能更重。”</p>
+<h3 id="2_1">2. 真正的性能取决于什么？</h3>
+<p>陈默列出了四个关键因素：</p>
+<ul>
+<li>
+<p>精炼轮数： 需要多少轮才能生成高质量结果？</p>
+</li>
+<li>
+<p>并行效率： GPU 能否高效地同时处理多个位置？</p>
+</li>
+<li>
+<p>缓存与计算复用： 能否避免每轮重复计算大量内容？</p>
+</li>
+<li>
+<p>质量要求： 减少精炼轮次后，准确性会下降多少？</p>
+</li>
+</ul>
+<p>“所以 Mercury 类模型真正需要证明的，不只是并行生成可行。”</p>
+<p>“还要证明它在实际硬件、真实任务、相同质量要求下，具有足够好的延迟和吞吐表现。”</p>
+<p>林远点了点头。</p>
+<p>“也就是说，不能只看每秒输出多少 Token。”</p>
+<p>“没错。还应该看端到端延迟、首个可用结果的时间、正确率、吞吐、GPU 成本。”</p>
+<h2 id="kv-cache">第五幕：一个致命的反击——KV Cache</h2>
+<p>当天晚上，团队召开技术讨论会。</p>
+<p>负责传统大模型推理的工程师周航提出了反对意见。</p>
+<p>“你们把自回归模型想得太落后了。”</p>
+<p>“现在有 FlashAttention、PagedAttention、连续批处理、推测解码，还有越来越成熟的 KV Cache 管理。”</p>
+<p>“凭什么认为扩散模型一定更好？”</p>
+<p>林远一时语塞。</p>
+<p>陈默却笑了。</p>
+<p>“你说得对。”</p>
+<p>他在白板上写下：</p>
+<p>KV Cache。</p>
+<h3 id="1_4">1. 自回归模型为什么需要缓存？</h3>
+<p>假设模型已经生成：</p>
+<blockquote>
+<p>Java 中的 HashMap 底层使用……</p>
+</blockquote>
+<p>现在它准备生成下一个 Token。</p>
+<p>如果每次都重新计算之前所有 Token 的注意力相关投影，开销会很大。</p>
+<p>因此，Transformer 解码器可以缓存之前 Token 的 Key 和 Value。</p>
+<p>下一步生成时，只需要计算新 Token 对应的内容，并使用已有缓存参与注意力计算。</p>
+<p>KV Cache 的基本工作方式</p>
+<p>历史 Token</p>
+<p>缓存 K、V</p>
+<p>新 Token</p>
+<p>计算新 K、V</p>
+<p>利用历史缓存完成当前注意力计算</p>
+<p>周航继续说：</p>
+<p>“你们的扩散模型如果每一轮都重新处理整个生成块，未必比我的增量解码便宜。”</p>
+<p>陈默回答：</p>
+<p>“所以扩散语言模型仍然面临计算复用、缓存设计和精炼调度等工程挑战。”</p>
+<p>“但反过来，自回归模型也没有消除逐 Token 的串行依赖。”</p>
+<p>两人对视一眼。</p>
+<p>他们终于意识到：</p>
+<p>这不是一种技术彻底淘汰另一种技术的战争，而是两套不同计算结构之间的竞争。</p>
+<h2 id="coding-agent">第六幕：Coding Agent 的新机会</h2>
+<p>第二天，林远回到了自己的 Coding Agent 项目。</p>
+<p>他突然想到：</p>
+<p>“我们为什么要让扩散模型负责整个 Agent？”</p>
+<p>陈默问：</p>
+<p>“什么意思？”</p>
+<p>“Coding Agent 并不是每一步都需要进行复杂推理。”</p>
+<p>林远打开任务执行日志。</p>
+<pre><code>1. 阅读项目结构
+2. 搜索相关文件
+3. 分析 Bug
+4. 生成代码修改
+5. 执行测试
+6. 修复简单格式错误
+7. 生成最终报告
+</code></pre>
+<p>“其中第三步需要深度推理。”</p>
+<p>“但第六步可能只是大量局部代码修改。”</p>
+<p>“我们是不是可以根据任务特点使用不同模型？”</p>
+<p>陈默点头。</p>
+<p>“这就进入模型路由和异构 Agent 架构了。”</p>
+<h3 id="1_5">1. 一个可能的混合架构</h3>
+<p>Coding Agent Runtime</p>
+<p>接收任务、维护状态、调度工具</p>
+<p>任务分类与模型路由</p>
+<p>自回归模型</p>
+<p>复杂推理、规划、长链路工具调用</p>
+<p>扩散语言模型</p>
+<p>候选代码生成、局部编辑、可并行精炼的任务</p>
+<p>测试、验证、结果合并</p>
+<p>林远说：</p>
+<p>“这样就能降低成本了！”</p>
+<p>“有可能，但需要实验验证。”</p>
+<p>陈默解释：</p>
+<p>“代码生成对精确性要求很高。一个括号、一处变量名、一个 API 调用错误，都可能导致编译失败。”</p>
+<p>“扩散语言模型是否更适合代码编辑，要看它在具体任务中的质量、延迟和部署成本。”</p>
+<p>“另外，局部代码编辑也不意味着自回归模型没有优势。”</p>
+<p>林远沉思片刻。</p>
+<p>“所以应该做 A/B 测试。”</p>
+<p>“对。”</p>
+<p>“相同的 SWE-bench 任务，相同的工具权限、相同的时间预算，比较成功率、Token 成本、GPU 消耗和总执行时间。”</p>
+<p>“这才是工程师该做的事情。”</p>
+<h2 id="_4">第七幕：扩散模型真的能随意修改中间内容吗？</h2>
+<p>林远突然提出一个问题。</p>
+<p>“既然扩散语言模型可以同时修改多个位置，那是不是意味着它特别适合代码重构？”</p>
+<p>陈默没有直接回答。</p>
+<p>他打开一段代码：</p>
+<pre><code>public int calculate(int a, int b) {
+    return a + b;
+}
+</code></pre>
+<p>“假设我们想把 <code>calculate</code> 改成 <code>sum</code>。”</p>
+<p>“除了函数定义，还要修改所有调用位置。”</p>
+<p>“扩散模型能够联合预测多个位置，这是潜在优势。”</p>
+<p>“但它能否保证所有调用点一致？”</p>
+<p>林远摇头。</p>
+<p>“不能保证。”</p>
+<p>“没错。”</p>
+<p>“多位置联合预测并不等于拥有全局一致性保证。”</p>
+<p>“代码重构还需要符号解析、AST、类型检查、编译器以及测试系统。”</p>
+<p>陈默继续说：</p>
+<p>“更重要的是，模型是否支持对已有代码进行编辑，还取决于训练目标、上下文组织和推理接口。”</p>
+<p>“不能因为一个模型使用扩散生成，就认为它天然具有可靠的任意位置编辑能力。”</p>
+<p>林远终于明白了。</p>
+<p>模型的生成机制提供能力上的可能性，但工程系统决定这些能力能否可靠落地。</p>
+<h2 id="_5">第八幕：两条路线的最终对决</h2>
+<p>几周后，林远整理出一份技术对比报告。</p>
+<table>
+<thead>
+<tr>
+<th>比较维度</th>
+<th>自回归语言模型</th>
+<th>掩码扩散语言模型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>生成方式</td>
+<td>按顺序逐 Token 生成</td>
+<td>多轮恢复或精炼 Token</td>
+</tr>
+<tr>
+<td>顺序依赖</td>
+<td>输出存在严格的前缀依赖</td>
+<td>通常按精炼轮次推进</td>
+</tr>
+<tr>
+<td>并行生成</td>
+<td>受顺序解码限制</td>
+<td>可同时预测多个位置</td>
+</tr>
+<tr>
+<td>上下文使用</td>
+<td>因果注意力为主</td>
+<td>可利用已知位置的双向上下文</td>
+</tr>
+<tr>
+<td>KV Cache</td>
+<td>增量解码生态成熟</td>
+<td>缓存复用方式依架构而异</td>
+</tr>
+<tr>
+<td>推理延迟</td>
+<td>受 Token 数和解码速度影响</td>
+<td>受轮次、块大小及单轮成本影响</td>
+</tr>
+<tr>
+<td>代码编辑</td>
+<td>已有成熟工程生态</td>
+<td>具有潜力，但需任务验证</td>
+</tr>
+<tr>
+<td>长文本生成</td>
+<td>生态成熟，支持流式输出</td>
+<td>长度扩展、分块与质量控制仍是挑战</td>
+</tr>
+<tr>
+<td>典型代表</td>
+<td>GPT、Claude 等</td>
+<td>Mercury、LLaDA 等扩散路线</td>
+</tr>
+</tbody>
+</table>
+<p>陈默看完报告，问了最后一个问题。</p>
+<p>“所以，扩散语言模型会取代 GPT 吗？”</p>
+<p>林远想了很久。</p>
+<p>然后回答：</p>
+<p>“现在不能这么说。”</p>
+<p>“自回归模型的优势不只是生成质量，还有成熟的推理基础设施、工具调用能力和工程生态。”</p>
+<p>“扩散模型则尝试用不同的计算结构，改善某些场景下的生成效率。”</p>
+<p>“未来可能是两条路线竞争，也可能是混合架构。”</p>
+<p>陈默笑了。</p>
+<p>“这次你终于没有被一个新的模型名字带着走。”</p>
+<h2 id="_6">第二章·技术总结</h2>
+<p>第一：自回归模型的瓶颈不是不能并行计算。</p>
+<p>而是标准生成过程需要依赖此前已经确定的 Token。</p>
+<p>第二：扩散语言模型不是一次性完成所有生成。</p>
+<p>它通常需要多轮预测与精炼，用更少的顺序轮次换取更多位置的并行处理。</p>
+<p>第三：生成轮次少不等于推理成本低。</p>
+<p>必须同时考虑每轮计算量、缓存复用、输出质量、吞吐与硬件效率。</p>
+<p>第四：Mercury 类路线的价值在于探索不同的语言生成机制。</p>
+<p>它不只是一个更快的模型名称，而是对逐 Token 生成范式的挑战。</p></article><nav class="chapter-nav" aria-label="章节切换"><a href="chapter-01.html">← 上一章</a><a href="chapter-03.html">下一章 →</a></nav></main></div><footer>AI 纪元 · 从语言模型到智能体文明<br><small>小说式技术科普 · 技术案例保留原文，未逐条核实</small></footer></body></html>

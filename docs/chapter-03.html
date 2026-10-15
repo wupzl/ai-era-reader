@@ -1,0 +1,907 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="AI 纪元：从语言模型到智能体文明，十二章小说式技术科普。"><title>永不下班的数字员工 · AI 纪元</title><link rel="stylesheet" href="style.css"><script src="app.js" defer></script></head><body class="reading"><header><a class="brand" href="index.html">AI 纪元<span>THE AI ERA</span></a><div class="controls"><button id="smaller" aria-label="缩小字号">A−</button><button id="larger" aria-label="增大字号">A＋</button><button id="theme" aria-label="切换深浅色">◐</button></div></header><div class="reader-layout"><aside><a href="index.html">← 全书目录</a><p class="eyebrow">本章导航</p><div class="toc">
+<ul>
+<li><a href="#chatbot">第一幕：Chatbot 的宿命——回答完就消失</a></li>
+<li><a href="#react">第二幕：ReAct 的诞生——模型学会使用工具</a></li>
+<li><a href="#http-agent">第三幕：HTTP 请求不应该决定 Agent 的寿命</a><ul>
+<li><a href="#1-api">1. 异步任务 API</a></li>
+</ul>
+</li>
+<li><a href="#agent-runtime">第四幕：Agent Runtime——数字员工的操作系统</a></li>
+<li><a href="#_1">第五幕：一场服务器重启引发的灾难</a><ul>
+<li><a href="#1">1. 聊天历史不等于执行状态</a></li>
+<li><a href="#2-checkpoint">2. Checkpoint 机制</a></li>
+</ul>
+</li>
+<li><a href="#agent">第六幕：状态机——让 Agent 不再失控</a></li>
+<li><a href="#agent_1">第七幕：消息队列——Agent 的任务调度中心</a><ul>
+<li><a href="#1-agent">1. 为什么长任务 Agent 需要队列？</a></li>
+<li><a href="#2-rabbitmqkafka-redis">2. RabbitMQ、Kafka 还是 Redis？</a></li>
+</ul>
+</li>
+<li><a href="#agent_2">第八幕：云端沙箱——给 Agent 一台真正的电脑</a><ul>
+<li><a href="#1-sandbox">1. Sandbox 的本质</a></li>
+<li><a href="#2-agent">2. 每个 Agent 拥有独立工作区</a></li>
+</ul>
+</li>
+<li><a href="#agent_3">第九幕：Agent 的死亡与复活</a><ul>
+<li><a href="#1-lease">1. Lease 与心跳</a></li>
+<li><a href="#2">2. 任务恢复流程</a></li>
+</ul>
+</li>
+<li><a href="#_2">第十幕：真正的长期自主执行</a><ul>
+<li><a href="#1_1">1. 长期目标不是一个无限循环</a></li>
+</ul>
+</li>
+<li><a href="#agent_4">第十一幕：一次完整的 Agent 执行</a></li>
+<li><a href="#_3">第三章：技术归档</a><ul>
+<li><a href="#_4">本章最重要的三个结论</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</aside><main id="main"><div class="chapter-heading"><p class="eyebrow">CHAPTER 03 / 12</p><h1>永不下班的数字员工</h1><p>Runtime、沙箱、任务持久化与恢复</p></div><details class="mobile-toc"><summary>展开本章目录</summary><div class="toc">
+<ul>
+<li><a href="#chatbot">第一幕：Chatbot 的宿命——回答完就消失</a></li>
+<li><a href="#react">第二幕：ReAct 的诞生——模型学会使用工具</a></li>
+<li><a href="#http-agent">第三幕：HTTP 请求不应该决定 Agent 的寿命</a><ul>
+<li><a href="#1-api">1. 异步任务 API</a></li>
+</ul>
+</li>
+<li><a href="#agent-runtime">第四幕：Agent Runtime——数字员工的操作系统</a></li>
+<li><a href="#_1">第五幕：一场服务器重启引发的灾难</a><ul>
+<li><a href="#1">1. 聊天历史不等于执行状态</a></li>
+<li><a href="#2-checkpoint">2. Checkpoint 机制</a></li>
+</ul>
+</li>
+<li><a href="#agent">第六幕：状态机——让 Agent 不再失控</a></li>
+<li><a href="#agent_1">第七幕：消息队列——Agent 的任务调度中心</a><ul>
+<li><a href="#1-agent">1. 为什么长任务 Agent 需要队列？</a></li>
+<li><a href="#2-rabbitmqkafka-redis">2. RabbitMQ、Kafka 还是 Redis？</a></li>
+</ul>
+</li>
+<li><a href="#agent_2">第八幕：云端沙箱——给 Agent 一台真正的电脑</a><ul>
+<li><a href="#1-sandbox">1. Sandbox 的本质</a></li>
+<li><a href="#2-agent">2. 每个 Agent 拥有独立工作区</a></li>
+</ul>
+</li>
+<li><a href="#agent_3">第九幕：Agent 的死亡与复活</a><ul>
+<li><a href="#1-lease">1. Lease 与心跳</a></li>
+<li><a href="#2">2. 任务恢复流程</a></li>
+</ul>
+</li>
+<li><a href="#_2">第十幕：真正的长期自主执行</a><ul>
+<li><a href="#1_1">1. 长期目标不是一个无限循环</a></li>
+</ul>
+</li>
+<li><a href="#agent_4">第十一幕：一次完整的 Agent 执行</a></li>
+<li><a href="#_3">第三章：技术归档</a><ul>
+<li><a href="#_4">本章最重要的三个结论</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</details><article><p><img loading="lazy" decoding="async" alt="AIエージェント常時稼働基盤が開発現場に生む新しい運用課題｜MCUBE USA" src="https://images.openai.com/static-rsc-4/NZ0qz6bP6JSCuq0AKoXPmUoxBYQRW0UkeyTPqN-_RZmJlAIbU5nz3LRr82PgChi4O_2l-2hkOKqJry70o_RO-oNceIfuj-KRXgpPOKG1_dmwgVOjr3JM--a0snvJkYcNgqAXZdyDOB6A0uxk2SWoVDhkys_Yuh-YfMjqwvfhmAA?purpose=inline" /></p>
+<p><a href="https://note.com/ashineko_houston/n/nb0ee151418c0">note.com</a></p>
+<p>2026 年 7 月，凌晨 3:17。</p>
+<p>林远被一阵手机震动惊醒。</p>
+<p>屏幕上是一条来自 Coding Agent 的通知。</p>
+<blockquote>
+<p>任务已完成。</p>
+<p>已修改 17 个文件，运行 142 项测试，修复 3 个失败用例，创建 Pull Request #284。</p>
+<p>等待代码审查。</p>
+</blockquote>
+<p>林远愣住了。</p>
+<p>他清楚地记得，昨晚十一点，他已经关闭了电脑。</p>
+<p>而且，他甚至没有告诉 Agent 应该如何修复那三个失败的测试。</p>
+<p>它居然自己完成了？</p>
+<p>第二天，林远冲进办公室。</p>
+<p>“陈工，我们的 Agent 已经不需要我一直盯着了！”</p>
+<p>陈默放下咖啡。</p>
+<p>“你觉得，这意味着什么？”</p>
+<p>“意味着模型已经能够自主工作了。”</p>
+<p>“不完全对。”</p>
+<p>陈默走到白板前，写下几个字：</p>
+<p>模型不等于 Agent。Agent 也不等于常驻 Agent。</p>
+<p>“今天，我们要讨论的，不是怎样让模型更聪明。”</p>
+<p>“而是怎样让一个原本只能回答问题的模型，变成能够持续执行任务的系统。”</p>
+<h2 id="chatbot">第一幕：Chatbot 的宿命——回答完就消失</h2>
+<p>故事要从几年前说起。</p>
+<p>那时，AI 系统的结构非常简单。</p>
+<p>用户发送一句话：</p>
+<blockquote>
+<p>帮我写一个 Java 线程池示例。</p>
+</blockquote>
+<p>服务器调用大模型。</p>
+<p>模型生成代码。</p>
+<p>服务器返回结果。</p>
+<p>请求结束。</p>
+<p>整个流程可能只需要几秒钟。</p>
+<p>用户发送请求</p>
+<p>应用服务器</p>
+<p>组织 Prompt、调用模型 API</p>
+<p>LLM 推理</p>
+<p>生成文本或代码</p>
+<p>返回结果，请求结束</p>
+<p>林远看了一眼。</p>
+<p>“这不就是普通的 Spring Boot 接口调用？”</p>
+<p>“没错。”</p>
+<p>陈默写下一段代码。</p>
+<pre><code>@PostMapping(&quot;/chat&quot;)
+public String chat(@RequestBody ChatRequest request) {
+    return llmClient.generate(request.message());
+}
+</code></pre>
+<p>“对于普通问答，这种结构完全合理。”</p>
+<p>“但假设用户的要求变成了——”</p>
+<blockquote>
+<p>帮我分析整个 Spring Boot 项目，找出所有潜在的并发问题，修复它们，运行测试，最后提交 Pull Request。</p>
+</blockquote>
+<p>林远思考了一会儿。</p>
+<p>“这就不是一次 LLM 调用能完成的了。”</p>
+<p>“为什么？”</p>
+<p>“因为它要读文件、分析代码、调用工具、执行测试，可能还需要反复修改。”</p>
+<p>陈默点头。</p>
+<p>“于是，研究人员给模型增加了工具调用能力。”</p>
+<h2 id="react">第二幕：ReAct 的诞生——模型学会使用工具</h2>
+<p><img loading="lazy" decoding="async" alt="How Developers Use Claude Code in Real Projects (2026)" src="https://images.openai.com/static-rsc-4/BcmAT2yvel96tNU1OuYjyDQGl8EJ0ALACOuZdCMDr7Xygp7apRg3qVMYxV01ldbfbQSIrUVEdTm66pbY7YNDHZZ_inFEa5y_k81qLaN4jc98wXm3fZF4-kd-MzrT0dDQt3St9CYMXaqSDlxWNDSCAWRguaq84Ye3mezT4BDsG2U?purpose=inline" /></p>
+<p><a href="https://aidevstack.vercel.app/blog/how-developers-use-claude-code-real-projects-2026">aidevstack.vercel.app</a></p>
+<p>2026 年之前，Agent 技术已经经历过几轮重要演进。</p>
+<p>其中一条具有代表性的路线，就是 ReAct。</p>
+<p>它的核心思想并不复杂：</p>
+<p>模型不只是输出最终答案，而是在推理与行动之间循环。</p>
+<p>陈默写下一个例子。</p>
+<p>用户要求：</p>
+<blockquote>
+<p>修复项目中 Redis 缓存失效导致的数据库压力问题。</p>
+</blockquote>
+<p>Agent 开始工作。</p>
+<pre><code>Thought:
+我需要先定位缓存相关代码。
+
+Action:
+search_files(&quot;RedisTemplate&quot;)
+
+Observation:
+找到 CacheService.java
+
+Thought:
+需要检查缓存失效和数据库查询逻辑。
+
+Action:
+read_file(&quot;CacheService.java&quot;)
+
+Observation:
+发现缓存未命中时直接查询数据库。
+</code></pre>
+<p>林远接过话。</p>
+<p>“然后模型继续思考，决定下一步调用什么工具。”</p>
+<p>“对。”</p>
+<p>陈默画出一个循环。</p>
+<p>LLM 决策下一步操作</p>
+<p>调用工具</p>
+<p>读取文件、搜索代码、执行命令</p>
+<p>观察工具结果</p>
+<p>继续决策，直到完成或停止</p>
+<p>“现在 Agent 能完成多步骤任务了。”</p>
+<p>林远说。</p>
+<p>“但还存在一个问题。”</p>
+<p>“什么问题？”</p>
+<p>“假设它已经运行了二十分钟，正在执行第六十次工具调用。”</p>
+<p>“这时候，用户关闭浏览器。”</p>
+<p>“会发生什么？”</p>
+<p>林远犹豫了。</p>
+<p>“如果 Agent 的执行生命周期和 HTTP 请求绑定，那可能会被取消。”</p>
+<p>“没错。”</p>
+<p>“再假设服务器重启呢？”</p>
+<p>“内存里的执行状态可能全部丢失。”</p>
+<p>陈默点头。</p>
+<p>“这就是下一场革命的起点。”</p>
+<h2 id="http-agent">第三幕：HTTP 请求不应该决定 Agent 的寿命</h2>
+<p>凌晨两点，林远在白板前重新设计系统。</p>
+<p>原来的架构是：</p>
+<pre><code>HTTP Request
+    |
+    v
+Agent Loop
+    |
+    v
+HTTP Response
+</code></pre>
+<p>“这有什么问题？”陈默问。</p>
+<p>林远回答：</p>
+<p>“Agent 的生命周期被绑定在 HTTP 请求上。”</p>
+<p>“假设用户需要 Agent 执行一个四小时的任务，那么 HTTP 请求就得维持四小时。”</p>
+<p>“但连接可能断开，网关可能超时，服务可能重启。”</p>
+<p>“所以呢？”</p>
+<p>林远写下新的设计。</p>
+<p>把任务提交与任务执行分离。</p>
+<p>用户提交任务</p>
+<p>POST /agent/tasks</p>
+<p>创建任务记录</p>
+<p>数据库持久化 + 返回 taskId</p>
+<p>任务调度器</p>
+<p>分配 Worker、控制并发</p>
+<p>Agent Worker</p>
+<p>循环推理、执行工具、保存状态</p>
+<p>持久化结果 + 通知用户</p>
+<p>陈默问：</p>
+<p>“现在用户关闭浏览器会怎么样？”</p>
+<p>“任务继续执行。”</p>
+<p>“为什么？”</p>
+<p>“因为任务已经不依赖用户的 HTTP 连接，而是由后台 Worker 负责。”</p>
+<p>“很好。”</p>
+<h3 id="1-api">1. 异步任务 API</h3>
+<p>林远设计了一个接口：</p>
+<pre><code>POST /api/agent/tasks
+</code></pre>
+<p>请求：</p>
+<pre><code>{
+  &quot;repository&quot;: &quot;payment-service&quot;,
+  &quot;instruction&quot;: &quot;修复支付回调幂等性问题&quot;
+}
+</code></pre>
+<p>服务器立即返回：</p>
+<pre><code>{
+  &quot;taskId&quot;: &quot;task_1024&quot;,
+  &quot;status&quot;: &quot;QUEUED&quot;
+}
+</code></pre>
+<p>之后，用户可以查询：</p>
+<pre><code>GET /api/agent/tasks/task_1024
+</code></pre>
+<p>返回：</p>
+<pre><code>{
+  &quot;taskId&quot;: &quot;task_1024&quot;,
+  &quot;status&quot;: &quot;RUNNING&quot;,
+  &quot;currentStep&quot;: &quot;RUNNING_TESTS&quot;
+}
+</code></pre>
+<p>林远很满意。</p>
+<p>“这样就能支持长任务了。”</p>
+<p>陈默却摇头。</p>
+<p>“你只是解决了连接生命周期的问题。”</p>
+<p>“还有什么？”</p>
+<p>“如果执行任务的 Worker 崩溃了呢？”</p>
+<p>林远沉默了。</p>
+<h2 id="agent-runtime">第四幕：Agent Runtime——数字员工的操作系统</h2>
+<p><img loading="lazy" decoding="async" alt="Mission Control for AI Agents: Managing Multiple Agents in GitHub - Skywork ai" src="https://images.openai.com/static-rsc-4/KXeTWzu-UpbCW-9B8KPdzNTmq_CvUK9VKwz7AbGyowhz-t2cDYUf-DO2SABcsqME8Mu8VIO03Al1j3bcex0DWyX6igZQa4cUeXbPYwcwzgLCV3JwLP7muzd0Ze7h17Ium9lXXJFV8TAVSjTPlc6OlguxoD0PQKeq441obhyH0NA?purpose=inline" /></p>
+<p><a href="https://skywork.ai/blog/agent/mission-control-for-ai-agents-managing-multiple-agents-in-github/">skywork.ai</a></p>
+<p>“你现在需要的，不再是一个简单的 <code>while</code> 循环。”</p>
+<p>陈默说。</p>
+<p>“而是一个真正的 Agent Runtime。”</p>
+<p>林远问：</p>
+<p>“Agent Runtime 和 LLM SDK 有什么区别？”</p>
+<p>“LLM SDK 负责和模型通信。”</p>
+<p>“Agent Runtime 则负责整个任务的执行生命周期。”</p>
+<p>它需要回答一系列问题：</p>
+<ul>
+<li>
+<p>当前任务执行到了哪里？</p>
+</li>
+<li>
+<p>下一步应该调用什么工具？</p>
+</li>
+<li>
+<p>工具调用是否成功？</p>
+</li>
+<li>
+<p>是否需要用户确认？</p>
+</li>
+<li>
+<p>失败后能否重试？</p>
+</li>
+<li>
+<p>服务器重启后能否恢复？</p>
+</li>
+<li>
+<p>任务是否超时？</p>
+</li>
+<li>
+<p>如何防止 Agent 无限循环？</p>
+</li>
+</ul>
+<p>陈默写下一段伪代码：</p>
+<pre><code>while (!task.isTerminal()) {
+
+    AgentState state = stateStore.load(task.id());
+
+    ModelDecision decision = model.decide(state);
+
+    ToolResult result = toolExecutor.execute(decision);
+
+    stateStore.save(
+        state.apply(decision, result)
+    );
+}
+</code></pre>
+<p>“这就是一个极度简化的 Agent Runtime。”</p>
+<p>林远看了一眼。</p>
+<p>“核心还是 ReAct 循环，只不过每次执行都需要管理状态。”</p>
+<p>“对，但生产系统还需要更多东西。”</p>
+<p>陈默将 Runtime 拆成几个模块。</p>
+<table>
+<thead>
+<tr>
+<th>模块</th>
+<th>职责</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Agent Loop</td>
+<td>驱动模型决策与工具执行</td>
+</tr>
+<tr>
+<td>State Store</td>
+<td>保存任务、步骤和执行状态</td>
+</tr>
+<tr>
+<td>Scheduler</td>
+<td>调度任务与分配 Worker</td>
+</tr>
+<tr>
+<td>Tool Executor</td>
+<td>调用工具并处理结果</td>
+</tr>
+<tr>
+<td>Sandbox Manager</td>
+<td>管理隔离执行环境</td>
+</tr>
+<tr>
+<td>Checkpoint Manager</td>
+<td>保存可恢复的执行进度</td>
+</tr>
+<tr>
+<td>Permission Manager</td>
+<td>控制高风险操作</td>
+</tr>
+<tr>
+<td>Observability</td>
+<td>记录日志、指标与执行轨迹</td>
+</tr>
+</tbody>
+</table>
+<p>“你可以把它理解成一个微型操作系统。”</p>
+<p>“模型像 CPU 吗？”林远问。</p>
+<p>“这个比喻不太准确。”</p>
+<p>陈默解释：</p>
+<p>“模型更像决策引擎，而 Runtime 是负责调度、状态、资源、权限和执行控制的系统。”</p>
+<p>“模型决定想做什么。”</p>
+<p>“Runtime 决定能不能做、如何做、何时做，以及失败之后怎么办。”</p>
+<h2 id="_1">第五幕：一场服务器重启引发的灾难</h2>
+<p>下午四点。</p>
+<p>林远的 Agent 正在执行一个大型 Java 项目重构任务。</p>
+<p>任务已经运行了 47 分钟。</p>
+<p>它完成了：</p>
+<pre><code>✓ 分析项目结构
+✓ 定位目标模块
+✓ 修改 12 个文件
+✓ 运行单元测试
+→ 正在修复测试失败
+</code></pre>
+<p>突然，服务器发生故障。</p>
+<p>Worker 进程被终止。</p>
+<p>一分钟后，服务重新启动。</p>
+<p>林远打开任务页面。</p>
+<pre><code>Task: task_1024
+Status: UNKNOWN
+</code></pre>
+<p>“完了。”</p>
+<p>他捂住额头。</p>
+<p>“之前四十多分钟的工作是不是白做了？”</p>
+<p>陈默走过来。</p>
+<p>“这取决于你有没有保存状态。”</p>
+<p>“我保存了聊天历史。”</p>
+<p>“只有聊天历史？”</p>
+<p>“对。”</p>
+<p>“那还不够。”</p>
+<h3 id="1">1. 聊天历史不等于执行状态</h3>
+<p>陈默在白板上写下：</p>
+<p>Conversation History ≠ Execution State</p>
+<p>“假设 Agent 最后一条消息是：”</p>
+<blockquote>
+<p>我准备修改 PaymentService.java。</p>
+</blockquote>
+<p>“然后服务器崩溃。”</p>
+<p>“恢复时，你怎么知道文件是否已经修改？”</p>
+<p>林远回答：</p>
+<p>“读取文件看看？”</p>
+<p>“可以，但如果是外部操作呢？”</p>
+<p>“比如 Agent 已经发送了一封邮件、创建了一张工单、触发了一笔测试支付。”</p>
+<p>“这些操作可能已经成功，只是结果还没来得及写入数据库。”</p>
+<p>林远立刻意识到问题。</p>
+<p>“如果恢复后重新执行，就可能重复操作。”</p>
+<p>“对。”</p>
+<p>这就是分布式系统中的经典难题：</p>
+<p>执行成功，但确认结果丢失。</p>
+<h3 id="2-checkpoint">2. Checkpoint 机制</h3>
+<p>陈默提出新的方案。</p>
+<p>每执行完一个关键步骤，都保存 Checkpoint。</p>
+<p>例如：</p>
+<pre><code>{
+  &quot;taskId&quot;: &quot;task_1024&quot;,
+  &quot;step&quot;: 42,
+  &quot;status&quot;: &quot;RUNNING&quot;,
+  &quot;workspace&quot;: &quot;ws_1024&quot;,
+  &quot;lastCompletedAction&quot;: &quot;read_file&quot;,
+  &quot;pendingAction&quot;: &quot;run_tests&quot;
+}
+</code></pre>
+<p>同时保存：</p>
+<ul>
+<li>
+<p>当前任务目标与约束</p>
+</li>
+<li>
+<p>模型上下文引用</p>
+</li>
+<li>
+<p>工具调用记录</p>
+</li>
+<li>
+<p>已完成步骤</p>
+</li>
+<li>
+<p>待执行动作</p>
+</li>
+<li>
+<p>工作区快照或引用</p>
+</li>
+<li>
+<p>权限确认状态</p>
+</li>
+</ul>
+<p>林远问：</p>
+<p>“是不是只要有 Checkpoint，就能做到精确恢复？”</p>
+<p>陈默摇头。</p>
+<p>“不能这么简单。”</p>
+<p>“Checkpoint 只能告诉你系统记录了什么，不能保证外部世界和记录完全一致。”</p>
+<p>“如果工具执行成功，但状态尚未提交，仍然存在不确定性。”</p>
+<p>“所以需要幂等设计、操作 ID、外部状态查询、必要时的补偿机制。”</p>
+<h2 id="agent">第六幕：状态机——让 Agent 不再失控</h2>
+<p>林远决定重新设计任务状态。</p>
+<p>以前，他只使用三个状态：</p>
+<pre><code>PENDING
+RUNNING
+COMPLETED
+</code></pre>
+<p>陈默看完后问：</p>
+<p>“等待人工确认属于什么状态？”</p>
+<p>“RUNNING？”</p>
+<p>“那任务被暂停呢？”</p>
+<p>“还是 RUNNING？”</p>
+<p>“Worker 崩溃等待恢复呢？”</p>
+<p>林远发现，三个状态根本无法表达真实情况。</p>
+<p>于是，他们设计了一套更完整的状态机。</p>
+<p>Agent 任务状态机</p>
+<p>QUEUED</p>
+<p>RUNNING</p>
+<p>WAITING_APPROVAL</p>
+<p>等待用户确认</p>
+<p>RETRY_PENDING</p>
+<p>等待重试</p>
+<p>PAUSED</p>
+<p>主动暂停</p>
+<p>COMPLETED</p>
+<p>FAILED</p>
+<p>CANCELLED</p>
+<p>简化示意：RUNNING 可进入等待、重试、暂停或终态；非终态可按规则恢复。实际系统应明确每条合法状态转移。</p>
+<p>林远说：</p>
+<p>“这和订单状态机很像。”</p>
+<p>“没错。”</p>
+<p>陈默回答：</p>
+<p>“一个长任务 Agent，本质上也需要严肃的业务状态管理。”</p>
+<p>“你以前在高并发权益发放系统里处理过状态机、幂等和重试，这些经验可以直接迁移过来。”</p>
+<p>“区别在于，Agent 的每一步可能由模型动态决定，任务路径不是预先固定的。”</p>
+<p>林远点头。</p>
+<p>“也就是说，传统工作流的流程图通常比较明确，而 Agent 的行动序列具有动态性。”</p>
+<p>“对，但动态性不意味着可以不受约束。”</p>
+<h2 id="agent_1">第七幕：消息队列——Agent 的任务调度中心</h2>
+<p>夜晚，实验室接到了一批新任务。</p>
+<p>一千名用户同时提交 Coding Agent 请求。</p>
+<p>每个任务预计需要二十分钟。</p>
+<p>林远的第一反应是：</p>
+<p>“加服务器？”</p>
+<p>陈默问：</p>
+<p>“如果当前只有 50 个可用执行环境呢？”</p>
+<p>“那就只能同时运行 50 个任务。”</p>
+<p>“剩下的 950 个怎么办？”</p>
+<p>“排队。”</p>
+<p>陈默点头。</p>
+<p>“这就是消息队列可以发挥作用的地方。”</p>
+<h3 id="1-agent">1. 为什么长任务 Agent 需要队列？</h3>
+<p>传统 Web 接口通常追求短时间完成请求。</p>
+<p>而 Agent 任务可能持续数分钟甚至数小时。</p>
+<p>如果每个 HTTP 请求直接启动一个 Agent，系统很容易出现：</p>
+<ul>
+<li>
+<p>Worker 资源耗尽</p>
+</li>
+<li>
+<p>沙箱数量超过限制</p>
+</li>
+<li>
+<p>模型 API 并发过高</p>
+</li>
+<li>
+<p>任务无法统一调度</p>
+</li>
+<li>
+<p>服务重启导致执行中断</p>
+</li>
+</ul>
+<p>因此，可以使用队列解耦任务提交与执行。</p>
+<p>用户提交 1,000 个任务</p>
+<p>任务数据库 + 消息队列</p>
+<p>任务持久化、等待调度</p>
+<p>Worker A</p>
+<p>Agent Runtime</p>
+<p>Worker B</p>
+<p>Agent Runtime</p>
+<p>Worker C</p>
+<p>Agent Runtime</p>
+<p>沙箱池 / 模型服务 / 工具服务</p>
+<p>林远说：</p>
+<p>“这和秒杀系统的削峰填谷很像。”</p>
+<p>“有相似之处，但这里的主要矛盾不一定是瞬时 QPS。”</p>
+<p>陈默解释：</p>
+<p>“即使每秒只有几个新任务，只要每个任务执行时间足够长，也可能积累大量并发任务。”</p>
+<p>他写下一条公式：</p>
+<p>[ L=\lambda W ]</p>
+<p>“这是 Little 定律。”</p>
+<p>“假设平均每秒有 2 个新任务进入系统，每个任务平均停留 600 秒。”</p>
+<p>“那么稳定状态下，系统平均有多少任务？”</p>
+<p>林远心算了一下。</p>
+<p>“1,200 个。”</p>
+<p>“对。”</p>
+<p>“所以 Agent 系统的压力，不仅取决于请求到达速度，还取决于任务持续时间。”</p>
+<h3 id="2-rabbitmqkafka-redis">2. RabbitMQ、Kafka 还是 Redis？</h3>
+<p>林远问：</p>
+<p>“那我们是不是必须上 Kafka？”</p>
+<p>“当然不是。”</p>
+<p>陈默回答：</p>
+<p>“选择中间件要看语义和规模。”</p>
+<table>
+<thead>
+<tr>
+<th>方案</th>
+<th>更适合的场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>数据库任务表</td>
+<td>小规模、低并发、实现简单</td>
+</tr>
+<tr>
+<td>Redis Streams</td>
+<td>轻量任务队列、消费者组</td>
+</tr>
+<tr>
+<td>RabbitMQ</td>
+<td>工作队列、确认、重试与路由</td>
+</tr>
+<tr>
+<td>Kafka</td>
+<td>大规模事件流、日志与事件回放</td>
+</tr>
+<tr>
+<td>专用工作流引擎</td>
+<td>长任务恢复、状态管理、定时与重试</td>
+</tr>
+</tbody>
+</table>
+<p>“如果只是几十个任务，数据库任务表加 Worker 轮询可能已经足够。”</p>
+<p>“消息队列不是为了显得架构高级。”</p>
+<p>“而是为了解决真实的解耦、缓冲、可靠投递和调度问题。”</p>
+<h2 id="agent_2">第八幕：云端沙箱——给 Agent 一台真正的电脑</h2>
+<p><img loading="lazy" decoding="async" alt="Testing Agent Execution Boundaries: A Practical Guide to Sandbox Isolation | Hacky JS" src="https://images.openai.com/static-rsc-4/QGvzKie0VZpfcuzeSJKxRGe4AGyfLlXL7stCk95bcTtkQccAQ74W-do8yddr9G2AsVRy7soSUy2_n64MmZaWR68pp_knS_d9jRahCBTp-L6zU9TgVGp1bLCxJcmKrYbViwnawmsUc52NkkPPJRijTyUYw7SnmeVy3H21N2w0h-g?purpose=inline" /></p>
+<p><a href="https://hackyjs.com/posts/testing-agent-execution-boundaries-a-practical-guide-to-sandbox-isolation">hackyjs.com</a></p>
+<p>凌晨一点。</p>
+<p>Agent 正在修复一个 Java 项目。</p>
+<p>它需要执行：</p>
+<pre><code>mvn test
+</code></pre>
+<p>随后，它还要运行：</p>
+<pre><code>git diff
+</code></pre>
+<p>以及：</p>
+<pre><code>npm install
+</code></pre>
+<p>林远突然想到：</p>
+<p>“这些命令到底在哪里执行？”</p>
+<p>陈默回答：</p>
+<p>“如果直接在 Agent 服务所在的主机执行，那就非常危险。”</p>
+<p>“为什么？”</p>
+<p>“因为模型生成的命令不一定可靠。”</p>
+<p>“它可能误删文件，安装恶意依赖，访问不该访问的目录，甚至试图读取环境变量中的密钥。”</p>
+<p>林远点头。</p>
+<p>“所以需要沙箱。”</p>
+<h3 id="1-sandbox">1. Sandbox 的本质</h3>
+<p>沙箱的目标是：</p>
+<p>允许 Agent 执行必要操作，同时限制它对宿主系统和其他任务的影响。</p>
+<p>常见实现包括容器、虚拟机和微虚拟机。</p>
+<p>陈默列出几种方案。</p>
+<table>
+<thead>
+<tr>
+<th>隔离方式</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>进程隔离</td>
+<td>成本低，但边界较弱</td>
+</tr>
+<tr>
+<td>Docker / OCI 容器</td>
+<td>启动快，生态成熟，共享宿主内核</td>
+</tr>
+<tr>
+<td>gVisor 等用户态内核方案</td>
+<td>加强系统调用隔离</td>
+</tr>
+<tr>
+<td>Firecracker 微虚拟机</td>
+<td>更强的虚拟化隔离，适合多租户</td>
+</tr>
+<tr>
+<td>完整虚拟机</td>
+<td>隔离边界较强，但资源成本通常更高</td>
+</tr>
+</tbody>
+</table>
+<p>“注意，容器并不是绝对安全边界。”</p>
+<p>陈默强调。</p>
+<p>“尤其在执行不可信代码时，需要考虑内核漏洞、网络权限、挂载目录、凭证暴露等问题。”</p>
+<h3 id="2-agent">2. 每个 Agent 拥有独立工作区</h3>
+<p>林远设计了一个新的运行方式。</p>
+<pre><code>task_1024
+ ├── workspace/
+ │    ├── src/
+ │    ├── pom.xml
+ │    └── README.md
+ ├── logs/
+ ├── artifacts/
+ └── checkpoint/
+</code></pre>
+<p>“每个任务都有自己的工作区。”</p>
+<p>“不错。”</p>
+<p>“但是，如果两个 Agent 同时修改同一个 Git 仓库呢？”</p>
+<p>林远回答：</p>
+<p>“可以使用独立 Git worktree 或独立仓库副本。”</p>
+<p>“对。”</p>
+<p>“这样可以减少文件冲突，并支持并行执行。”</p>
+<p>“不过最终合并代码时，仍然需要处理版本冲突。”</p>
+<h2 id="agent_3">第九幕：Agent 的死亡与复活</h2>
+<p>这是整个项目最困难的一天。</p>
+<p>林远故意终止了一个正在执行的 Agent Worker。</p>
+<p>屏幕上显示：</p>
+<pre><code>Worker terminated unexpectedly.
+</code></pre>
+<p>他重新启动 Worker。</p>
+<p>任务却没有继续。</p>
+<p>陈默问：</p>
+<p>“你保存了 Checkpoint，为什么还是无法恢复？”</p>
+<p>林远回答：</p>
+<p>“因为沙箱也被销毁了。”</p>
+<p>“没错。”</p>
+<p>“所以 Agent 的状态并不只存在数据库里。”</p>
+<p>陈默写下：</p>
+<p>Agent State = 逻辑状态 + 外部执行状态</p>
+<p>逻辑状态包括：</p>
+<ul>
+<li>
+<p>当前目标</p>
+</li>
+<li>
+<p>已完成步骤</p>
+</li>
+<li>
+<p>模型上下文</p>
+</li>
+<li>
+<p>工具调用记录</p>
+</li>
+</ul>
+<p>外部执行状态包括：</p>
+<ul>
+<li>
+<p>文件系统修改</p>
+</li>
+<li>
+<p>Git 工作区</p>
+</li>
+<li>
+<p>运行中的进程</p>
+</li>
+<li>
+<p>外部 API 操作</p>
+</li>
+<li>
+<p>沙箱环境</p>
+</li>
+</ul>
+<p>“恢复 Agent，不等于重新加载一段聊天记录。”</p>
+<p>“而是恢复一个分布式执行过程。”</p>
+<h3 id="1-lease">1. Lease 与心跳</h3>
+<p>为了避免多个 Worker 同时执行同一个任务，林远引入了 Lease。</p>
+<p>每个 Worker 领取任务时，获得一个有有效期的执行租约。</p>
+<p>运行过程中定期续租。</p>
+<p>如果 Worker 崩溃，租约到期，其他 Worker 才能接管。</p>
+<pre><code>Task: task_1024
+
+Owner: worker_07
+Lease: 30 seconds
+Heartbeat: every 10 seconds
+</code></pre>
+<p>陈默补充：</p>
+<p>“租约过期不代表旧 Worker 一定已经停止。”</p>
+<p>“所以最好还要使用 fencing token 等机制，防止旧 Worker 恢复后继续写入。”</p>
+<p>“这在分布式任务执行中非常重要。”</p>
+<h3 id="2">2. 任务恢复流程</h3>
+<p>检测 Worker 心跳超时</p>
+<p>确认租约失效并安全接管</p>
+<p>加载 Checkpoint 与执行日志</p>
+<p>恢复工作区或重新构建沙箱</p>
+<p>核对未确认的外部操作</p>
+<p>从安全的执行边界继续任务</p>
+<p>林远说：</p>
+<p>“这是不是意味着我们可以实现 exactly-once？”</p>
+<p>陈默摇头。</p>
+<p>“不能直接这么说。”</p>
+<p>“在存在外部副作用的情况下，端到端严格 exactly-once 很难保证。”</p>
+<p>“工程上更常见的是至少一次执行配合幂等处理，或者使用事务、操作去重、补偿等手段达到业务层面的正确性。”</p>
+<h2 id="_2">第十幕：真正的长期自主执行</h2>
+<p><img loading="lazy" decoding="async" alt="「チャットは死んだ」——OpenAIがChatGPTをAI業務OSに刷新へ。Codexモバイルも既に動き出した | AI Strategic Insight" src="https://images.openai.com/static-rsc-4/IaL7aabAcfylkyND28Bj4IEk5DqioFCAZ9tkoeJm-vQSBiMGF0rVdZNof8g_MytBmnHMRYWJms-nC_g2C8hnHBVp6zEoM9HBLbbiz0DD3pjeU8Bmu4eAay1cCCIJyCmdE6T21PI6cLhCoGMr-CjLbqVAaqg_8Aik8KATLRs4mUE?purpose=inline" /></p>
+<p><a href="https://aistrategicinsight.com/blog/news/2026-06-08-openai-chatgpt-superapp-codex-mobile/">aistrategicinsight.com</a></p>
+<p>三个月后。</p>
+<p>林远的 Agent 已经可以稳定执行长任务。</p>
+<p>它能够：</p>
+<ul>
+<li>
+<p>在后台持续运行</p>
+</li>
+<li>
+<p>处理工具调用失败</p>
+</li>
+<li>
+<p>保存并恢复任务状态</p>
+</li>
+<li>
+<p>在沙箱中执行代码</p>
+</li>
+<li>
+<p>等待用户审批</p>
+</li>
+<li>
+<p>完成任务后发送通知</p>
+</li>
+</ul>
+<p>林远兴奋地说：</p>
+<p>“现在它已经是一个真正的数字员工了！”</p>
+<p>陈默却提出最后一个问题。</p>
+<p>“假设用户告诉它：”</p>
+<blockquote>
+<p>接下来一个月，持续优化这个项目的测试覆盖率。</p>
+</blockquote>
+<p>“它能做到吗？”</p>
+<p>林远想了想。</p>
+<p>“目前还不行。”</p>
+<p>“为什么？”</p>
+<p>“因为它只能执行一个明确的任务，还不能很好地管理长期目标。”</p>
+<p>陈默点头。</p>
+<p>“这就是长期自主 Agent 和普通异步 Agent 的区别。”</p>
+<h3 id="1_1">1. 长期目标不是一个无限循环</h3>
+<p>一个真正的长期任务系统，还需要：</p>
+<p>目标分解</p>
+<p>把“提高测试覆盖率”拆成可以验证的子任务。</p>
+<p>进度评估</p>
+<p>定期判断是否取得了实际进展，而不是无限调用工具。</p>
+<p>预算控制</p>
+<p>限制模型调用次数、执行时间、Token 消耗和沙箱资源。</p>
+<p>记忆管理</p>
+<p>保存已经尝试过的方法、失败原因和项目知识。</p>
+<p>任务重规划</p>
+<p>当环境变化或目标无法完成时，调整后续行动。</p>
+<p>人类监督</p>
+<p>涉及高风险操作时暂停，等待授权。</p>
+<p>陈默说：</p>
+<p>“长期自主，不是让 Agent 永远运行。”</p>
+<p>“而是让它能够在有限资源和明确约束下，持续推进一个目标。”</p>
+<h2 id="agent_4">第十一幕：一次完整的 Agent 执行</h2>
+<p>林远决定用一个真实场景验证整套系统。</p>
+<p>用户提交任务：</p>
+<blockquote>
+<p>检查支付系统的幂等性实现，修复潜在问题，运行测试，并创建 Pull Request。</p>
+</blockquote>
+<p>下面是一次模拟的执行过程。</p>
+<p>Agent Runtime 执行模拟器</p>
+<p>RUNNING</p>
+<h1 id="0001">00:01</h1>
+<p>步骤 2 / 9</p>
+<p>Worker 领取任务</p>
+<p>调度器分配执行租约，创建独立工作区与沙箱。</p>
+<p>上一步执行下一步</p>
+<p>教学模拟：展示长任务在崩溃、恢复和等待授权时的生命周期，不连接真实 Agent。</p>
+<p>林远看着最终结果。</p>
+<pre><code>Task: task_1024
+Status: COMPLETED
+
+Files changed: 8
+Tests passed: 142
+Pull Request: #284
+Execution time: 35 minutes
+</code></pre>
+<p>他终于明白：</p>
+<p>Agent 的智能来自模型，但 Agent 的可靠性来自系统工程。</p>
+<h2 id="_3">第三章：技术归档</h2>
+<table>
+<thead>
+<tr>
+<th>技术</th>
+<th>解决的问题</th>
+<th>与传统后端的联系</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Agent Runtime</td>
+<td>多步骤执行与生命周期管理</td>
+<td>工作流引擎</td>
+</tr>
+<tr>
+<td>异步任务</td>
+<td>长任务脱离 HTTP 请求</td>
+<td>异步任务处理</td>
+</tr>
+<tr>
+<td>State Store</td>
+<td>状态持久化</td>
+<td>数据库、Redis</td>
+</tr>
+<tr>
+<td>Checkpoint</td>
+<td>崩溃后恢复</td>
+<td>快照、日志恢复</td>
+</tr>
+<tr>
+<td>Message Queue</td>
+<td>解耦与任务缓冲</td>
+<td>RabbitMQ、Kafka</td>
+</tr>
+<tr>
+<td>Lease / Heartbeat</td>
+<td>Worker 故障检测与接管</td>
+<td>分布式锁、租约</td>
+</tr>
+<tr>
+<td>Sandbox</td>
+<td>隔离不可信执行</td>
+<td>容器、虚拟化</td>
+</tr>
+<tr>
+<td>Idempotency</td>
+<td>防止重复副作用</td>
+<td>唯一约束、幂等键</td>
+</tr>
+<tr>
+<td>Human-in-the-loop</td>
+<td>高风险操作审批</td>
+<td>审批流、权限系统</td>
+</tr>
+<tr>
+<td>Observability</td>
+<td>追踪 Agent 行为</td>
+<td>日志、指标、Tracing</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_4">本章最重要的三个结论</h3>
+<p>第一，常驻 Agent 并不意味着模型一直在推理。</p>
+<p>模型可以按需被调用。任务等待、定时唤醒、工具执行和状态保存，都由 Runtime 负责。</p>
+<p>第二，Agent Runtime 本质上是一个面向不确定性任务的执行系统。</p>
+<p>它既需要传统后端的状态机、调度、幂等、消息队列，也需要模型推理、工具调用和上下文管理。</p>
+<p>第三，长期自主能力不等于无限制自动化。</p>
+<p>真正可用的 Agent 必须有明确的目标、权限边界、预算、恢复机制和人工接管能力。</p></article><nav class="chapter-nav" aria-label="章节切换"><a href="chapter-02.html">← 上一章</a><a href="chapter-04.html">下一章 →</a></nav></main></div><footer>AI 纪元 · 从语言模型到智能体文明<br><small>小说式技术科普 · 技术案例保留原文，未逐条核实</small></footer></body></html>

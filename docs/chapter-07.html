@@ -1,0 +1,999 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="AI 纪元：从语言模型到智能体文明，十二章小说式技术科普。"><title>三维世界的觉醒 · AI 纪元</title><link rel="stylesheet" href="style.css"><script src="app.js" defer></script></head><body class="reading"><header><a class="brand" href="index.html">AI 纪元<span>THE AI ERA</span></a><div class="controls"><button id="smaller" aria-label="缩小字号">A−</button><button id="larger" aria-label="增大字号">A＋</button><button id="theme" aria-label="切换深浅色">◐</button></div></header><div class="reader-layout"><aside><a href="index.html">← 全书目录</a><p class="eyebrow">本章导航</p><div class="toc">
+<ul>
+<li><a href="#ai">第一幕：会认猫的 AI，为什么不会躲猫？</a><ul>
+<li><a href="#1">1. 图像识别解决的是“是什么”</a></li>
+<li><a href="#2">2. 为什么第三类问题更难？</a></li>
+</ul>
+</li>
+<li><a href="#ai_1">第二幕：世界模型——让 AI 在脑海里预演未来</a><ul>
+<li><a href="#1-world-model">1. 什么是 World Model？</a></li>
+<li><a href="#2_1">2. 从观测到隐状态</a></li>
+</ul>
+</li>
+<li><a href="#_1">第三幕：二维照片，如何变成三维世界？</a><ul>
+<li><a href="#1_1">1. 二维图像丢失了深度</a></li>
+<li><a href="#2_2">2. 三维表示有哪些？</a></li>
+</ul>
+</li>
+<li><a href="#_2">第四幕：世界模型与视频生成——看起来很像，目标却不同</a><ul>
+<li><a href="#1_2">1. 视频逼真不等于物理正确</a></li>
+<li><a href="#2_3">2. 物理模拟器又是什么？</a></li>
+<li><a href="#3">3. 三种系统的区别</a></li>
+</ul>
+</li>
+<li><a href="#_3">第五幕：动作条件预测——世界模型真正的分水岭</a><ul>
+<li><a href="#1_3">1. 没有动作条件的预测</a></li>
+<li><a href="#2_4">2. 有动作条件的预测</a></li>
+<li><a href="#3_1">3. 在脑海中试错</a></li>
+</ul>
+</li>
+<li><a href="#mpc">第六幕：MPC——先预测，再行动，再修正</a></li>
+<li><a href="#ai_2">第七幕：具身智能——AI 终于拥有身体</a><ul>
+<li><a href="#1_4">1. 什么是具身智能？</a></li>
+<li><a href="#2_5">2. 机器人为什么需要多种传感器？</a></li>
+</ul>
+</li>
+<li><a href="#vla">第八幕：VLA——视觉、语言与动作终于连接起来</a><ul>
+<li><a href="#1-vla">1. VLA 的基本思想</a></li>
+<li><a href="#2-token-token">2. 从语言 Token 到动作 Token</a></li>
+<li><a href="#3-vla-world-model">3. VLA 与 World Model 的区别</a></li>
+</ul>
+</li>
+<li><a href="#_4">第九幕：世界模型如何训练？</a><ul>
+<li><a href="#1_5">1. 被动观察数据</a></li>
+<li><a href="#2_6">2. 动作条件数据</a></li>
+<li><a href="#3_2">3. 模拟环境训练</a></li>
+</ul>
+</li>
+<li><a href="#_5">第十幕：世界模型的致命弱点——预测越远，错误越大</a><ul>
+<li><a href="#1_6">1. 误差累积</a></li>
+<li><a href="#2_7">2. 不确定性比单一答案更重要</a></li>
+</ul>
+</li>
+<li><a href="#_6">第十一幕：从机器人世界模型到软件世界模型</a><ul>
+<li><a href="#1-coding-agent">1. Coding Agent 也需要预测行动后果</a></li>
+<li><a href="#2_8">2. 软件世界中的行动闭环</a></li>
+</ul>
+</li>
+<li><a href="#_7">第十二幕：世界模型不是万能的</a></li>
+<li><a href="#_8">第十三幕：一次真正的觉醒</a></li>
+<li><a href="#_9">第七章：技术归档</a><ul>
+<li><a href="#_10">本章最重要的五个结论</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</aside><main id="main"><div class="chapter-heading"><p class="eyebrow">CHAPTER 07 / 12</p><h1>三维世界的觉醒</h1><p>世界模型、具身智能与动作预测</p></div><details class="mobile-toc"><summary>展开本章目录</summary><div class="toc">
+<ul>
+<li><a href="#ai">第一幕：会认猫的 AI，为什么不会躲猫？</a><ul>
+<li><a href="#1">1. 图像识别解决的是“是什么”</a></li>
+<li><a href="#2">2. 为什么第三类问题更难？</a></li>
+</ul>
+</li>
+<li><a href="#ai_1">第二幕：世界模型——让 AI 在脑海里预演未来</a><ul>
+<li><a href="#1-world-model">1. 什么是 World Model？</a></li>
+<li><a href="#2_1">2. 从观测到隐状态</a></li>
+</ul>
+</li>
+<li><a href="#_1">第三幕：二维照片，如何变成三维世界？</a><ul>
+<li><a href="#1_1">1. 二维图像丢失了深度</a></li>
+<li><a href="#2_2">2. 三维表示有哪些？</a></li>
+</ul>
+</li>
+<li><a href="#_2">第四幕：世界模型与视频生成——看起来很像，目标却不同</a><ul>
+<li><a href="#1_2">1. 视频逼真不等于物理正确</a></li>
+<li><a href="#2_3">2. 物理模拟器又是什么？</a></li>
+<li><a href="#3">3. 三种系统的区别</a></li>
+</ul>
+</li>
+<li><a href="#_3">第五幕：动作条件预测——世界模型真正的分水岭</a><ul>
+<li><a href="#1_3">1. 没有动作条件的预测</a></li>
+<li><a href="#2_4">2. 有动作条件的预测</a></li>
+<li><a href="#3_1">3. 在脑海中试错</a></li>
+</ul>
+</li>
+<li><a href="#mpc">第六幕：MPC——先预测，再行动，再修正</a></li>
+<li><a href="#ai_2">第七幕：具身智能——AI 终于拥有身体</a><ul>
+<li><a href="#1_4">1. 什么是具身智能？</a></li>
+<li><a href="#2_5">2. 机器人为什么需要多种传感器？</a></li>
+</ul>
+</li>
+<li><a href="#vla">第八幕：VLA——视觉、语言与动作终于连接起来</a><ul>
+<li><a href="#1-vla">1. VLA 的基本思想</a></li>
+<li><a href="#2-token-token">2. 从语言 Token 到动作 Token</a></li>
+<li><a href="#3-vla-world-model">3. VLA 与 World Model 的区别</a></li>
+</ul>
+</li>
+<li><a href="#_4">第九幕：世界模型如何训练？</a><ul>
+<li><a href="#1_5">1. 被动观察数据</a></li>
+<li><a href="#2_6">2. 动作条件数据</a></li>
+<li><a href="#3_2">3. 模拟环境训练</a></li>
+</ul>
+</li>
+<li><a href="#_5">第十幕：世界模型的致命弱点——预测越远，错误越大</a><ul>
+<li><a href="#1_6">1. 误差累积</a></li>
+<li><a href="#2_7">2. 不确定性比单一答案更重要</a></li>
+</ul>
+</li>
+<li><a href="#_6">第十一幕：从机器人世界模型到软件世界模型</a><ul>
+<li><a href="#1-coding-agent">1. Coding Agent 也需要预测行动后果</a></li>
+<li><a href="#2_8">2. 软件世界中的行动闭环</a></li>
+</ul>
+</li>
+<li><a href="#_7">第十二幕：世界模型不是万能的</a></li>
+<li><a href="#_8">第十三幕：一次真正的觉醒</a></li>
+<li><a href="#_9">第七章：技术归档</a><ul>
+<li><a href="#_10">本章最重要的五个结论</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</details><article><p><img loading="lazy" decoding="async" alt="ИИтоги сентября 2025 г.: вайб-райтингу — да; вайб-трейдингу — нет / Искусственный интеллект" src="https://images.openai.com/static-rsc-4/VLB0OBFDOqKnXHPLkwEu_jImxcSc8nnew9iT7mIp6_BIO1N2xGfoV0L8UOj0RwqEkgFzI7ShuH7Z-7mXf8JMxAJP5mFs69rMpR3i9jTyTX4BZXooE1QT3UegiexJM8De0fn1plAX7vMcM4Tjyz1P_hrHSHnedAO-nNFIEy45HCI?purpose=inline" /></p>
+<p><a href="https://3dnews.ru/1130271/iitogi-sentyabrya-2025">3dnews.ru</a></p>
+<p>2026 年 10 月，凌晨 2:17。</p>
+<p>实验室里传来一声清脆的碎裂声。</p>
+<p>林远猛地从椅子上站了起来。</p>
+<p>地板上，散落着一堆玻璃碎片。</p>
+<p>桌子旁边，一台机械臂仍然保持着抓取姿势。</p>
+<p>屏幕上显示：</p>
+<pre><code>任务：把玻璃杯放到桌子左侧
+
+视觉识别：成功
+物体定位：成功
+动作规划：成功
+任务执行：失败
+
+失败原因：玻璃杯从桌面滑落
+</code></pre>
+<p>林远盯着屏幕，满脸不可思议。</p>
+<p>“陈工，这个视觉模型明明识别出了玻璃杯！”</p>
+<p>“它甚至知道玻璃杯在哪里。”</p>
+<p>“为什么还会把杯子推下桌子？”</p>
+<p>陈默走到桌边，看了一眼机械臂的运动轨迹。</p>
+<p>“它知道杯子是什么。”</p>
+<p>“知道杯子在哪里。”</p>
+<p>“但它未必知道——”</p>
+<p>陈默拿起另一个杯子，轻轻推向桌边。</p>
+<p>“如果这样做，接下来会发生什么。”</p>
+<p>林远愣住了。</p>
+<p>陈默转身，在白板上写下：</p>
+<p>Recognition ≠ Understanding ≠ Prediction ≠ Control</p>
+<p>“今天，我们要讲的，不再只是让 AI 看见世界。”</p>
+<p>“而是让它开始理解一个不断变化的世界。”</p>
+<h2 id="ai">第一幕：会认猫的 AI，为什么不会躲猫？</h2>
+<p>陈默打开了一张照片。</p>
+<p>照片中，一只橘猫正坐在桌子边缘。</p>
+<p><img loading="lazy" decoding="async" alt="Why Do Cats Knock Things Off Tables? Instinct vs. Boredom - Lady N US" src="https://images.openai.com/static-rsc-4/q4cewBBBP1cmkacP72Yx0ZiMJjdHcXefs7zGgr3IGN_2hLcoWiTofh0xHgLBwEc_68h-rRY-HoUQw09zyU_FtMkdUMqoQi8BPbOygHB9EZ8gvtmOY0jc_5Nl2HAb_g2aaSDVXBqEnN5XMU2hbCHPf_GWrcDCooEyQTEMckgZZ-8?purpose=inline" /></p>
+<p><a href="https://ladynpet.com/us/blog/why-do-cats-knock-things-over/">ladynpet.com</a></p>
+<p>“假设你把这张照片交给一个图像识别模型。”</p>
+<p>“它会告诉你什么？”</p>
+<p>林远回答：</p>
+<p>“图中有一只猫、一张桌子、一个玻璃杯。”</p>
+<p>“不错。”</p>
+<p>“如果使用目标检测模型呢？”</p>
+<p>“它还能给出猫和杯子的 Bounding Box。”</p>
+<p>“如果使用图像分割模型呢？”</p>
+<p>“可以得到像素级的物体区域。”</p>
+<p>陈默点头。</p>
+<p>“那么，假设这只猫突然跳起来。”</p>
+<p>“它会不会撞倒玻璃杯？”</p>
+<p>林远想了一会儿。</p>
+<p>“只看一张照片，很难确定。”</p>
+<p>“为什么？”</p>
+<p>“因为我们不知道猫的运动方向、速度，也不知道杯子和猫之间的实际空间距离。”</p>
+<p>“这就是关键。”</p>
+<h3 id="1">1. 图像识别解决的是“是什么”</h3>
+<p>早期计算机视觉的发展，主要围绕几个问题展开。</p>
+<p>图像分类回答：</p>
+<blockquote>
+<p>这张图片里是什么？</p>
+</blockquote>
+<p>目标检测回答：</p>
+<blockquote>
+<p>物体在哪里？</p>
+</blockquote>
+<p>图像分割回答：</p>
+<blockquote>
+<p>哪些像素属于这个物体？</p>
+</blockquote>
+<p>这些能力极其重要。</p>
+<p>但它们并不自动等于对物理世界的完整理解。</p>
+<p>陈默写下三个问题：</p>
+<p>第一个问题：是什么？</p>
+<p>这是识别。</p>
+<p>第二个问题：在哪里？</p>
+<p>这是空间理解。</p>
+<p>第三个问题：如果我采取某个动作，会发生什么？</p>
+<p>这是预测与决策。</p>
+<p>“而 World Model 的核心目标之一，就是让系统能够处理第三类问题。”</p>
+<h3 id="2">2. 为什么第三类问题更难？</h3>
+<p>林远回答：</p>
+<p>“因为未来还没有发生。”</p>
+<p>“对。”</p>
+<p>“你不能只靠观察当前状态。”</p>
+<p>“你需要根据当前世界状态、可能的动作，以及环境变化规律，推测未来状态。”</p>
+<p>陈默在白板上写下：</p>
+<p>[ s_{t+1}=F(s_t,a_t) ]</p>
+<p>其中：</p>
+<ul>
+<li>
+<p>(s_t)：当前世界状态</p>
+</li>
+<li>
+<p>(a_t)：当前执行的动作</p>
+</li>
+<li>
+<p>(F)：世界的状态转移规律</p>
+</li>
+<li>
+<p>(s_{t+1})：执行动作后的状态</p>
+</li>
+</ul>
+<p>“这只是最简单的形式。”</p>
+<p>“真实世界还存在噪声、未知因素和部分可观测性。”</p>
+<p>“所以更一般地，我们要学习一个概率预测模型。”</p>
+<p>[ p(s_{t+1}\mid s_t,a_t) ]</p>
+<p>林远盯着公式。</p>
+<p>“等等，这不就是强化学习里面的状态转移模型？”</p>
+<p>陈默笑了。</p>
+<p>“你终于发现它们之间的联系了。”</p>
+<h2 id="ai_1">第二幕：世界模型——让 AI 在脑海里预演未来</h2>
+<p><img loading="lazy" decoding="async" alt="From Representation to Reality: AGIBOT Unveils Genie Envisioner 2.0 as a Scalable “World Simulator” | Humanoids Daily" src="https://images.openai.com/static-rsc-4/mvmqAsQ5ZNugjgQWiFLzafPPILcoo0ogP66s3Q-r1Mlk3Qexlg0VnULtHPEWknOX5-m11FGDvPlqMKm0pst5ugOV09sVfHqHtWvBIc3xvTrpZ73Qfq1m5t2l98d67AYcOOHldmQ2JiZqzbT-j7aSGvs04ArJje5NTn7bBWtF5JM?purpose=inline" /></p>
+<p><a href="https://www.humanoidsdaily.com/news/from-representation-to-reality-agibot-unveils-genie-envisioner-2-0-as-a-scalable-world-simulator">humanoidsdaily.com</a></p>
+<p>陈默没有继续讲理论。</p>
+<p>他让林远想象一个场景。</p>
+<p>你正准备把一个装满水的玻璃杯放到桌上。</p>
+<p>在真正松手之前，你的大脑已经进行了某种预测：</p>
+<p>杯子会不会倾倒？</p>
+<p>桌面是否平稳？</p>
+<p>杯底是否接触桌面？</p>
+<p>如果松手，杯子会不会掉下去？</p>
+<p>林远点头。</p>
+<p>“人类好像不需要真的把杯子摔碎，才知道可能会摔碎。”</p>
+<p>“对。”</p>
+<p>“我们能够利用过去的经验，对未来进行预测。”</p>
+<p>“World Model 就是在机器中建立类似能力的一类技术路线。”</p>
+<h3 id="1-world-model">1. 什么是 World Model？</h3>
+<p>世界模型并不是某一个固定的神经网络结构。</p>
+<p>它是一类能够表示环境状态、预测环境变化，或支持行动规划的模型。</p>
+<p>陈默写下一套简化结构：</p>
+<p>环境观测</p>
+<p>图像、视频、传感器、动作历史</p>
+<p>状态编码器</p>
+<p>把观测转换成内部状态表示</p>
+<p>动态预测模型</p>
+<p>预测不同动作造成的未来变化</p>
+<p>规划与行动</p>
+<p>选择更有可能完成目标的动作</p>
+<p>林远说：</p>
+<p>“也就是说，AI 可以先在内部模拟一次，再决定是否真的执行。”</p>
+<p>“对，这是一种很重要的应用方式。”</p>
+<p>“但不是所有世界模型都显式执行完整的规划，也不是所有世界模型都能准确预测物理过程。”</p>
+<h3 id="2_1">2. 从观测到隐状态</h3>
+<p>陈默继续解释。</p>
+<p>“真实世界的状态可能非常复杂。”</p>
+<p>“假设一个机器人看见玻璃杯。”</p>
+<p>它能观察到杯子的颜色和轮廓。</p>
+<p>但可能看不到杯子背面。</p>
+<p>不知道杯子里装了多少水。</p>
+<p>也不知道杯底与桌面之间的摩擦系数。</p>
+<p>“所以机器人获得的往往不是完整世界状态，而是部分观测。”</p>
+<p>可以写成：</p>
+<p>[ o_t=G(s_t) ]</p>
+<p>其中 (o_t) 是观测。</p>
+<p>模型通过历史观测构造内部表示：</p>
+<p>[ z_t=E(o_{\leq t},a_{&lt;t}) ]</p>
+<p>然后预测：</p>
+<p>[ \hat z_{t+1}=F_\theta(z_t,a_t) ]</p>
+<p>“这里的 (z_t) 可以理解成模型对当前环境的内部表示。”</p>
+<p>“它不一定是人类可以直接读懂的三维地图。”</p>
+<p>林远问：</p>
+<p>“那为什么不直接预测下一张图片？”</p>
+<p>陈默回答：</p>
+<p>“可以。”</p>
+<p>“但并不是所有任务都需要生成完整图片。”</p>
+<p>“如果只是判断杯子是否会掉落，预测位置、速度或接触状态，可能更高效。”</p>
+<h2 id="_1">第三幕：二维照片，如何变成三维世界？</h2>
+<p>第二天。</p>
+<p>林远打开了一个机器人仿真程序。</p>
+<p>屏幕上有一张桌子、一把椅子和一个玻璃杯。</p>
+<p>他使用鼠标旋转视角。</p>
+<p>桌子的背面逐渐出现。</p>
+<p>林远突然想到：</p>
+<p>“普通图片只有二维像素。”</p>
+<p>“模型是怎么知道桌子背面是什么样子的？”</p>
+<p>陈默回答：</p>
+<p>“这是三维视觉长期研究的问题。”</p>
+<h3 id="1_1">1. 二维图像丢失了深度</h3>
+<p>在真实世界中，一个物体的位置可以用三维坐标表示：</p>
+<p>[ P=(x,y,z) ]</p>
+<p>但普通照片通常是把三维世界投影到二维图像平面。</p>
+<p>在简化的针孔相机模型中：</p>
+<p>[ u=f_x\frac{X}{Z}+c_x ]</p>
+<p>[ v=f_y\frac{Y}{Z}+c_y ]</p>
+<p>其中：</p>
+<ul>
+<li>
+<p>((X,Y,Z))：相机坐标系中的三维点</p>
+</li>
+<li>
+<p>((u,v))：图像上的像素位置</p>
+</li>
+<li>
+<p>(f_x,f_y)：相机焦距相关参数</p>
+</li>
+<li>
+<p>(c_x,c_y)：主点坐标</p>
+</li>
+</ul>
+<p>陈默问：</p>
+<p>“如果只知道像素位置 (u,v)，能唯一确定三维点吗？”</p>
+<p>林远思考后回答：</p>
+<p>“不能，因为深度 (Z) 未知。”</p>
+<p>“没错。”</p>
+<p>“同一个像素位置，可能对应不同距离上的物体。”</p>
+<p>这就是为什么从单张图片恢复三维结构存在天然歧义。</p>
+<h3 id="2_2">2. 三维表示有哪些？</h3>
+<p>陈默展示了几种不同的方法。</p>
+<p><img loading="lazy" decoding="async" alt="Webpage" src="https://images.openai.com/static-rsc-4/Z1YWpMKNmIQO8m4SAoEHIxTdKedZK4EObK0R6Pk-Pi0UjXXjH5dmwbO0y2AKN7Bhcg40D5LSibVYxRg0A7arE_ZSLvXd0hmZY2UJ11D81Ilbik9U3j79yKLXcBGBuq7_gaVvYLSuJ2z2YKM-KIUKmTXlK8G2U_HIf-xxcpnakNM?purpose=inline" /></p>
+<p>点云（Point Cloud）</p>
+<p>用大量三维点表示物体或场景。常见于 LiDAR、深度相机和三维扫描。</p>
+<p><img loading="lazy" decoding="async" alt="Neon chair wireframe light furniture | Premium Photo Illustration - rawpixel" src="https://images.openai.com/static-rsc-4/77-nymY9BQjEZ-88F-b3YEBhn0Pbnf-Mkfe9nhg_gghelNgCEVEIEUEW2USJ81Ut9k-tsHNwy-J0h-xTruWn-nviggFyCwzeIyJsxiSbE0vYQgpVIpb1BOvQHQiv80hVyfZhTAVh-7QMaySLy4K7XElTc8fry_Rybtq6LKsCa30?purpose=inline" /></p>
+<p>网格（Mesh）</p>
+<p>使用顶点、边和三角面片表示表面，适合图形渲染、碰撞检测等任务。</p>
+<p><img loading="lazy" decoding="async" alt="¿Qué es el escaneo 3D? Descubre más acerca de esta tecnología" src="https://images.openai.com/static-rsc-4/F5HQEI_3WCzGTrVe55FuSMbpa1AzO5W2O9Ho0eNAAt-HKhjkFIoTNW8ETUXxs_WDhnR_74fbffZgZkrU8lffQMbfDh--E0hF1Xl_o-TlyS3k9RpRtkwB2Rfi64mFuZgEMvb3VU-NysyLBkb2TgeRldvKtkYrIHe3o0DOar09r64?purpose=inline" /></p>
+<p>体素（Voxel）</p>
+<p>把三维空间划分成小体积单元，便于表达空间占据情况，但高分辨率时成本较高。</p>
+<p><img loading="lazy" decoding="async" alt="AppleがRealityKitに3DGSを導入 ― 標準技術化の可能性を読む｜ANGEWORK" src="https://images.openai.com/static-rsc-4/IpFlAYacWj9gGyWKjAAB1A4xH7IZ_6pKBUPJjLQTX6vcClCvY_vPEvanrsTNgHh5iZUB6S387hkk2OUBlOgZtkVdYc0g1G0S-va6zni1TmhZjaGcycHHkX8lt-MqchWvukOC5AhFDea-lnJOW7Sb_MG2sJyLceF5IuQMbwFl0Yg?purpose=inline" /></p>
+<p>神经场与 3D Gaussian Splatting</p>
+<p>用学习到的连续场或高斯基元表示场景，常用于新视角合成和三维重建。</p>
+<p>林远问：</p>
+<p>“哪一种才是 World Model 应该使用的？”</p>
+<p>陈默摇头。</p>
+<p>“没有唯一答案。”</p>
+<p>“机器人导航可能更关注空间占据与可通行区域。”</p>
+<p>“机械臂操作可能更关注物体姿态和接触关系。”</p>
+<p>“视频生成模型可能根本不显式维护传统意义上的三维网格。”</p>
+<p>“世界模型的表示方式，取决于它要解决什么问题。”</p>
+<h2 id="_2">第四幕：世界模型与视频生成——看起来很像，目标却不同</h2>
+<p><img loading="lazy" decoding="async" alt="AI World Models: Consistent Physics-Aware Video Generation | Vidu AI" src="https://images.openai.com/static-rsc-4/t8iwW4rV0psNhOevRDnjqHgpL6PCb7wdSlmtaBvppFpzfkrtOh32E56K51rVHEVu-Sb3SDd_nBG__FmvXFYPhyUYWx-VoyG5viiywgVQY9sqTzZprOF-ocV_GZ7TjEZO3jkKaHpKyuFpIIu5xu4GcSfuv85LRae9_KkodXlH7tM?purpose=inline" /></p>
+<p><a href="https://www.vidu.com/tools/world-models">vidu.com</a></p>
+<p>林远打开了一个视频生成模型。</p>
+<p>输入提示词：</p>
+<blockquote>
+<p>一个玻璃杯从桌子边缘滑落，掉在地上摔碎。</p>
+</blockquote>
+<p>模型生成了一段非常逼真的视频。</p>
+<p>杯子滑动。</p>
+<p>掉落。</p>
+<p>撞击地面。</p>
+<p>玻璃碎裂。</p>
+<p>林远兴奋地说：</p>
+<p>“这不就是世界模型吗？”</p>
+<p>陈默没有立即回答。</p>
+<p>他把视频倒放了一遍。</p>
+<p>然后问：</p>
+<p>“这段视频很真实吗？”</p>
+<p>“很真实。”</p>
+<p>“那它的物理规律一定正确吗？”</p>
+<p>林远迟疑了。</p>
+<p>“不一定。”</p>
+<p>“对。”</p>
+<h3 id="1_2">1. 视频逼真不等于物理正确</h3>
+<p>视频生成模型通常学习视频数据中的时空统计规律。</p>
+<p>它可能学会：</p>
+<p>杯子掉落通常会向下运动。</p>
+<p>玻璃碰撞地面可能碎裂。</p>
+<p>水洒出来会向四周流动。</p>
+<p>但它也可能出现：</p>
+<p>物体突然变形。</p>
+<p>物体数量不守恒。</p>
+<p>接触关系错误。</p>
+<p>运动轨迹不合理。</p>
+<p>“模型能够生成视觉上合理的视频，并不意味着它拥有精确的物理模拟器。”</p>
+<p>陈默说。</p>
+<h3 id="2_3">2. 物理模拟器又是什么？</h3>
+<p>传统物理引擎通常显式使用物理规则计算物体运动。</p>
+<p>例如：</p>
+<p>[ F=ma ]</p>
+<p>[ v_{t+\Delta t}=v_t+a_t\Delta t ]</p>
+<p>[ x_{t+\Delta t}=x_t+v_t\Delta t ]</p>
+<p>“这些公式只是最基础的运动关系。”</p>
+<p>“实际物理引擎还要处理刚体碰撞、摩擦、约束、接触和数值稳定性。”</p>
+<p>林远说：</p>
+<p>“所以物理模拟器是按照已知规律计算，而学习型世界模型主要从数据中学习预测规律。”</p>
+<p>“这是一个有用的区分。”</p>
+<p>“不过两者可以结合，例如让神经网络预测难以显式建模的部分，再用物理引擎执行约束计算。”</p>
+<h3 id="3">3. 三种系统的区别</h3>
+<table>
+<thead>
+<tr>
+<th>系统</th>
+<th>主要目标</th>
+<th>核心能力</th>
+<th>典型局限</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>视频生成模型</td>
+<td>生成合理的视频</td>
+<td>视觉与时间连续性</td>
+<td>物理一致性未必可靠</td>
+</tr>
+<tr>
+<td>物理模拟器</td>
+<td>计算给定规则下的运动</td>
+<td>明确的动力学与约束</td>
+<td>难以覆盖真实世界全部复杂性</td>
+</tr>
+<tr>
+<td>World Model</td>
+<td>预测环境变化并支持决策</td>
+<td>状态表示、未来预测、规划</td>
+<td>数据偏差、误差累积</td>
+</tr>
+</tbody>
+</table>
+<p>陈默补充：</p>
+<p>“它们不是互斥的类别。”</p>
+<p>“一个视频预测模型可以成为世界模型的组成部分。”</p>
+<p>“一个世界模型也可以结合物理模拟器。”</p>
+<p>“关键要看系统能否可靠地回答：如果采取某个动作，环境会怎样变化？”</p>
+<h2 id="_3">第五幕：动作条件预测——世界模型真正的分水岭</h2>
+<p>林远重新打开玻璃杯视频。</p>
+<p>这次，他提出一个新要求。</p>
+<p>“如果机器人不是把杯子向左推，而是向右推呢？”</p>
+<p>视频生成模型又生成了一段视频。</p>
+<p>但陈默问：</p>
+<p>“这两段视频的差异，真的由动作控制了吗？”</p>
+<p>林远愣住。</p>
+<p>“难道不是？”</p>
+<p>“不一定。”</p>
+<p>“仅仅生成一段符合提示词的视频，不等于系统能在相同初始状态下可靠地比较不同动作的后果。”</p>
+<p>陈默在白板上写下：</p>
+<p>[ p(o_{t+1}\mid o_{\leq t},a_t) ]</p>
+<p>“这叫动作条件预测的一种表达方式。”</p>
+<p>“模型不仅接收过去的观测，还接收动作。”</p>
+<p>“它要学习的是，动作如何影响未来。”</p>
+<h3 id="1_3">1. 没有动作条件的预测</h3>
+<p>模型看到：</p>
+<blockquote>
+<p>杯子正在向桌边滑动。</p>
+</blockquote>
+<p>预测：</p>
+<blockquote>
+<p>杯子可能掉落。</p>
+</blockquote>
+<p>这是对自然演化的预测。</p>
+<h3 id="2_4">2. 有动作条件的预测</h3>
+<p>模型看到：</p>
+<blockquote>
+<p>杯子静止在桌上。</p>
+</blockquote>
+<p>同时输入动作：</p>
+<blockquote>
+<p>机械臂向左推动 5 厘米。</p>
+</blockquote>
+<p>预测：</p>
+<blockquote>
+<p>杯子向左移动，并可能接近桌边。</p>
+</blockquote>
+<p>换一个动作：</p>
+<blockquote>
+<p>机械臂向右推动 5 厘米。</p>
+</blockquote>
+<p>预测：</p>
+<blockquote>
+<p>杯子向右移动，远离桌边。</p>
+</blockquote>
+<p>“这样，系统就可以比较不同动作的预期结果。”</p>
+<p>陈默说。</p>
+<p>“这为规划提供了基础。”</p>
+<h3 id="3_1">3. 在脑海中试错</h3>
+<p>林远突然兴奋起来。</p>
+<p>“那机器人是不是可以先模拟一百种动作？”</p>
+<p>“然后选择最好的？”</p>
+<p>“理论上可以采用类似策略。”</p>
+<p>陈默写下：</p>
+<p>[ a^*=\arg\max_a \mathbb{E}[R(\hat s_{t+1})\mid s_t,a] ]</p>
+<p>“这里的 (R) 表示目标收益。”</p>
+<p>“例如，让杯子移动到指定位置，同时避免碰撞。”</p>
+<p>“但实际规划可能需要考虑多步动作序列，而不是只看下一步。”</p>
+<p>这就引出了一个重要方法：</p>
+<p>Model Predictive Control，模型预测控制。</p>
+<h2 id="mpc">第六幕：MPC——先预测，再行动，再修正</h2>
+<p><img loading="lazy" decoding="async" alt="Black Forest Labs učí roboty chápat svět a plánovat další pohyb | Jarvis AI" src="https://images.openai.com/static-rsc-4/LVAYzVvkKzutpyiiS8qTt-ys1FIbgT4_Nww8y4uQae-tJMEvXixsP4Efe9B1ujjs79RjtRva-2Vl3qhdiwz8g7HQY5msBY6tJm7hDFxJP7fAP7aJku3nhkanb62nqMs9R-AnqO2ke9OUF3jNdxMjpeV7DD_XJ5WAoy4zjprNNNs?purpose=inline" /></p>
+<p><a href="https://www.jarvis-ai.cz/black-forest-labs-uci-roboty-chapat-svet-planovat-dalsi-pohyb">jarvis-ai.cz</a></p>
+<p>陈默给林远展示了一套机械臂控制系统。</p>
+<p>机械臂需要把杯子从桌子左侧移动到右侧。</p>
+<p>系统首先生成多个候选动作序列。</p>
+<p>然后使用模型预测每个序列的结果。</p>
+<p>选出最优方案。</p>
+<p>但它不会一次性执行完整个方案。</p>
+<p>它只执行前面一小步。</p>
+<p>随后重新观察世界，再规划下一步。</p>
+<p>林远问：</p>
+<p>“为什么不直接执行全部动作？”</p>
+<p>陈默回答：</p>
+<p>“因为预测会出错。”</p>
+<p>“现实环境也可能发生变化。”</p>
+<p>“所以我们要不断利用真实观测纠正模型。”</p>
+<p>观察当前状态</p>
+<p>预测多个动作序列的未来结果</p>
+<p>选择最优动作序列</p>
+<p>只执行当前一小步</p>
+<p>重新观察并滚动规划</p>
+<p>“这就是滚动时域优化的基本思想。”</p>
+<p>陈默说。</p>
+<p>“它在机器人、自动驾驶和工业控制中都有重要应用。”</p>
+<p>“但具体控制频率、预测模型和安全约束，需要根据任务设计。”</p>
+<p>林远思考了一会儿。</p>
+<p>“这和 Agent 的 ReAct 循环有点像。”</p>
+<p>“哪里像？”</p>
+<p>“都是观察、决策、执行、再观察。”</p>
+<p>“非常好。”</p>
+<p>陈默点头。</p>
+<p>“只是机器人面对的是连续物理世界，而 Coding Agent 主要面对离散的软件环境。”</p>
+<p>“它们的共同点，是都需要在行动后利用反馈修正决策。”</p>
+<h2 id="ai_2">第七幕：具身智能——AI 终于拥有身体</h2>
+<p><img loading="lazy" decoding="async" alt="新知 - 大圆镜｜给机器人装“隐形眼睛”，0.9B参数搞定精细操作" src="https://images.openai.com/static-rsc-4/stXfwk5PebF3vyR7-79Rv7p1fnlFqwaMXRdLlpAIx_OrU-QYn6VJJw0SFrrxufZBr1pUBnajc99llzZp3e9jS96WXX3kEoEHhVHY_kTut4l1HHxkeH83xln__JyZLaf-4C3qx2dEKresMjtAm5f-xsp6J1Igkri7X8w7dhPLk2Q?purpose=inline" /></p>
+<p><a href="https://www.dyj.live/knowledge/story_id-gm_explore-261ef621-4c96-5bb6-878a-a257b0c3675e">dyj.live</a></p>
+<p>一个月后。</p>
+<p>林远来到一家机器人实验室。</p>
+<p>实验室里有一台双臂机器人。</p>
+<p>它正在学习把杯子放进洗碗机。</p>
+<p>第一次尝试，失败。</p>
+<p>第二次尝试，杯子掉落。</p>
+<p>第三次尝试，机械臂碰到了洗碗机门。</p>
+<p>第四次尝试，终于成功。</p>
+<p>林远问：</p>
+<p>“为什么这比让 LLM 写一段 Java 代码难这么多？”</p>
+<p>陈默回答：</p>
+<p>“因为代码世界和物理世界的反馈性质不同。”</p>
+<p>“代码执行通常有相对明确的接口、错误信息和测试结果。”</p>
+<p>“而机器人需要面对连续空间、传感器噪声、接触力、摩擦、硬件延迟和真实物理风险。”</p>
+<h3 id="1_4">1. 什么是具身智能？</h3>
+<p>具身智能，Embodied AI，强调智能体通过身体与环境进行感知和行动。</p>
+<p>它不仅需要回答：</p>
+<blockquote>
+<p>桌子上有什么？</p>
+</blockquote>
+<p>还需要完成：</p>
+<blockquote>
+<p>把桌子上的杯子拿起来。</p>
+</blockquote>
+<p>这要求系统具备多种能力：</p>
+<p>感知物体位置。</p>
+<p>理解空间关系。</p>
+<p>规划运动轨迹。</p>
+<p>控制机械臂。</p>
+<p>利用触觉或视觉反馈修正动作。</p>
+<p>“所以具身智能不是给语言模型装上一个机器人外壳。”</p>
+<p>陈默说。</p>
+<p>“它涉及感知、规划、控制、学习与硬件系统的深度结合。”</p>
+<h3 id="2_5">2. 机器人为什么需要多种传感器？</h3>
+<p>林远看着机器人。</p>
+<p>“它已经有摄像头了，为什么还需要触觉传感器？”</p>
+<p>陈默拿起一个玻璃杯。</p>
+<p>“假设你闭上眼睛，拿着杯子。”</p>
+<p>“你怎么知道自己有没有握紧？”</p>
+<p>“通过手指感受到的压力。”</p>
+<p>“对。”</p>
+<p>“仅靠视觉，很难准确判断所有接触力。”</p>
+<p>机器人可能使用：</p>
+<ul>
+<li>
+<p>RGB 摄像头</p>
+</li>
+<li>
+<p>深度相机</p>
+</li>
+<li>
+<p>力矩传感器</p>
+</li>
+<li>
+<p>触觉传感器</p>
+</li>
+<li>
+<p>关节编码器</p>
+</li>
+<li>
+<p>IMU 惯性测量单元</p>
+</li>
+</ul>
+<p>“这些传感器提供不同类型的信息。”</p>
+<p>“系统需要把它们融合起来，才能更可靠地控制身体。”</p>
+<h2 id="vla">第八幕：VLA——视觉、语言与动作终于连接起来</h2>
+<p>林远继续观察机器人。</p>
+<p>工程师对机器人说：</p>
+<blockquote>
+<p>把桌子上的红色杯子放进右边的篮子。</p>
+</blockquote>
+<p>机器人先观察桌面。</p>
+<p>识别红色杯子。</p>
+<p>然后伸出机械臂。</p>
+<p>抓取。</p>
+<p>移动。</p>
+<p>放下。</p>
+<p>林远问：</p>
+<p>“这是不是把视觉模型、LLM 和机械臂控制器拼起来？”</p>
+<p>陈默回答：</p>
+<p>“可以采用模块化方案，但还有另一条重要路线。”</p>
+<p>Vision-Language-Action，VLA。</p>
+<h3 id="1-vla">1. VLA 的基本思想</h3>
+<p>VLA 模型尝试把视觉观测、语言指令与机器人动作联系起来。</p>
+<p>简化形式：</p>
+<p>[ a_t=\pi_\theta(o_t,l,h_t) ]</p>
+<p>其中：</p>
+<ul>
+<li>
+<p>(o_t)：视觉或其他传感器观测</p>
+</li>
+<li>
+<p>(l)：语言任务指令</p>
+</li>
+<li>
+<p>(h_t)：历史信息</p>
+</li>
+<li>
+<p>(a_t)：输出动作</p>
+</li>
+</ul>
+<p>林远问：</p>
+<p>“它输出的是文字吗？”</p>
+<p>“不一定。”</p>
+<p>“它可以输出动作 Token、关节目标、末端执行器位姿，或者一段动作序列。”</p>
+<p>“具体取决于模型设计和机器人控制接口。”</p>
+<h3 id="2-token-token">2. 从语言 Token 到动作 Token</h3>
+<p>陈默写下：</p>
+<p>传统语言模型：</p>
+<pre><code>输入：解释如何拿起杯子
+输出：先靠近杯子，然后抓取……
+</code></pre>
+<p>VLA 系统：</p>
+<pre><code>输入：
+视觉观测 + “拿起红色杯子”
+
+输出：
+机械臂末端目标位置
+夹爪开合动作
+后续动作序列
+</code></pre>
+<p>“语言模型会告诉你应该怎么做。”</p>
+<p>“VLA 则尝试直接生成可以被机器人执行的动作表示。”</p>
+<p>林远点头。</p>
+<p>“这就是从理解指令到执行动作。”</p>
+<h3 id="3-vla-world-model">3. VLA 与 World Model 的区别</h3>
+<p>陈默问：</p>
+<p>“VLA 一定需要显式世界模型吗？”</p>
+<p>林远想了一下。</p>
+<p>“不一定？”</p>
+<p>“对。”</p>
+<p>“有些 VLA 可以直接从观测映射到动作。”</p>
+<p>“有些系统则把世界模型用于预测和规划，再由控制策略执行。”</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>VLA</th>
+<th>World Model</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>核心问题</td>
+<td>当前应该做什么动作？</td>
+<td>某个动作会导致什么结果？</td>
+</tr>
+<tr>
+<td>主要输出</td>
+<td>动作或动作序列</td>
+<td>未来状态、观测或特征</td>
+</tr>
+<tr>
+<td>典型用途</td>
+<td>机器人操作</td>
+<td>预测、规划、仿真</td>
+</tr>
+<tr>
+<td>是否必须结合</td>
+<td>不必须</td>
+<td>不必须</td>
+</tr>
+<tr>
+<td>组合价值</td>
+<td>用预测结果改善动作选择</td>
+<td>为策略提供未来信息</td>
+</tr>
+</tbody>
+</table>
+<p>陈默总结：</p>
+<p>“VLA 更接近行动策略。”</p>
+<p>“World Model 更接近环境预测。”</p>
+<p>“它们可以组合，但不能直接画等号。”</p>
+<h2 id="_4">第九幕：世界模型如何训练？</h2>
+<p>夜里十一点。</p>
+<p>林远回到办公室。</p>
+<p>他打开训练脚本。</p>
+<p>“陈工，既然世界模型需要预测未来，我们是不是只要收集大量视频就行？”</p>
+<p>陈默摇头。</p>
+<p>“视频很重要，但还不够。”</p>
+<h3 id="1_5">1. 被动观察数据</h3>
+<p>最简单的训练方式之一，是从视频中学习未来预测。</p>
+<p>例如：</p>
+<p>输入过去几帧。</p>
+<p>预测下一帧，或预测未来的潜在特征。</p>
+<pre><code>Frame 1
+Frame 2
+Frame 3
+   ↓
+World Model
+   ↓
+Predicted Frame 4
+</code></pre>
+<p>这种训练可以帮助模型学习运动和时间结构。</p>
+<p>但存在一个问题。</p>
+<p>“什么问题？”林远问。</p>
+<p>“如果你没有记录动作，模型就很难区分某个变化是由什么行动引起的。”</p>
+<h3 id="2_6">2. 动作条件数据</h3>
+<p>因此，机器人世界模型往往需要这样的数据：</p>
+<pre><code>当前观测
+   +
+机器人执行的动作
+   +
+执行后的观测
+</code></pre>
+<p>例如：</p>
+<pre><code>{
+  &quot;observation&quot;: &quot;杯子位于桌子中央&quot;,
+  &quot;action&quot;: &quot;机械臂向左推动 5 厘米&quot;,
+  &quot;nextObservation&quot;: &quot;杯子向左移动&quot;
+}
+</code></pre>
+<p>“这类数据能帮助模型学习动作与状态变化之间的关系。”</p>
+<p>陈默说。</p>
+<p>“不过要注意，观察数据中的相关性不一定等于因果关系。”</p>
+<p>“模型能否在新环境中可靠预测动作后果，需要专门评估。”</p>
+<h3 id="3_2">3. 模拟环境训练</h3>
+<p>林远问：</p>
+<p>“真实机器人采集数据太贵了，怎么办？”</p>
+<p>陈默回答：</p>
+<p>“可以使用仿真。”</p>
+<p>在模拟环境中，机器人可以反复尝试。</p>
+<p>失败不会摔坏真实设备。</p>
+<p>也更容易生成大量训练轨迹。</p>
+<p>但这里有一个经典问题：</p>
+<p>Sim-to-Real Gap，仿真到现实的差距。</p>
+<p>仿真中的摩擦、接触、光照和传感器噪声，不可能与现实完全一致。</p>
+<p>因此，模型在模拟环境里表现优秀，不意味着直接部署到现实就一定可靠。</p>
+<h2 id="_5">第十幕：世界模型的致命弱点——预测越远，错误越大</h2>
+<p><img loading="lazy" decoding="async" alt="The Future is AI's Proof of Work | Back Alley Coder" src="https://images.openai.com/static-rsc-4/rpnW0MeJiJph00u6qn950PK9GK536hE2y_P7nXjTDZuJ0dzjgriBnQkiD5sv6SAFQO-wLHxFr_fYnSbwQolCrxNyDurPIJwdA5WL8RVR__OrXUwx6bCR-B4_usjL0nr0d6O1aWjr0D5pyZURavav-P2YIZoh8AQUPSQtsDPGshw?purpose=inline" /></p>
+<p><a href="https://backalleycoder.com/posts/the-future-is-ai-proof-of-work/">backalleycoder.com</a></p>
+<p>林远终于训练出了自己的第一版世界模型。</p>
+<p>它能够预测机械臂推动杯子后的短期运动。</p>
+<p>第一步预测，很准确。</p>
+<p>第二步预测，也不错。</p>
+<p>第五步，开始出现偏差。</p>
+<p>第十步，杯子的位置明显错误。</p>
+<p>第二十步，杯子甚至穿过了桌面。</p>
+<p>林远皱起眉头。</p>
+<p>“为什么短期预测这么好，长期预测却越来越差？”</p>
+<p>陈默回答：</p>
+<p>“因为预测误差会累积。”</p>
+<h3 id="1_6">1. 误差累积</h3>
+<p>假设模型每一步预测都存在一点误差。</p>
+<p>下一步预测又依赖上一步的预测结果。</p>
+<p>那么，误差可能逐渐扩大。</p>
+<p>这被称为多步滚动预测中的误差累积。</p>
+<p>“尤其在接触、碰撞和不稳定运动中，小误差可能造成完全不同的结果。”</p>
+<p>陈默说。</p>
+<p>“例如杯子到底有没有碰到桌边，可能决定它是继续留在桌上，还是直接掉落。”</p>
+<h3 id="2_7">2. 不确定性比单一答案更重要</h3>
+<p>林远问：</p>
+<p>“那是不是应该让模型输出多个未来？”</p>
+<p>“这是重要方向之一。”</p>
+<p>同一个初始状态和动作，可能产生多种结果。</p>
+<p>例如，机器人抓杯子：</p>
+<ul>
+<li>
+<p>成功抓起</p>
+</li>
+<li>
+<p>杯子滑落</p>
+</li>
+<li>
+<p>杯子倾斜</p>
+</li>
+<li>
+<p>夹爪未接触到杯子</p>
+</li>
+</ul>
+<p>如果模型只输出一个最可能的未来，可能掩盖风险。</p>
+<p>因此，一些世界模型会尝试预测未来状态的分布，而不是唯一确定的结果。</p>
+<p>陈默说：</p>
+<p>“真正安全的系统，不应该只问最可能发生什么。”</p>
+<p>“还要问：最坏可能发生什么，以及模型有多不确定。”</p>
+<h2 id="_6">第十一幕：从机器人世界模型到软件世界模型</h2>
+<p>林远突然提出一个问题。</p>
+<p>“陈工，World Model 一定要用于机器人吗？”</p>
+<p>陈默看了他一眼。</p>
+<p>“为什么这么问？”</p>
+<p>“因为我们做的是 Coding Agent。”</p>
+<p>“它也需要预测执行某个动作之后，软件系统会发生什么。”</p>
+<p>陈默笑了。</p>
+<p>“你终于把今天的知识和自己的工程联系起来了。”</p>
+<h3 id="1-coding-agent">1. Coding Agent 也需要预测行动后果</h3>
+<p>假设 Coding Agent 准备修改一个 Java 方法。</p>
+<p>它需要判断：</p>
+<p>修改方法签名，会不会影响其他调用方？</p>
+<p>增加数据库索引，会不会影响写入性能？</p>
+<p>调整线程池参数，会不会造成资源竞争？</p>
+<p>删除一个配置项，会不会影响生产环境？</p>
+<p>“这些问题，本质上都涉及对行动后果的预测。”</p>
+<p>陈默说。</p>
+<p>“但这里要区分广义的环境模型思想和狭义的、经过专门训练的 World Model。”</p>
+<p>“一个 Coding Agent 利用代码分析、测试和历史经验推测修改影响，并不意味着它内部已经拥有机器人研究意义上的世界模型。”</p>
+<h3 id="2_8">2. 软件世界中的行动闭环</h3>
+<p>观察代码仓库</p>
+<p>预测修改影响</p>
+<p>依赖关系、测试风险、行为变化</p>
+<p>在隔离工作区执行修改</p>
+<p>运行编译、测试和静态分析</p>
+<p>根据真实反馈修正下一步</p>
+<p>林远说：</p>
+<p>“所以单纯预测还不够。”</p>
+<p>“需要执行和验证。”</p>
+<p>“没错。”</p>
+<p>“尤其在软件工程里，编译器、测试框架和静态分析器能提供相对可靠的反馈。”</p>
+<p>“相比完全依赖模型想象代码修改后的结果，直接运行测试往往更有价值。”</p>
+<h2 id="_7">第十二幕：世界模型不是万能的</h2>
+<p>实验室终于完成了新一轮机器人测试。</p>
+<p>机械臂成功抓起玻璃杯。</p>
+<p>缓慢移动。</p>
+<p>放到指定位置。</p>
+<p>林远兴奋地鼓掌。</p>
+<p>但陈默并没有宣布胜利。</p>
+<p>他拿来一个形状不同的杯子。</p>
+<p>机器人抓取失败。</p>
+<p>换成装满水的杯子。</p>
+<p>机器人又出现了偏差。</p>
+<p>陈默问：</p>
+<p>“为什么？”</p>
+<p>林远回答：</p>
+<p>“因为训练数据覆盖不够。”</p>
+<p>“还有呢？”</p>
+<p>“物体材质、重量、摩擦、光照、传感器误差，都可能造成分布变化。”</p>
+<p>陈默点头。</p>
+<p>“这就是世界模型面临的现实限制。”</p>
+<p>它可能存在：</p>
+<p>泛化问题。 在训练环境中有效，换到新环境就失效。</p>
+<p>物理一致性问题。 预测结果看起来合理，却违反真实物理约束。</p>
+<p>长期误差累积。 预测步数越多，不确定性可能越大。</p>
+<p>部分可观测性。 仅靠当前传感器无法确定全部环境状态。</p>
+<p>行动安全问题。 错误预测可能造成真实物理损害。</p>
+<p>评测困难。 视频逼真度、预测准确率和实际任务成功率不是同一个指标。</p>
+<p>“所以真正的机器人系统仍然需要安全约束、反馈控制、异常检测和必要的人工监督。”</p>
+<p>陈默说。</p>
+<p>“世界模型可以提高规划能力，但不能替代整个控制系统。”</p>
+<h2 id="_8">第十三幕：一次真正的觉醒</h2>
+<p><img loading="lazy" decoding="async" alt="AIの目と脳がロボットを動かす！VLAモデル最新トレンドが描く未来｜さーもん" src="https://images.openai.com/static-rsc-4/SssdT4Z1tsWPjpR-gN53H77UrIgQw9eD-orwqckNYvCy2qvu7geM1smo82xao4cYs68tRvd8RLerlzrRP1KdpDT0A4NiBmDZYNa2uv0pHMiogI065UPTYAIk98mAZuj8eVc8Wjm4mIXZGNzZedLjrj_m3gDPCDnihB04ndpDT3g?purpose=inline" /></p>
+<p><a href="https://note.com/samon_daisuki/n/na25366d516c7">note.com</a></p>
+<p>清晨六点。</p>
+<p>实验室窗外，第一缕阳光照了进来。</p>
+<p>林远重新启动机械臂。</p>
+<p>这一次，机器人没有立即抓取杯子。</p>
+<p>它先观察。</p>
+<p>随后尝试预测不同抓取位置可能造成的结果。</p>
+<p>系统发现：</p>
+<p>从杯口附近抓取，稳定性较差。</p>
+<p>从杯身中部抓取，更有可能成功。</p>
+<p>于是，它调整夹爪位置。</p>
+<p>缓慢接近。</p>
+<p>轻轻闭合。</p>
+<p>杯子被稳稳抓起。</p>
+<p>然后，机械臂移动到目标位置。</p>
+<p>放下。</p>
+<p>任务完成。</p>
+<p>林远看着屏幕上的执行日志。</p>
+<pre><code>目标：移动玻璃杯
+
+环境观测：完成
+候选动作预测：完成
+风险评估：完成
+动作执行：完成
+反馈校正：完成
+
+最终状态：SUCCESS
+</code></pre>
+<p>他沉默了很久。</p>
+<p>“陈工，我现在明白了。”</p>
+<p>“以前，我们教 AI 识别世界。”</p>
+<p>“后来，我们教 AI 用语言描述世界。”</p>
+<p>“现在，我们希望它能够预测世界。”</p>
+<p>“再往后，我们希望它能够在世界中安全行动。”</p>
+<p>陈默点头。</p>
+<p>“这就是从感知到行动的演进。”</p>
+<p>他走到白板前，写下最后一行字：</p>
+<p>感知世界 → 表示世界 → 预测世界 → 规划行动 → 与世界交互</p>
+<p>“但记住。”</p>
+<p>“真正的智能，不是一次预测永远正确。”</p>
+<p>“而是在预测不确定、环境不断变化的情况下，仍然能够通过反馈持续修正自己的行动。”</p>
+<h2 id="_9">第七章：技术归档</h2>
+<table>
+<thead>
+<tr>
+<th>技术</th>
+<th>核心问题</th>
+<th>典型应用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>图像分类</td>
+<td>这是什么？</td>
+<td>物体识别</td>
+</tr>
+<tr>
+<td>目标检测</td>
+<td>物体在哪里？</td>
+<td>场景感知</td>
+</tr>
+<tr>
+<td>三维重建</td>
+<td>空间结构是什么？</td>
+<td>机器人定位、场景建模</td>
+</tr>
+<tr>
+<td>World Model</td>
+<td>环境将如何变化？</td>
+<td>预测、规划</td>
+</tr>
+<tr>
+<td>Action-conditioned Prediction</td>
+<td>某个动作会导致什么？</td>
+<td>机器人操作</td>
+</tr>
+<tr>
+<td>视频生成模型</td>
+<td>生成什么样的未来画面？</td>
+<td>视频合成、预测</td>
+</tr>
+<tr>
+<td>物理模拟器</td>
+<td>已知物理规则下如何运动？</td>
+<td>仿真、控制</td>
+</tr>
+<tr>
+<td>MPC</td>
+<td>如何滚动预测和行动？</td>
+<td>机器人、自动驾驶</td>
+</tr>
+<tr>
+<td>Embodied AI</td>
+<td>如何通过身体与环境交互？</td>
+<td>具身智能</td>
+</tr>
+<tr>
+<td>VLA</td>
+<td>如何从视觉和语言生成动作？</td>
+<td>机器人策略</td>
+</tr>
+<tr>
+<td>Sim-to-Real</td>
+<td>仿真经验如何迁移现实？</td>
+<td>机器人训练</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_10">本章最重要的五个结论</h3>
+<p>第一：识别世界不等于理解世界的变化。</p>
+<p>图像分类和目标检测回答的是当前画面中的信息，而世界模型进一步关注环境状态及其演化。</p>
+<p>第二：World Model 的核心是预测。</p>
+<p>尤其是动作条件预测：如果采取某个动作，未来可能发生什么。</p>
+<p>第三：视频生成、物理模拟和世界模型有联系，但不能画等号。</p>
+<p>视频逼真不保证物理正确，物理模拟也不自动拥有从复杂观测中学习和泛化的能力。</p>
+<p>第四：VLA 与 World Model 可以相互补充。</p>
+<p>VLA 负责生成动作，世界模型可以帮助评估动作后果。</p>
+<p>第五：预测必须与真实反馈结合。</p>
+<p>无论机器人还是 Coding Agent，可靠执行都不能只依赖模型对未来的想象。</p></article><nav class="chapter-nav" aria-label="章节切换"><a href="chapter-06.html">← 上一章</a><a href="chapter-08.html">下一章 →</a></nav></main></div><footer>AI 纪元 · 从语言模型到智能体文明<br><small>小说式技术科普 · 技术案例保留原文，未逐条核实</small></footer></body></html>
