@@ -1,4 +1,4 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="AI 纪元：从语言模型到智能体文明，十二章小说式技术科普。"><title>AI 开始听见和看见世界 · AI 纪元</title><link rel="stylesheet" href="style.css"><script src="app.js" defer></script></head><body class="reading"><header><a class="brand" href="index.html">AI 纪元<span>THE AI ERA</span></a><div class="controls"><button id="smaller" aria-label="缩小字号">A−</button><button id="larger" aria-label="增大字号">A＋</button><button id="theme" aria-label="切换深浅色">◐</button></div></header><div class="reader-layout"><aside><a href="index.html">← 全书目录</a><p class="eyebrow">本章导航</p><div class="toc">
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="AI 纪元：从语言模型到智能体文明，十二章小说式技术科普。"><title>AI 开始听见和看见世界 · AI 纪元</title><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="repairs.css"><script src="app.js" defer></script><script src="demos.js" defer></script></head><body class="reading"><header><a class="brand" href="index.html">AI 纪元<span>THE AI ERA</span></a><div class="controls"><button id="smaller" aria-label="缩小字号">A−</button><button id="larger" aria-label="增大字号">A＋</button><button id="theme" aria-label="切换深浅色">◐</button></div></header><div class="reader-layout"><aside><a href="index.html">← 全书目录</a><p class="eyebrow">本章导航</p><div class="toc">
 <ul>
 <li><a href="#_1">第一幕：三个工厂组成的语音助手</a><ul>
 <li><a href="#1-asr">1. ASR：把声音变成文字</a></li>
@@ -252,7 +252,7 @@ AI 语音回答
 <p>“模型生成速度慢？”</p>
 <p>“只是其中一个原因。”</p>
 <p>陈默写下一条公式：</p>
-<p>[ T_{\text{response}} = T_{\text{endpoint}} + T_{\text{ASR}} + T_{\text{LLM}} + T_{\text{TTS}} + T_{\text{network}} ]</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>T</mi><mtext>response</mtext></msub><mo>=</mo><msub><mi>T</mi><mtext>endpoint</mtext></msub><mo>+</mo><msub><mi>T</mi><mtext>ASR</mtext></msub><mo>+</mo><msub><mi>T</mi><mtext>LLM</mtext></msub><mo>+</mo><msub><mi>T</mi><mtext>TTS</mtext></msub><mo>+</mo><msub><mi>T</mi><mtext>network</mtext></msub></mrow><annotation encoding="application/x-tex"> T_{\text{response}} = T_{\text{endpoint}} + T_{\text{ASR}} + T_{\text{LLM}} + T_{\text{TTS}} + T_{\text{network}} </annotation></semantics></math></span></p>
 <p>“这里是一个简化模型。实际流水线可以重叠执行，所以不一定完全相加。”</p>
 <p>“我们做一个假设。”</p>
 <table>
@@ -658,7 +658,7 @@ AI 输出音频：       █████████████
 <p>而视频是一系列随时间变化的画面。</p>
 <p>假设每秒 30 帧。</p>
 <p>一分钟就有：</p>
-<p>[ 30\times60=1800 ]</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mn>30</mn><mo>×</mo><mn>60</mn><mo>=</mo><mn>1800</mn></mrow><annotation encoding="application/x-tex"> 30\times60=1800 </annotation></semantics></math></span></p>
 <p>帧。</p>
 <p>如果把每一帧都完整送进视觉模型，计算和传输成本可能很高。</p>
 <p>林远问：</p>

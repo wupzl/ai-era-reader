@@ -1,4 +1,4 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="AI 纪元：从语言模型到智能体文明，十二章小说式技术科普。"><title>扩散语言模型的叛乱 · AI 纪元</title><link rel="stylesheet" href="style.css"><script src="app.js" defer></script></head><body class="reading"><header><a class="brand" href="index.html">AI 纪元<span>THE AI ERA</span></a><div class="controls"><button id="smaller" aria-label="缩小字号">A−</button><button id="larger" aria-label="增大字号">A＋</button><button id="theme" aria-label="切换深浅色">◐</button></div></header><div class="reader-layout"><aside><a href="index.html">← 全书目录</a><p class="eyebrow">本章导航</p><div class="toc">
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="AI 纪元：从语言模型到智能体文明，十二章小说式技术科普。"><title>扩散语言模型的叛乱 · AI 纪元</title><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="repairs.css"><script src="app.js" defer></script><script src="demos.js" defer></script></head><body class="reading"><header><a class="brand" href="index.html">AI 纪元<span>THE AI ERA</span></a><div class="controls"><button id="smaller" aria-label="缩小字号">A−</button><button id="larger" aria-label="增大字号">A＋</button><button id="theme" aria-label="切换深浅色">◐</button></div></header><div class="reader-layout"><aside><a href="index.html">← 全书目录</a><p class="eyebrow">本章导航</p><div class="toc">
 <ul>
 <li><a href="#_1">第一幕：一个无法打破的顺序</a><ul>
 <li><a href="#1">1. 自回归模型的规则</a></li>
@@ -106,7 +106,7 @@
 <p>“对。你可以把它想象成一个非常聪明，但必须从左往右写字的作家。”</p>
 <h3 id="1">1. 自回归模型的规则</h3>
 <p>陈默在白板上写下：</p>
-<p>[ P(x_1,\ldots,x_n)=\prod_{t=1}^{n}P(x_t\mid x_1,\ldots,x_{t-1}) ]</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>P</mi><mo stretchy="false">(</mo><msub><mi>x</mi><mn>1</mn></msub><mo separator="true">,</mo><mo>…</mo><mo separator="true">,</mo><msub><mi>x</mi><mi>n</mi></msub><mo stretchy="false">)</mo><mo>=</mo><munderover><mo>∏</mo><mrow><mi>t</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><mi>P</mi><mo stretchy="false">(</mo><msub><mi>x</mi><mi>t</mi></msub><mo>∣</mo><msub><mi>x</mi><mn>1</mn></msub><mo separator="true">,</mo><mo>…</mo><mo separator="true">,</mo><msub><mi>x</mi><mrow><mi>t</mi><mo>−</mo><mn>1</mn></mrow></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex"> P(x_1,\ldots,x_n)=\prod_{t=1}^{n}P(x_t\mid x_1,\ldots,x_{t-1}) </annotation></semantics></math></span></p>
 <p>“假设模型要生成一句话：”</p>
 <blockquote>
 <p>今天的天气非常好。</p>
@@ -251,8 +251,8 @@
 </li>
 </ol>
 <p>模型学习的是类似下面的条件分布：</p>
-<p>[ p_\theta(x_{\text{masked}}\mid x_{\text{visible}},t) ]</p>
-<p>这里的 (t) 表示噪声水平或扩散阶段。</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>p</mi><mi>θ</mi></msub><mo stretchy="false">(</mo><msub><mi>x</mi><mtext>masked</mtext></msub><mo>∣</mo><msub><mi>x</mi><mtext>visible</mtext></msub><mo separator="true">,</mo><mi>t</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex"> p_\theta(x_{\text{masked}}\mid x_{\text{visible}},t) </annotation></semantics></math></span></p>
+<p>这里的 <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span> 表示噪声水平或扩散阶段。</p>
 <p>与标准自回归模型不同，掩码位置的预测可以利用左右两侧已经可见的上下文。</p>
 <p>不过，在生成阶段，如果多个位置同时预测，仍可能出现相互矛盾的问题。</p>
 <p>因此，模型通常需要多轮修正、重新掩码或者逐步确定部分 Token。</p>
@@ -275,14 +275,7 @@
 <p>假设要生成 1,000 个 Token。</p>
 <p>传统自回归模型需要约 1,000 次顺序解码步骤（不考虑特殊的并行解码优化）。</p>
 <p>而某个假想的扩散模型，可以一次处理一个 1,000 Token 的候选块，并进行 20 轮精炼。</p>
-<p>假设性的顺序步骤对比</p>
-<p>自回归</p>
-<h1 id="1000">1,000</h1>
-<p>顺序解码步骤</p>
-<p>假想扩散方案</p>
-<h1 id="20">20</h1>
-<p>精炼轮次</p>
-<p>这是教学假设，不是 Mercury 的实测性能。每一步的计算量不同，不能由步骤数直接推导出加速倍数。</p>
+<section class="demo" data-demo="diffusion" aria-label="生成轮次比较"><h3>生成轮次比较</h3><label>输出 Token 数<input aria-label="输出 Token 数" data-field="tokens" type="range" min="100" max="4000" step="100" value="1000"></label><label>扩散精炼轮数<input aria-label="扩散精炼轮数" data-field="rounds" type="range" min="1" max="100" step="1" value="20"></label><div class="demo-result" aria-live="polite"><div><span>自回归顺序步骤</span><strong data-value="tokens">1,000</strong></div><div><span>扩散精炼轮数</span><strong data-value="rounds">20</strong></div></div><p class="demo-note">按原文参数重建的教学演示。只比较顺序轮次，不代表 Mercury 实测性能；每轮成本不同，轮次比不能等同于加速比。</p></section>
 <p>林远兴奋地说：</p>
 <p>“那岂不是快了 50 倍？”</p>
 <p>陈默摇头。</p>

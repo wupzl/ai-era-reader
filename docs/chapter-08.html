@@ -1,4 +1,4 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="AI 纪元：从语言模型到智能体文明，十二章小说式技术科普。"><title>把大模型塞进口袋 · AI 纪元</title><link rel="stylesheet" href="style.css"><script src="app.js" defer></script></head><body class="reading"><header><a class="brand" href="index.html">AI 纪元<span>THE AI ERA</span></a><div class="controls"><button id="smaller" aria-label="缩小字号">A−</button><button id="larger" aria-label="增大字号">A＋</button><button id="theme" aria-label="切换深浅色">◐</button></div></header><div class="reader-layout"><aside><a href="index.html">← 全书目录</a><p class="eyebrow">本章导航</p><div class="toc">
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="AI 纪元：从语言模型到智能体文明，十二章小说式技术科普。"><title>把大模型塞进口袋 · AI 纪元</title><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="repairs.css"><script src="app.js" defer></script><script src="demos.js" defer></script></head><body class="reading"><header><a class="brand" href="index.html">AI 纪元<span>THE AI ERA</span></a><div class="controls"><button id="smaller" aria-label="缩小字号">A−</button><button id="larger" aria-label="增大字号">A＋</button><button id="theme" aria-label="切换深浅色">◐</button></div></header><div class="reader-layout"><aside><a href="index.html">← 全书目录</a><p class="eyebrow">本章导航</p><div class="toc">
 <ul>
 <li><a href="#_1">第一幕：云端帝国的四道枷锁</a><ul>
 <li><a href="#_2">第一条枷锁：网络延迟</a></li>
@@ -69,8 +69,7 @@
 <li><a href="#4">4. 交互式内存估算器</a></li>
 </ul>
 </li>
-<li><a href="#_15">端侧模型内存实验室</a></li>
-<li><a href="#_16">第十二幕：小模型真的能打败大模型吗？</a><ul>
+<li><a href="#_15">第十二幕：小模型真的能打败大模型吗？</a><ul>
 <li><a href="#1_5">1. 小模型的三种优势</a></li>
 </ul>
 </li>
@@ -78,9 +77,9 @@
 <li><a href="#1_6">1. 端侧系统需要考虑更多约束</a></li>
 </ul>
 </li>
-<li><a href="#_17">第十四幕：把智能真正装进设备</a></li>
-<li><a href="#_18">第八章：技术归档</a><ul>
-<li><a href="#_19">本章最重要的五个结论</a></li>
+<li><a href="#_16">第十四幕：把智能真正装进设备</a></li>
+<li><a href="#_17">第八章：技术归档</a><ul>
+<li><a href="#_18">本章最重要的五个结论</a></li>
 </ul>
 </li>
 </ul>
@@ -156,8 +155,7 @@
 <li><a href="#4">4. 交互式内存估算器</a></li>
 </ul>
 </li>
-<li><a href="#_15">端侧模型内存实验室</a></li>
-<li><a href="#_16">第十二幕：小模型真的能打败大模型吗？</a><ul>
+<li><a href="#_15">第十二幕：小模型真的能打败大模型吗？</a><ul>
 <li><a href="#1_5">1. 小模型的三种优势</a></li>
 </ul>
 </li>
@@ -165,9 +163,9 @@
 <li><a href="#1_6">1. 端侧系统需要考虑更多约束</a></li>
 </ul>
 </li>
-<li><a href="#_17">第十四幕：把智能真正装进设备</a></li>
-<li><a href="#_18">第八章：技术归档</a><ul>
-<li><a href="#_19">本章最重要的五个结论</a></li>
+<li><a href="#_16">第十四幕：把智能真正装进设备</a></li>
+<li><a href="#_17">第八章：技术归档</a><ul>
+<li><a href="#_18">本章最重要的五个结论</a></li>
 </ul>
 </li>
 </ul>
@@ -218,7 +216,7 @@ Robot task suspended.
 <p>“这是第一条。还有呢？”</p>
 <h3 id="_2">第一条枷锁：网络延迟</h3>
 <p>云端推理的响应时间可以简化为：</p>
-<p>[ T_{\text{cloud}} = T_{\text{upload}}+ T_{\text{queue}}+ T_{\text{inference}}+ T_{\text{download}} ]</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>T</mi><mtext>cloud</mtext></msub><mo>=</mo><msub><mi>T</mi><mtext>upload</mtext></msub><mo>+</mo><msub><mi>T</mi><mtext>queue</mtext></msub><mo>+</mo><msub><mi>T</mi><mtext>inference</mtext></msub><mo>+</mo><msub><mi>T</mi><mtext>download</mtext></msub></mrow><annotation encoding="application/x-tex"> T_{\text{cloud}} = T_{\text{upload}}+ T_{\text{queue}}+ T_{\text{inference}}+ T_{\text{download}} </annotation></semantics></math></span></p>
 <p>陈默解释：</p>
 <p>“模型计算再快，也无法完全消除网络传输时间。”</p>
 <p>“尤其是实时机器人、智能眼镜和语音助手。”</p>
@@ -270,9 +268,9 @@ Robot task suspended.
 <h3 id="1-fp32-4">1. FP32：每个参数 4 字节</h3>
 <p>FP32 是 32 位浮点数。</p>
 <p>一个参数占：</p>
-<p>[ 32\text{ bits}=4\text{ bytes} ]</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mn>32</mn><mtext> bits</mtext><mo>=</mo><mn>4</mn><mtext> bytes</mtext></mrow><annotation encoding="application/x-tex"> 32\text{ bits}=4\text{ bytes} </annotation></semantics></math></span></p>
 <p>70 亿个参数：</p>
-<p>[ 7\times10^9\times4=28\times10^9\text{ bytes} ]</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mn>7</mn><mo>×</mo><msup><mn>10</mn><mn>9</mn></msup><mo>×</mo><mn>4</mn><mo>=</mo><mn>28</mn><mo>×</mo><msup><mn>10</mn><mn>9</mn></msup><mtext> bytes</mtext></mrow><annotation encoding="application/x-tex"> 7\times10^9\times4=28\times10^9\text{ bytes} </annotation></semantics></math></span></p>
 <p>也就是约 28 GB（十进制），约 26.1 GiB。</p>
 <p>“光是模型权重，就要这么多空间。”</p>
 <p>陈默说。</p>
@@ -280,7 +278,7 @@ Robot task suspended.
 <h3 id="2-fp16-2">2. FP16：每个参数 2 字节</h3>
 <p>FP16 是 16 位浮点数。</p>
 <p>同样的模型：</p>
-<p>[ 7\times10^9\times2=14\text{ GB} ]</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mn>7</mn><mo>×</mo><msup><mn>10</mn><mn>9</mn></msup><mo>×</mo><mn>2</mn><mo>=</mo><mn>14</mn><mtext> GB</mtext></mrow><annotation encoding="application/x-tex"> 7\times10^9\times2=14\text{ GB} </annotation></semantics></math></span></p>
 <p>林远眼睛一亮。</p>
 <p>“内存直接减半。”</p>
 <p>“对。”</p>
@@ -288,13 +286,13 @@ Robot task suspended.
 <p>“此外，还有 BF16 等常见格式。它同样占 16 位，但指数范围与 FP16 不同。”</p>
 <h3 id="3-int8-1">3. INT8：每个参数 1 字节</h3>
 <p>如果把权重量化为 8 位整数：</p>
-<p>[ 7\times10^9\times1=7\text{ GB} ]</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mn>7</mn><mo>×</mo><msup><mn>10</mn><mn>9</mn></msup><mo>×</mo><mn>1</mn><mo>=</mo><mn>7</mn><mtext> GB</mtext></mrow><annotation encoding="application/x-tex"> 7\times10^9\times1=7\text{ GB} </annotation></semantics></math></span></p>
 <p>“从 28 GB 变成 7 GB。”</p>
 <p>林远说。</p>
 <p>“这已经是原来的四分之一。”</p>
 <h3 id="4-int4-4">4. INT4：每个参数 4 位</h3>
 <p>如果进一步压缩到 4 位：</p>
-<p>[ 7\times10^9\times\frac{4}{8}=3.5\text{ GB} ]</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mn>7</mn><mo>×</mo><msup><mn>10</mn><mn>9</mn></msup><mo>×</mo><mfrac><mn>4</mn><mn>8</mn></mfrac><mo>=</mo><mn>3.5</mn><mtext> GB</mtext></mrow><annotation encoding="application/x-tex"> 7\times10^9\times\frac{4}{8}=3.5\text{ GB} </annotation></semantics></math></span></p>
 <p>林远猛地站起来。</p>
 <p>“等等！”</p>
 <p>“一个 70 亿参数的模型，理论上只需要 3.5 GB 就能存下权重？”</p>
@@ -330,24 +328,24 @@ Robot task suspended.
 <p>“我们需要把原来的连续或高精度数值，映射到有限的离散等级。”</p>
 <h3 id="1">1. 量化的基本公式</h3>
 <p>对于一种常见的仿射量化方式：</p>
-<p>[ q=\operatorname{clip}\left( \operatorname{round}\left(\frac{x}{s}\right)+z, q_{\min},q_{\max} \right) ]</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>q</mi><mo>=</mo><mi mathvariant="normal">clip</mi><mo>⁡</mo><mrow><mo fence="true">(</mo><mi mathvariant="normal">round</mi><mo>⁡</mo><mrow><mo fence="true">(</mo><mfrac><mi>x</mi><mi>s</mi></mfrac><mo fence="true">)</mo></mrow><mo>+</mo><mi>z</mi><mo separator="true">,</mo><msub><mi>q</mi><mi>min</mi><mo>⁡</mo></msub><mo separator="true">,</mo><msub><mi>q</mi><mi>max</mi><mo>⁡</mo></msub><mo fence="true">)</mo></mrow></mrow><annotation encoding="application/x-tex"> q=\operatorname{clip}\left( \operatorname{round}\left(\frac{x}{s}\right)+z, q_{\min},q_{\max} \right) </annotation></semantics></math></span></p>
 <p>其中：</p>
 <ul>
 <li>
-<p>(x)：原始浮点值</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span>：原始浮点值</p>
 </li>
 <li>
-<p>(s)：量化尺度（Scale）</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi></mrow><annotation encoding="application/x-tex">s</annotation></semantics></math></span>：量化尺度（Scale）</p>
 </li>
 <li>
-<p>(z)：零点（Zero Point）</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>z</mi></mrow><annotation encoding="application/x-tex">z</annotation></semantics></math></span>：零点（Zero Point）</p>
 </li>
 <li>
-<p>(q)：量化后的整数值</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi></mrow><annotation encoding="application/x-tex">q</annotation></semantics></math></span>：量化后的整数值</p>
 </li>
 </ul>
 <p>反量化近似恢复：</p>
-<p>[ \hat x=s(q-z) ]</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mover accent="true"><mi>x</mi><mo>^</mo></mover><mo>=</mo><mi>s</mi><mo stretchy="false">(</mo><mi>q</mi><mo>−</mo><mi>z</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex"> \hat x=s(q-z) </annotation></semantics></math></span></p>
 <p>陈默解释：</p>
 <p>“你可以把量化理解成把连续刻度变成有限档位。”</p>
 <p>“原来一个数字可以精细到很多小数位。”</p>
@@ -413,7 +411,7 @@ Robot task suspended.
 <p>另一种是内存带宽。</p>
 <p>尤其在某些小批量、自回归解码场景中，每生成一个 Token，都需要访问大量模型权重。</p>
 <p>陈默写下一个近似关系：</p>
-<p>[ T_{\text{weight-read}}\approx \frac{\text{权重读取字节数}}{\text{有效内存带宽}} ]</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>T</mi><mtext>weight-read</mtext></msub><mo>≈</mo><mfrac><mtext>权重读取字节数</mtext><mtext>有效内存带宽</mtext></mfrac></mrow><annotation encoding="application/x-tex"> T_{\text{weight-read}}\approx \frac{\text{权重读取字节数}}{\text{有效内存带宽}} </annotation></semantics></math></span></p>
 <p>“假设模型权重有 14 GB。”</p>
 <p>“有效带宽是 140 GB/s。”</p>
 <p>“那么理想情况下，仅仅读取一遍权重就需要大约 0.1 秒。”</p>
@@ -478,8 +476,8 @@ Robot task suspended.
 <p>“这些概率包含了类别之间的相对关系。”</p>
 <p>“Student 不只是学习哪个类别正确，还可以学习教师对其他类别的判断。”</p>
 <p>经典知识蒸馏可以使用类似目标：</p>
-<p>[ \mathcal L = \alpha\mathcal L_{\text{hard}} + (1-\alpha)T^2 D_{\mathrm{KL}}(p_T\Vert p_S) ]</p>
-<p>其中 (T) 是蒸馏温度，(p_T,p_S) 分别表示教师与学生经过温度调整后的概率分布。</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi mathvariant="script">L</mi><mo>=</mo><mi>α</mi><msub><mi mathvariant="script">L</mi><mtext>hard</mtext></msub><mo>+</mo><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><mi>α</mi><mo stretchy="false">)</mo><msup><mi>T</mi><mn>2</mn></msup><msub><mi>D</mi><mrow><mi mathvariant="normal">K</mi><mi mathvariant="normal">L</mi></mrow></msub><mo stretchy="false">(</mo><msub><mi>p</mi><mi>T</mi></msub><mi mathvariant="normal">∥</mi><msub><mi>p</mi><mi>S</mi></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex"> \mathcal L = \alpha\mathcal L_{\text{hard}} + (1-\alpha)T^2 D_{\mathrm{KL}}(p_T\Vert p_S) </annotation></semantics></math></span></p>
+<p>其中 <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi></mrow><annotation encoding="application/x-tex">T</annotation></semantics></math></span> 是蒸馏温度，<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>p</mi><mi>T</mi></msub><mo separator="true">,</mo><msub><mi>p</mi><mi>S</mi></msub></mrow><annotation encoding="application/x-tex">p_T,p_S</annotation></semantics></math></span> 分别表示教师与学生经过温度调整后的概率分布。</p>
 <p>“对于生成式语言模型，也可以使用教师生成的数据进行监督微调。”</p>
 <p>陈默说。</p>
 <p>“但学习教师生成的答案，不等于完全复制教师的内部能力。”</p>
@@ -608,7 +606,7 @@ Robot task suspended.
 <p>KV Cache。</p>
 <h3 id="2-kv-cache">2. KV Cache 保存什么？</h3>
 <p>在 Transformer Attention 中：</p>
-<p>[ Q=XW_Q,\quad K=XW_K,\quad V=XW_V ]</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>Q</mi><mo>=</mo><mi>X</mi><msub><mi>W</mi><mi>Q</mi></msub><mo separator="true">,</mo><mspace width="1em"/><mi>K</mi><mo>=</mo><mi>X</mi><msub><mi>W</mi><mi>K</mi></msub><mo separator="true">,</mo><mspace width="1em"/><mi>V</mi><mo>=</mo><mi>X</mi><msub><mi>W</mi><mi>V</mi></msub></mrow><annotation encoding="application/x-tex"> Q=XW_Q,\quad K=XW_K,\quad V=XW_V </annotation></semantics></math></span></p>
 <p>模型可以缓存历史 Token 对应的 K、V 表示。</p>
 <p>当新 Token 到来时，只需要计算新 Token 的相关表示，并与历史缓存进行注意力计算。</p>
 <p>林远说：</p>
@@ -617,23 +615,23 @@ Robot task suspended.
 <p>“它能避免大量重复投影计算，但缓存本身会随着上下文长度增加。”</p>
 <h3 id="3-kv-cache">3. KV Cache 占用计算</h3>
 <p>对于常见的缓存布局，可以近似估算：</p>
-<p>[ M_{\text{KV}}= 2\times L\times H_{\text{kv}}\times D\times S\times B ]</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>M</mi><mtext>KV</mtext></msub><mo>=</mo><mn>2</mn><mo>×</mo><mi>L</mi><mo>×</mo><msub><mi>H</mi><mtext>kv</mtext></msub><mo>×</mo><mi>D</mi><mo>×</mo><mi>S</mi><mo>×</mo><mi>B</mi></mrow><annotation encoding="application/x-tex"> M_{\text{KV}}= 2\times L\times H_{\text{kv}}\times D\times S\times B </annotation></semantics></math></span></p>
 <p>其中：</p>
 <ul>
 <li>
-<p>(L)：Transformer 层数</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi></mrow><annotation encoding="application/x-tex">L</annotation></semantics></math></span>：Transformer 层数</p>
 </li>
 <li>
-<p>(H_{\text{kv}})：每层 KV Head 数量</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mtext>kv</mtext></msub></mrow><annotation encoding="application/x-tex">H_{\text{kv}}</annotation></semantics></math></span>：每层 KV Head 数量</p>
 </li>
 <li>
-<p>(D)：每个 Head 的维度</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi></mrow><annotation encoding="application/x-tex">D</annotation></semantics></math></span>：每个 Head 的维度</p>
 </li>
 <li>
-<p>(S)：上下文 Token 数</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi></mrow><annotation encoding="application/x-tex">S</annotation></semantics></math></span>：上下文 Token 数</p>
 </li>
 <li>
-<p>(B)：每个缓存元素的字节数</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi></mrow><annotation encoding="application/x-tex">B</annotation></semantics></math></span>：每个缓存元素的字节数</p>
 </li>
 </ul>
 <p>最前面的 2，代表 Key 和 Value。</p>
@@ -645,7 +643,7 @@ Context Length = 32768
 KV Precision = FP16（2 字节）
 </code></pre>
 <p>那么：</p>
-<p>[ M_{\text{KV}} =2\times32\times8\times128\times32768\times2 ]</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>M</mi><mtext>KV</mtext></msub><mo>=</mo><mn>2</mn><mo>×</mo><mn>32</mn><mo>×</mo><mn>8</mn><mo>×</mo><mn>128</mn><mo>×</mo><mn>32768</mn><mo>×</mo><mn>2</mn></mrow><annotation encoding="application/x-tex"> M_{\text{KV}} =2\times32\times8\times128\times32768\times2 </annotation></semantics></math></span></p>
 <p>约为 4 GiB。</p>
 <p>林远倒吸一口凉气。</p>
 <p>“也就是说，模型权重可能只有 3.5 GB，但 KV Cache 就可能额外占 4 GiB？”</p>
@@ -860,7 +858,7 @@ Java → 是 → 一种 → 面向对象 → 的
 <h3 id="1_4">1. 权重体积</h3>
 <p>3B 参数。</p>
 <p>采用 INT4：</p>
-<p>[ 3\times10^9\times0.5=1.5\text{ GB} ]</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mn>3</mn><mo>×</mo><msup><mn>10</mn><mn>9</mn></msup><mo>×</mo><mn>0.5</mn><mo>=</mo><mn>1.5</mn><mtext> GB</mtext></mrow><annotation encoding="application/x-tex"> 3\times10^9\times0.5=1.5\text{ GB} </annotation></semantics></math></span></p>
 <p>理论权重约 1.5 GB。</p>
 <p>考虑量化元数据，实际模型文件可能更大。</p>
 <h3 id="2-kv-cache_1">2. KV Cache</h3>
@@ -872,7 +870,7 @@ Context Length = 8192
 KV Precision = FP16
 </code></pre>
 <p>那么：</p>
-<p>[ M_{\text{KV}} =2\times28\times4\times128\times8192\times2 ]</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>M</mi><mtext>KV</mtext></msub><mo>=</mo><mn>2</mn><mo>×</mo><mn>28</mn><mo>×</mo><mn>4</mn><mo>×</mo><mn>128</mn><mo>×</mo><mn>8192</mn><mo>×</mo><mn>2</mn></mrow><annotation encoding="application/x-tex"> M_{\text{KV}} =2\times28\times4\times128\times8192\times2 </annotation></semantics></math></span></p>
 <p>约为 448 MiB。</p>
 <h3 id="3_4">3. 运行时开销</h3>
 <p>此外，还需要：</p>
@@ -886,27 +884,7 @@ KV Precision = FP16
 <p>“必须测量实际峰值占用。”</p>
 <h3 id="4">4. 交互式内存估算器</h3>
 <p>“你自己试着调整参数量、精度和上下文长度。”</p>
-<h2 id="_15">端侧模型内存实验室</h2>
-<p>模型参数量</p>
-<p>4B</p>
-<p>权重精度</p>
-<p>FP16</p>
-<p>INT8</p>
-<p>INT4</p>
-<p>上下文长度</p>
-<p>2K</p>
-<p>8K</p>
-<p>32K</p>
-<p>64K</p>
-<p>KV Cache 架构参数</p>
-<p>层数28</p>
-<p>KV Heads4</p>
-<p>Head 维度128</p>
-<p>理论权重体积</p>
-<h1 id="200-gb">2.00 GB</h1>
-<p>理论 KV Cache</p>
-<h1 id="044-gib">0.44 GiB</h1>
-<p>KV Cache 假设单请求、FP16 缓存和指定层结构。权重采用十进制 GB，KV 使用二进制 GiB。未包含量化元数据、激活、计算缓冲区及其他运行时内存；参数组合仅用于教学估算，不对应特定真实模型。</p>
+<section class="demo" data-demo="memory" aria-label="端侧模型内存实验室"><h3>端侧模型内存实验室</h3><label>模型参数量（B，十亿）<input aria-label="模型参数量（B，十亿）" data-field="params" type="range" min="1" max="70" step="1" value="4"></label><label>权重精度<select aria-label="权重精度" data-field="bits"><option value="16">FP16</option><option value="8">INT8</option><option value="4" selected>INT4</option></select></label><label>上下文长度<select aria-label="上下文长度" data-field="context"><option value="2048">2K</option><option value="8192" selected>8K</option><option value="32768">32K</option><option value="65536">64K</option></select></label><p>KV 架构固定：28 层 · 4 个 KV Heads · Head 维度 128 · FP16 缓存</p><div class="demo-result" aria-live="polite"><div><span>参数量</span><strong data-value="params">4B</strong></div><div><span>理论权重体积</span><strong data-value="weights">2.00 GB</strong></div><div><span>理论 KV Cache</span><strong data-value="cache">0.44 GiB</strong></div></div><p class="demo-note">按原文参数重建的教学演示。单请求。权重用十进制 GB，KV 用二进制 GiB；未含量化元数据、激活、计算缓冲区和其他运行时开销。参数组合不对应特定真实模型。</p></section>
 <p>林远调整了上下文长度。</p>
 <p>从 8K 变成 32K。</p>
 <p>KV Cache 直接变成原来的四倍。</p>
@@ -915,7 +893,7 @@ KV Precision = FP16
 <p>“还必须控制上下文、缓存和运行时内存。”</p>
 <p>陈默点头。</p>
 <p>“这就是为什么模型压缩和推理系统优化必须一起做。”</p>
-<h2 id="_16">第十二幕：小模型真的能打败大模型吗？</h2>
+<h2 id="_15">第十二幕：小模型真的能打败大模型吗？</h2>
 <p><img loading="lazy" decoding="async" alt="David, Goliath, and AI: The Secret Weapon of Small Businesses" src="https://images.openai.com/static-rsc-4/6bg-7nol_d_bV5x4ki1Wh38RHiif1iesoEl-O1oMc-bcIypmXbarQwNAP_K6cFo-T32rRMB2j9Bl-RLvox7jB3GzG1GjizKLKwEcGKAE0hWIUOxuspBf5DqPWiXxrHeuSgE-Io9q8B2p1yEQiC5wbTuu9Rie1ZLQEawIE9pnbEM?purpose=inline" /></p>
 <p><a href="https://www.linkedin.com/pulse/david-goliath-ai-secret-weapon-small-businesses-daniel-apps-p3ipe">linkedin.com</a></p>
 <p>某天。</p>
@@ -983,7 +961,7 @@ KV Precision = FP16
 <p>陈默说：</p>
 <p>“所以端侧 AI 是一项完整的系统工程。”</p>
 <p>“它涉及模型、编译器、推理引擎、操作系统、硬件和产品体验。”</p>
-<h2 id="_17">第十四幕：把智能真正装进设备</h2>
+<h2 id="_16">第十四幕：把智能真正装进设备</h2>
 <p><img loading="lazy" decoding="async" alt="South Korea’s AI chip push grows, but 2nm robotics claims remain premature | Domain-b.com" src="https://images.openai.com/static-rsc-4/Ozgdig5Qa1J16hkN03C8d9Km1yYWwHGXpslrTcnROYcGrSUZdfeazUHcoTAwADq8URIw6XwuPdcGuEiQpkmoyeewmdNqo9oPI9ygHEqWzMM_yUYmFP83xENAn9bnG5J51cV0mZLUtK-RcznFoLmYqcfI_YXeMOsg4fiBJgfFrm4?purpose=inline" /></p>
 <p><a href="https://www.domain-b.com/technology/artificial-intelligence/deepx-hyundai-ai-chip-robotics-2026">domain-b.com</a></p>
 <p>2026 年 10 月，清晨六点。</p>
@@ -1029,7 +1007,7 @@ Task Status: SUCCESS
 <p>陈默点头。</p>
 <p>“未来的 AI 系统，很可能不是单纯的云端，也不是单纯的端侧。”</p>
 <p>“而是根据任务、设备、网络和隐私约束，在不同计算位置之间动态协作。”</p>
-<h2 id="_18">第八章：技术归档</h2>
+<h2 id="_17">第八章：技术归档</h2>
 <table>
 <thead>
 <tr>
@@ -1096,7 +1074,7 @@ Task Status: SUCCESS
 </tr>
 </tbody>
 </table>
-<h3 id="_19">本章最重要的五个结论</h3>
+<h3 id="_18">本章最重要的五个结论</h3>
 <p>第一：模型参数数量不等于运行内存。</p>
 <p>实际部署需要考虑权重精度、KV Cache、激活和运行时开销。</p>
 <p>第二：量化主要解决表示与存储问题，不保证一定加速。</p>

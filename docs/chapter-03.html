@@ -1,4 +1,4 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="AI 纪元：从语言模型到智能体文明，十二章小说式技术科普。"><title>永不下班的数字员工 · AI 纪元</title><link rel="stylesheet" href="style.css"><script src="app.js" defer></script></head><body class="reading"><header><a class="brand" href="index.html">AI 纪元<span>THE AI ERA</span></a><div class="controls"><button id="smaller" aria-label="缩小字号">A−</button><button id="larger" aria-label="增大字号">A＋</button><button id="theme" aria-label="切换深浅色">◐</button></div></header><div class="reader-layout"><aside><a href="index.html">← 全书目录</a><p class="eyebrow">本章导航</p><div class="toc">
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="AI 纪元：从语言模型到智能体文明，十二章小说式技术科普。"><title>永不下班的数字员工 · AI 纪元</title><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="repairs.css"><script src="app.js" defer></script><script src="demos.js" defer></script></head><body class="reading"><header><a class="brand" href="index.html">AI 纪元<span>THE AI ERA</span></a><div class="controls"><button id="smaller" aria-label="缩小字号">A−</button><button id="larger" aria-label="增大字号">A＋</button><button id="theme" aria-label="切换深浅色">◐</button></div></header><div class="reader-layout"><aside><a href="index.html">← 全书目录</a><p class="eyebrow">本章导航</p><div class="toc">
 <ul>
 <li><a href="#chatbot">第一幕：Chatbot 的宿命——回答完就消失</a></li>
 <li><a href="#react">第二幕：ReAct 的诞生——模型学会使用工具</a></li>
@@ -547,7 +547,7 @@ COMPLETED
 <p>陈默解释：</p>
 <p>“即使每秒只有几个新任务，只要每个任务执行时间足够长，也可能积累大量并发任务。”</p>
 <p>他写下一条公式：</p>
-<p>[ L=\lambda W ]</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>L</mi><mo>=</mo><mi>λ</mi><mi>W</mi></mrow><annotation encoding="application/x-tex"> L=\lambda W </annotation></semantics></math></span></p>
 <p>“这是 Little 定律。”</p>
 <p>“假设平均每秒有 2 个新任务进入系统，每个任务平均停留 600 秒。”</p>
 <p>“那么稳定状态下，系统平均有多少任务？”</p>
@@ -817,14 +817,7 @@ Heartbeat: every 10 seconds
 <p>检查支付系统的幂等性实现，修复潜在问题，运行测试，并创建 Pull Request。</p>
 </blockquote>
 <p>下面是一次模拟的执行过程。</p>
-<p>Agent Runtime 执行模拟器</p>
-<p>RUNNING</p>
-<h1 id="0001">00:01</h1>
-<p>步骤 2 / 9</p>
-<p>Worker 领取任务</p>
-<p>调度器分配执行租约，创建独立工作区与沙箱。</p>
-<p>上一步执行下一步</p>
-<p>教学模拟：展示长任务在崩溃、恢复和等待授权时的生命周期，不连接真实 Agent。</p>
+<section class="demo" data-demo="runtime" aria-label="Agent Runtime 执行模拟器"><h3>Agent Runtime 执行模拟器</h3><div class="demo-actions"><button type="button" data-action="next">执行下一步</button><button type="button" data-action="reset">重置</button></div><div class="demo-result" aria-live="polite"><div><span>状态</span><strong data-value="state">QUEUED</strong></div><div><span>步骤</span><strong data-value="step">1 / 9</strong></div><p data-value="event">任务进入队列，等待 Worker 领取。</p></div><p class="demo-note">按原文参数重建的教学演示。展示崩溃、恢复和等待授权；不连接真实 Agent。</p></section>
 <p>林远看着最终结果。</p>
 <pre><code>Task: task_1024
 Status: COMPLETED

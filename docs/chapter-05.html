@@ -1,4 +1,4 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="AI 纪元：从语言模型到智能体文明，十二章小说式技术科普。"><title>一百个模型组成一个大脑 · AI 纪元</title><link rel="stylesheet" href="style.css"><script src="app.js" defer></script></head><body class="reading"><header><a class="brand" href="index.html">AI 纪元<span>THE AI ERA</span></a><div class="controls"><button id="smaller" aria-label="缩小字号">A−</button><button id="larger" aria-label="增大字号">A＋</button><button id="theme" aria-label="切换深浅色">◐</button></div></header><div class="reader-layout"><aside><a href="index.html">← 全书目录</a><p class="eyebrow">本章导航</p><div class="toc">
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="AI 纪元：从语言模型到智能体文明，十二章小说式技术科普。"><title>一百个模型组成一个大脑 · AI 纪元</title><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="repairs.css"><script src="app.js" defer></script><script src="demos.js" defer></script></head><body class="reading"><header><a class="brand" href="index.html">AI 纪元<span>THE AI ERA</span></a><div class="controls"><button id="smaller" aria-label="缩小字号">A−</button><button id="larger" aria-label="增大字号">A＋</button><button id="theme" aria-label="切换深浅色">◐</button></div></header><div class="reader-layout"><aside><a href="index.html">← 全书目录</a><p class="eyebrow">本章导航</p><div class="toc">
 <ul>
 <li><a href="#_1">第一幕：单模型帝国的危机</a><ul>
 <li><a href="#1">1. 模型能力不是一条直线</a></li>
@@ -10,8 +10,7 @@
 <li><a href="#3">3. 交互式模型路由模拟</a></li>
 </ul>
 </li>
-<li><a href="#_3">代码模型</a></li>
-<li><a href="#_4">第三幕：一个模型解决不了的问题</a><ul>
+<li><a href="#_3">第三幕：一个模型解决不了的问题</a><ul>
 <li><a href="#1_2">1. 多模型并行分析</a></li>
 </ul>
 </li>
@@ -31,7 +30,7 @@
 <li><a href="#2_2">2. 静态编排与动态编排</a></li>
 </ul>
 </li>
-<li><a href="#_5">第七幕：并行执行，为什么不一定更快？</a><ul>
+<li><a href="#_4">第七幕：并行执行，为什么不一定更快？</a><ul>
 <li><a href="#1_4">1. 串行与并行的时间模型</a></li>
 </ul>
 </li>
@@ -44,10 +43,10 @@
 <li><a href="#1-agent">1. 多 Agent 的核心难题</a></li>
 </ul>
 </li>
-<li><a href="#_6">第十幕：成本优化的真正答案</a></li>
-<li><a href="#_7">第十一幕：从模型能力到系统能力</a></li>
-<li><a href="#_8">第五章：技术归档</a><ul>
-<li><a href="#_9">本章最重要的四个结论</a></li>
+<li><a href="#_5">第十幕：成本优化的真正答案</a></li>
+<li><a href="#_6">第十一幕：从模型能力到系统能力</a></li>
+<li><a href="#_7">第五章：技术归档</a><ul>
+<li><a href="#_8">本章最重要的四个结论</a></li>
 </ul>
 </li>
 </ul>
@@ -64,8 +63,7 @@
 <li><a href="#3">3. 交互式模型路由模拟</a></li>
 </ul>
 </li>
-<li><a href="#_3">代码模型</a></li>
-<li><a href="#_4">第三幕：一个模型解决不了的问题</a><ul>
+<li><a href="#_3">第三幕：一个模型解决不了的问题</a><ul>
 <li><a href="#1_2">1. 多模型并行分析</a></li>
 </ul>
 </li>
@@ -85,7 +83,7 @@
 <li><a href="#2_2">2. 静态编排与动态编排</a></li>
 </ul>
 </li>
-<li><a href="#_5">第七幕：并行执行，为什么不一定更快？</a><ul>
+<li><a href="#_4">第七幕：并行执行，为什么不一定更快？</a><ul>
 <li><a href="#1_4">1. 串行与并行的时间模型</a></li>
 </ul>
 </li>
@@ -98,10 +96,10 @@
 <li><a href="#1-agent">1. 多 Agent 的核心难题</a></li>
 </ul>
 </li>
-<li><a href="#_6">第十幕：成本优化的真正答案</a></li>
-<li><a href="#_7">第十一幕：从模型能力到系统能力</a></li>
-<li><a href="#_8">第五章：技术归档</a><ul>
-<li><a href="#_9">本章最重要的四个结论</a></li>
+<li><a href="#_5">第十幕：成本优化的真正答案</a></li>
+<li><a href="#_6">第十一幕：从模型能力到系统能力</a></li>
+<li><a href="#_7">第五章：技术归档</a><ul>
+<li><a href="#_8">本章最重要的四个结论</a></li>
 </ul>
 </li>
 </ul>
@@ -263,13 +261,13 @@
 </li>
 </ul>
 <p>林远设计了一个简化的决策函数：</p>
-<p>[ m^*=\arg\min_{m\in M} C(m,x) ]</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msup><mi>m</mi><mo>∗</mo></msup><mo>=</mo><mi>arg</mi><mo>⁡</mo><munder><mrow><mi>min</mi><mo>⁡</mo></mrow><mrow><mi>m</mi><mo>∈</mo><mi>M</mi></mrow></munder><mi>C</mi><mo stretchy="false">(</mo><mi>m</mi><mo separator="true">,</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex"> m^*=\arg\min_{m\in M} C(m,x) </annotation></semantics></math></span></p>
 <p>满足：</p>
-<p>[ Q(m,x)\geq Q_{\min} ]</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>Q</mi><mo stretchy="false">(</mo><mi>m</mi><mo separator="true">,</mo><mi>x</mi><mo stretchy="false">)</mo><mo>≥</mo><msub><mi>Q</mi><mi>min</mi><mo>⁡</mo></msub></mrow><annotation encoding="application/x-tex"> Q(m,x)\geq Q_{\min} </annotation></semantics></math></span></p>
 <p>其中：</p>
-<p>(C(m,x)) 是模型 (m) 处理任务 (x) 的预期成本。</p>
-<p>(Q(m,x)) 是模型完成任务的预期质量。</p>
-<p>(Q_{\min}) 是最低质量要求。</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mo stretchy="false">(</mo><mi>m</mi><mo separator="true">,</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">C(m,x)</annotation></semantics></math></span> 是模型 <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi></mrow><annotation encoding="application/x-tex">m</annotation></semantics></math></span> 处理任务 <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span> 的预期成本。</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi><mo stretchy="false">(</mo><mi>m</mi><mo separator="true">,</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">Q(m,x)</annotation></semantics></math></span> 是模型完成任务的预期质量。</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Q</mi><mi>min</mi><mo>⁡</mo></msub></mrow><annotation encoding="application/x-tex">Q_{\min}</annotation></semantics></math></span> 是最低质量要求。</p>
 <p>“所以我们的目标不是单纯选择最便宜的模型。”</p>
 <p>林远说。</p>
 <p>“而是在满足质量要求的前提下，选择成本更合适的模型。”</p>
@@ -277,21 +275,12 @@
 <h3 id="3">3. 交互式模型路由模拟</h3>
 <p>陈默给林远设计了一个练习。</p>
 <p>“假设系统有三个模型。你来决定不同任务应该走哪条路线。”</p>
-<p>模型路由实验室</p>
-<p>判断测试日志是否成功</p>
-<p>修复简单 Java 空指针</p>
-<p>分析分布式事务死锁</p>
-<p>总结 200 行执行日志</p>
-<p>建议执行路线</p>
-<h2 id="_3">代码模型</h2>
-<p>优先选择经过代码任务评测的低成本模型，失败后再升级。</p>
-<p>相对成本示意</p>
-<p>教学示意，不代表真实模型定价或质量表现。</p>
+<section class="demo" data-demo="routing" aria-label="模型路由实验室"><h3>模型路由实验室</h3><label>选择任务<select aria-label="选择任务" data-field="task"><option value="0">判断测试日志是否成功</option><option value="1" selected>修复简单 Java 空指针</option><option value="2">分析分布式事务死锁</option><option value="3">总结 200 行执行日志</option></select></label><div class="demo-result" aria-live="polite"><div><span>建议执行路线</span><strong data-value="route">代码模型</strong></div><p data-value="reason">优先选择经过代码任务评测的低成本代码模型，失败后升级。</p><div><span>相对成本示意</span><strong data-value="cost">2 单位</strong></div></div><p class="demo-note">按原文参数重建的教学演示。路由和成本仅作教学示意，不代表真实模型价格、质量或实际调用。</p></section>
 <p>林远终于意识到：</p>
 <p>模型路由，本质上是在给 AI 系统建立一个智能调度层。</p>
 <p>但陈默又提出了一个问题。</p>
 <p>“如果一个任务，单个模型无论多强都很难完成呢？”</p>
-<h2 id="_4">第三幕：一个模型解决不了的问题</h2>
+<h2 id="_3">第三幕：一个模型解决不了的问题</h2>
 <p><img loading="lazy" decoding="async" alt="AI Revolution Accelerates: Chinese Humanoid Robots Mass Production Meets New AI Models as Industry Transforms | Planet News" src="https://images.openai.com/static-rsc-4/x_9-0By3Io-78wRdIxWPLTYteL9dOPu8ddmz5iH_aceNnzkFBeXz1sC7R4zFOTY3ugF2UEIBjLsHiTtHBUhvH1c4Pdq--XxZirt_IK47DigAzo4_Cgf9Oe6VKnJ7TPdWu-fwvS_bFY9N-tPjzlUWt3hmoUMp3nPWak64Orx7nL4?purpose=inline" /></p>
 <p><a href="https://planet.news/article/ai-technology-revolution-2026">planet.news</a></p>
 <p>某天，团队收到一个复杂任务。</p>
@@ -543,7 +532,7 @@
 <p>“本来需要复杂推理的任务，被错误地发送给小模型。”</p>
 <p>“或者本来很简单的任务，却触发昂贵的多模型协作。”</p>
 <p>“所以编排器本身也需要评测。”</p>
-<h2 id="_5">第七幕：并行执行，为什么不一定更快？</h2>
+<h2 id="_4">第七幕：并行执行，为什么不一定更快？</h2>
 <p>林远兴奋地提出：</p>
 <p>“既然多个模型可以并行，那我们让十个模型同时运行，不就能大幅提高速度？”</p>
 <p>陈默摇头。</p>
@@ -562,12 +551,12 @@
 </li>
 </ul>
 <p>如果串行执行：</p>
-<p>[ T_{\text{serial}}=2+3+5=10s ]</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>T</mi><mtext>serial</mtext></msub><mo>=</mo><mn>2</mn><mo>+</mo><mn>3</mn><mo>+</mo><mn>5</mn><mo>=</mo><mn>10</mn><mi>s</mi></mrow><annotation encoding="application/x-tex"> T_{\text{serial}}=2+3+5=10s </annotation></semantics></math></span></p>
 <p>如果真正并行执行，并且必须等待全部结果：</p>
-<p>[ T_{\text{parallel}}\approx\max(2,3,5)=5s ]</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>T</mi><mtext>parallel</mtext></msub><mo>≈</mo><mi>max</mi><mo>⁡</mo><mo stretchy="false">(</mo><mn>2</mn><mo separator="true">,</mo><mn>3</mn><mo separator="true">,</mo><mn>5</mn><mo stretchy="false">)</mo><mo>=</mo><mn>5</mn><mi>s</mi></mrow><annotation encoding="application/x-tex"> T_{\text{parallel}}\approx\max(2,3,5)=5s </annotation></semantics></math></span></p>
 <p>但这还没算聚合时间。</p>
 <p>如果聚合需要 2 秒：</p>
-<p>[ T_{\text{total}}\approx 5+2=7s ]</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>T</mi><mtext>total</mtext></msub><mo>≈</mo><mn>5</mn><mo>+</mo><mn>2</mn><mo>=</mo><mn>7</mn><mi>s</mi></mrow><annotation encoding="application/x-tex"> T_{\text{total}}\approx 5+2=7s </annotation></semantics></math></span></p>
 <p>“看到了吗？”</p>
 <p>陈默说。</p>
 <p>“并行减少的是部分等待时间，并不是让所有计算免费。”</p>
@@ -677,7 +666,7 @@
 <p>陈默补充。</p>
 <p>“比如两个 Agent 分别修改不同文件，却改变了同一个接口契约。”</p>
 <p>“所以最终仍然需要集成测试和一致性验证。”</p>
-<h2 id="_6">第十幕：成本优化的真正答案</h2>
+<h2 id="_5">第十幕：成本优化的真正答案</h2>
 <p>2026 年 10 月。</p>
 <p>林远终于完成了一套混合模型编排系统。</p>
 <p>他把原本的单模型架构改造成：</p>
@@ -710,7 +699,7 @@
 <p>“如果预算耗尽呢？”</p>
 <p>“停止执行或请求用户授权增加预算。”</p>
 <p>陈默终于满意地点了点头。</p>
-<h2 id="_7">第十一幕：从模型能力到系统能力</h2>
+<h2 id="_6">第十一幕：从模型能力到系统能力</h2>
 <p>夜深了。</p>
 <p>林远站在实验室的玻璃窗前。</p>
 <p>城市依然灯火通明。</p>
@@ -754,7 +743,7 @@
 <p>“甚至在某些任务上，达到比单一模型更好的成本与质量平衡。”</p>
 <p>陈默点头。</p>
 <p>“这就是模型工程和系统工程开始深度融合的地方。”</p>
-<h2 id="_8">第五章：技术归档</h2>
+<h2 id="_7">第五章：技术归档</h2>
 <table>
 <thead>
 <tr>
@@ -806,7 +795,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="_9">本章最重要的四个结论</h3>
+<h3 id="_8">本章最重要的四个结论</h3>
 <p>第一：模型路由的核心是任务与模型的匹配。</p>
 <p>不是所有任务都应该使用最强模型，也不是所有任务都应该使用最便宜模型。</p>
 <p>第二：MoE 和 MoA 是不同层级的技术。</p>

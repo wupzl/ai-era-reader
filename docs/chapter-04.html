@@ -1,4 +1,4 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="AI 纪元：从语言模型到智能体文明，十二章小说式技术科普。"><title>智能体的失忆症 · AI 纪元</title><link rel="stylesheet" href="style.css"><script src="app.js" defer></script></head><body class="reading"><header><a class="brand" href="index.html">AI 纪元<span>THE AI ERA</span></a><div class="controls"><button id="smaller" aria-label="缩小字号">A−</button><button id="larger" aria-label="增大字号">A＋</button><button id="theme" aria-label="切换深浅色">◐</button></div></header><div class="reader-layout"><aside><a href="index.html">← 全书目录</a><p class="eyebrow">本章导航</p><div class="toc">
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="AI 纪元：从语言模型到智能体文明，十二章小说式技术科普。"><title>智能体的失忆症 · AI 纪元</title><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="repairs.css"><script src="app.js" defer></script><script src="demos.js" defer></script></head><body class="reading"><header><a class="brand" href="index.html">AI 纪元<span>THE AI ERA</span></a><div class="controls"><button id="smaller" aria-label="缩小字号">A−</button><button id="larger" aria-label="增大字号">A＋</button><button id="theme" aria-label="切换深浅色">◐</button></div></header><div class="reader-layout"><aside><a href="index.html">← 全书目录</a><p class="eyebrow">本章导航</p><div class="toc">
 <ul>
 <li><a href="#token">第一幕：拥有百万 Token，却依然会失忆</a><ul>
 <li><a href="#1">1. 长上下文为什么不等于长期记忆？</a></li>
@@ -147,20 +147,20 @@
 <p>“上下文会越来越大。”</p>
 <p>“没错。”</p>
 <p>陈默在白板上写下：</p>
-<p>[ C = C_{\text{system}}+C_{\text{history}}+C_{\text{tools}}+C_{\text{memory}} ]</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>C</mi><mo>=</mo><msub><mi>C</mi><mtext>system</mtext></msub><mo>+</mo><msub><mi>C</mi><mtext>history</mtext></msub><mo>+</mo><msub><mi>C</mi><mtext>tools</mtext></msub><mo>+</mo><msub><mi>C</mi><mtext>memory</mtext></msub></mrow><annotation encoding="application/x-tex"> C = C_{\text{system}}+C_{\text{history}}+C_{\text{tools}}+C_{\text{memory}} </annotation></semantics></math></span></p>
 <p>其中：</p>
 <ul>
 <li>
-<p>(C_{\text{system}})：系统指令与工具定义</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mtext>system</mtext></msub></mrow><annotation encoding="application/x-tex">C_{\text{system}}</annotation></semantics></math></span>：系统指令与工具定义</p>
 </li>
 <li>
-<p>(C_{\text{history}})：历史对话与决策记录</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mtext>history</mtext></msub></mrow><annotation encoding="application/x-tex">C_{\text{history}}</annotation></semantics></math></span>：历史对话与决策记录</p>
 </li>
 <li>
-<p>(C_{\text{tools}})：工具调用及返回结果</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mtext>tools</mtext></msub></mrow><annotation encoding="application/x-tex">C_{\text{tools}}</annotation></semantics></math></span>：工具调用及返回结果</p>
 </li>
 <li>
-<p>(C_{\text{memory}})：主动注入的相关记忆</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mtext>memory</mtext></msub></mrow><annotation encoding="application/x-tex">C_{\text{memory}}</annotation></semantics></math></span>：主动注入的相关记忆</p>
 </li>
 </ul>
 <p>“它们共同占用模型上下文预算。”</p>

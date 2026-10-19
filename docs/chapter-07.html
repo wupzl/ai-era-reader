@@ -1,4 +1,4 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="AI 纪元：从语言模型到智能体文明，十二章小说式技术科普。"><title>三维世界的觉醒 · AI 纪元</title><link rel="stylesheet" href="style.css"><script src="app.js" defer></script></head><body class="reading"><header><a class="brand" href="index.html">AI 纪元<span>THE AI ERA</span></a><div class="controls"><button id="smaller" aria-label="缩小字号">A−</button><button id="larger" aria-label="增大字号">A＋</button><button id="theme" aria-label="切换深浅色">◐</button></div></header><div class="reader-layout"><aside><a href="index.html">← 全书目录</a><p class="eyebrow">本章导航</p><div class="toc">
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="AI 纪元：从语言模型到智能体文明，十二章小说式技术科普。"><title>三维世界的觉醒 · AI 纪元</title><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="repairs.css"><script src="app.js" defer></script><script src="demos.js" defer></script></head><body class="reading"><header><a class="brand" href="index.html">AI 纪元<span>THE AI ERA</span></a><div class="controls"><button id="smaller" aria-label="缩小字号">A−</button><button id="larger" aria-label="增大字号">A＋</button><button id="theme" aria-label="切换深浅色">◐</button></div></header><div class="reader-layout"><aside><a href="index.html">← 全书目录</a><p class="eyebrow">本章导航</p><div class="toc">
 <ul>
 <li><a href="#ai">第一幕：会认猫的 AI，为什么不会躲猫？</a><ul>
 <li><a href="#1">1. 图像识别解决的是“是什么”</a></li>
@@ -213,26 +213,26 @@
 <p>“你不能只靠观察当前状态。”</p>
 <p>“你需要根据当前世界状态、可能的动作，以及环境变化规律，推测未来状态。”</p>
 <p>陈默在白板上写下：</p>
-<p>[ s_{t+1}=F(s_t,a_t) ]</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>s</mi><mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><mi>F</mi><mo stretchy="false">(</mo><msub><mi>s</mi><mi>t</mi></msub><mo separator="true">,</mo><msub><mi>a</mi><mi>t</mi></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex"> s_{t+1}=F(s_t,a_t) </annotation></semantics></math></span></p>
 <p>其中：</p>
 <ul>
 <li>
-<p>(s_t)：当前世界状态</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>s</mi><mi>t</mi></msub></mrow><annotation encoding="application/x-tex">s_t</annotation></semantics></math></span>：当前世界状态</p>
 </li>
 <li>
-<p>(a_t)：当前执行的动作</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>t</mi></msub></mrow><annotation encoding="application/x-tex">a_t</annotation></semantics></math></span>：当前执行的动作</p>
 </li>
 <li>
-<p>(F)：世界的状态转移规律</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi></mrow><annotation encoding="application/x-tex">F</annotation></semantics></math></span>：世界的状态转移规律</p>
 </li>
 <li>
-<p>(s_{t+1})：执行动作后的状态</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>s</mi><mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">s_{t+1}</annotation></semantics></math></span>：执行动作后的状态</p>
 </li>
 </ul>
 <p>“这只是最简单的形式。”</p>
 <p>“真实世界还存在噪声、未知因素和部分可观测性。”</p>
 <p>“所以更一般地，我们要学习一个概率预测模型。”</p>
-<p>[ p(s_{t+1}\mid s_t,a_t) ]</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>p</mi><mo stretchy="false">(</mo><msub><mi>s</mi><mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>∣</mo><msub><mi>s</mi><mi>t</mi></msub><mo separator="true">,</mo><msub><mi>a</mi><mi>t</mi></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex"> p(s_{t+1}\mid s_t,a_t) </annotation></semantics></math></span></p>
 <p>林远盯着公式。</p>
 <p>“等等，这不就是强化学习里面的状态转移模型？”</p>
 <p>陈默笑了。</p>
@@ -279,13 +279,13 @@
 <p>也不知道杯底与桌面之间的摩擦系数。</p>
 <p>“所以机器人获得的往往不是完整世界状态，而是部分观测。”</p>
 <p>可以写成：</p>
-<p>[ o_t=G(s_t) ]</p>
-<p>其中 (o_t) 是观测。</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>o</mi><mi>t</mi></msub><mo>=</mo><mi>G</mi><mo stretchy="false">(</mo><msub><mi>s</mi><mi>t</mi></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex"> o_t=G(s_t) </annotation></semantics></math></span></p>
+<p>其中 <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>o</mi><mi>t</mi></msub></mrow><annotation encoding="application/x-tex">o_t</annotation></semantics></math></span> 是观测。</p>
 <p>模型通过历史观测构造内部表示：</p>
-<p>[ z_t=E(o_{\leq t},a_{&lt;t}) ]</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>z</mi><mi>t</mi></msub><mo>=</mo><mi>E</mi><mo stretchy="false">(</mo><msub><mi>o</mi><mrow><mo>≤</mo><mi>t</mi></mrow></msub><mo separator="true">,</mo><msub><mi>a</mi><mrow><mo>&lt;</mo><mi>t</mi></mrow></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex"> z_t=E(o_{\leq t},a_{&lt;t}) </annotation></semantics></math></span></p>
 <p>然后预测：</p>
-<p>[ \hat z_{t+1}=F_\theta(z_t,a_t) ]</p>
-<p>“这里的 (z_t) 可以理解成模型对当前环境的内部表示。”</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mover accent="true"><mi>z</mi><mo>^</mo></mover><mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><msub><mi>F</mi><mi>θ</mi></msub><mo stretchy="false">(</mo><msub><mi>z</mi><mi>t</mi></msub><mo separator="true">,</mo><msub><mi>a</mi><mi>t</mi></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex"> \hat z_{t+1}=F_\theta(z_t,a_t) </annotation></semantics></math></span></p>
+<p>“这里的 <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>z</mi><mi>t</mi></msub></mrow><annotation encoding="application/x-tex">z_t</annotation></semantics></math></span> 可以理解成模型对当前环境的内部表示。”</p>
 <p>“它不一定是人类可以直接读懂的三维地图。”</p>
 <p>林远问：</p>
 <p>“那为什么不直接预测下一张图片？”</p>
@@ -306,30 +306,30 @@
 <p>“这是三维视觉长期研究的问题。”</p>
 <h3 id="1_1">1. 二维图像丢失了深度</h3>
 <p>在真实世界中，一个物体的位置可以用三维坐标表示：</p>
-<p>[ P=(x,y,z) ]</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>P</mi><mo>=</mo><mo stretchy="false">(</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo separator="true">,</mo><mi>z</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex"> P=(x,y,z) </annotation></semantics></math></span></p>
 <p>但普通照片通常是把三维世界投影到二维图像平面。</p>
 <p>在简化的针孔相机模型中：</p>
-<p>[ u=f_x\frac{X}{Z}+c_x ]</p>
-<p>[ v=f_y\frac{Y}{Z}+c_y ]</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>u</mi><mo>=</mo><msub><mi>f</mi><mi>x</mi></msub><mfrac><mi>X</mi><mi>Z</mi></mfrac><mo>+</mo><msub><mi>c</mi><mi>x</mi></msub></mrow><annotation encoding="application/x-tex"> u=f_x\frac{X}{Z}+c_x </annotation></semantics></math></span></p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>v</mi><mo>=</mo><msub><mi>f</mi><mi>y</mi></msub><mfrac><mi>Y</mi><mi>Z</mi></mfrac><mo>+</mo><msub><mi>c</mi><mi>y</mi></msub></mrow><annotation encoding="application/x-tex"> v=f_y\frac{Y}{Z}+c_y </annotation></semantics></math></span></p>
 <p>其中：</p>
 <ul>
 <li>
-<p>((X,Y,Z))：相机坐标系中的三维点</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>X</mi><mo separator="true">,</mo><mi>Y</mi><mo separator="true">,</mo><mi>Z</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(X,Y,Z)</annotation></semantics></math></span>：相机坐标系中的三维点</p>
 </li>
 <li>
-<p>((u,v))：图像上的像素位置</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>u</mi><mo separator="true">,</mo><mi>v</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(u,v)</annotation></semantics></math></span>：图像上的像素位置</p>
 </li>
 <li>
-<p>(f_x,f_y)：相机焦距相关参数</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>f</mi><mi>x</mi></msub><mo separator="true">,</mo><msub><mi>f</mi><mi>y</mi></msub></mrow><annotation encoding="application/x-tex">f_x,f_y</annotation></semantics></math></span>：相机焦距相关参数</p>
 </li>
 <li>
-<p>(c_x,c_y)：主点坐标</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>c</mi><mi>x</mi></msub><mo separator="true">,</mo><msub><mi>c</mi><mi>y</mi></msub></mrow><annotation encoding="application/x-tex">c_x,c_y</annotation></semantics></math></span>：主点坐标</p>
 </li>
 </ul>
 <p>陈默问：</p>
-<p>“如果只知道像素位置 (u,v)，能唯一确定三维点吗？”</p>
+<p>“如果只知道像素位置 <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi><mo separator="true">,</mo><mi>v</mi></mrow><annotation encoding="application/x-tex">u,v</annotation></semantics></math></span>，能唯一确定三维点吗？”</p>
 <p>林远思考后回答：</p>
-<p>“不能，因为深度 (Z) 未知。”</p>
+<p>“不能，因为深度 <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Z</mi></mrow><annotation encoding="application/x-tex">Z</annotation></semantics></math></span> 未知。”</p>
 <p>“没错。”</p>
 <p>“同一个像素位置，可能对应不同距离上的物体。”</p>
 <p>这就是为什么从单张图片恢复三维结构存在天然歧义。</p>
@@ -395,9 +395,9 @@
 <h3 id="2_3">2. 物理模拟器又是什么？</h3>
 <p>传统物理引擎通常显式使用物理规则计算物体运动。</p>
 <p>例如：</p>
-<p>[ F=ma ]</p>
-<p>[ v_{t+\Delta t}=v_t+a_t\Delta t ]</p>
-<p>[ x_{t+\Delta t}=x_t+v_t\Delta t ]</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>F</mi><mo>=</mo><mi>m</mi><mi>a</mi></mrow><annotation encoding="application/x-tex"> F=ma </annotation></semantics></math></span></p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>v</mi><mrow><mi>t</mi><mo>+</mo><mi mathvariant="normal">Δ</mi><mi>t</mi></mrow></msub><mo>=</mo><msub><mi>v</mi><mi>t</mi></msub><mo>+</mo><msub><mi>a</mi><mi>t</mi></msub><mi mathvariant="normal">Δ</mi><mi>t</mi></mrow><annotation encoding="application/x-tex"> v_{t+\Delta t}=v_t+a_t\Delta t </annotation></semantics></math></span></p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>x</mi><mrow><mi>t</mi><mo>+</mo><mi mathvariant="normal">Δ</mi><mi>t</mi></mrow></msub><mo>=</mo><msub><mi>x</mi><mi>t</mi></msub><mo>+</mo><msub><mi>v</mi><mi>t</mi></msub><mi mathvariant="normal">Δ</mi><mi>t</mi></mrow><annotation encoding="application/x-tex"> x_{t+\Delta t}=x_t+v_t\Delta t </annotation></semantics></math></span></p>
 <p>“这些公式只是最基础的运动关系。”</p>
 <p>“实际物理引擎还要处理刚体碰撞、摩擦、约束、接触和数值稳定性。”</p>
 <p>林远说：</p>
@@ -452,7 +452,7 @@
 <p>“不一定。”</p>
 <p>“仅仅生成一段符合提示词的视频，不等于系统能在相同初始状态下可靠地比较不同动作的后果。”</p>
 <p>陈默在白板上写下：</p>
-<p>[ p(o_{t+1}\mid o_{\leq t},a_t) ]</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>p</mi><mo stretchy="false">(</mo><msub><mi>o</mi><mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>∣</mo><msub><mi>o</mi><mrow><mo>≤</mo><mi>t</mi></mrow></msub><mo separator="true">,</mo><msub><mi>a</mi><mi>t</mi></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex"> p(o_{t+1}\mid o_{\leq t},a_t) </annotation></semantics></math></span></p>
 <p>“这叫动作条件预测的一种表达方式。”</p>
 <p>“模型不仅接收过去的观测，还接收动作。”</p>
 <p>“它要学习的是，动作如何影响未来。”</p>
@@ -496,8 +496,8 @@
 <p>“然后选择最好的？”</p>
 <p>“理论上可以采用类似策略。”</p>
 <p>陈默写下：</p>
-<p>[ a^*=\arg\max_a \mathbb{E}[R(\hat s_{t+1})\mid s_t,a] ]</p>
-<p>“这里的 (R) 表示目标收益。”</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msup><mi>a</mi><mo>∗</mo></msup><mo>=</mo><mi>arg</mi><mo>⁡</mo><munder><mrow><mi>max</mi><mo>⁡</mo></mrow><mi>a</mi></munder><mi mathvariant="double-struck">E</mi><mo stretchy="false">[</mo><mi>R</mi><mo stretchy="false">(</mo><msub><mover accent="true"><mi>s</mi><mo>^</mo></mover><mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow></msub><mo stretchy="false">)</mo><mo>∣</mo><msub><mi>s</mi><mi>t</mi></msub><mo separator="true">,</mo><mi>a</mi><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex"> a^*=\arg\max_a \mathbb{E}[R(\hat s_{t+1})\mid s_t,a] </annotation></semantics></math></span></p>
+<p>“这里的 <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi></mrow><annotation encoding="application/x-tex">R</annotation></semantics></math></span> 表示目标收益。”</p>
 <p>“例如，让杯子移动到指定位置，同时避免碰撞。”</p>
 <p>“但实际规划可能需要考虑多步动作序列，而不是只看下一步。”</p>
 <p>这就引出了一个重要方法：</p>
@@ -624,20 +624,20 @@
 <h3 id="1-vla">1. VLA 的基本思想</h3>
 <p>VLA 模型尝试把视觉观测、语言指令与机器人动作联系起来。</p>
 <p>简化形式：</p>
-<p>[ a_t=\pi_\theta(o_t,l,h_t) ]</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>a</mi><mi>t</mi></msub><mo>=</mo><msub><mi>π</mi><mi>θ</mi></msub><mo stretchy="false">(</mo><msub><mi>o</mi><mi>t</mi></msub><mo separator="true">,</mo><mi>l</mi><mo separator="true">,</mo><msub><mi>h</mi><mi>t</mi></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex"> a_t=\pi_\theta(o_t,l,h_t) </annotation></semantics></math></span></p>
 <p>其中：</p>
 <ul>
 <li>
-<p>(o_t)：视觉或其他传感器观测</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>o</mi><mi>t</mi></msub></mrow><annotation encoding="application/x-tex">o_t</annotation></semantics></math></span>：视觉或其他传感器观测</p>
 </li>
 <li>
-<p>(l)：语言任务指令</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>l</mi></mrow><annotation encoding="application/x-tex">l</annotation></semantics></math></span>：语言任务指令</p>
 </li>
 <li>
-<p>(h_t)：历史信息</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>h</mi><mi>t</mi></msub></mrow><annotation encoding="application/x-tex">h_t</annotation></semantics></math></span>：历史信息</p>
 </li>
 <li>
-<p>(a_t)：输出动作</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>t</mi></msub></mrow><annotation encoding="application/x-tex">a_t</annotation></semantics></math></span>：输出动作</p>
 </li>
 </ul>
 <p>林远问：</p>

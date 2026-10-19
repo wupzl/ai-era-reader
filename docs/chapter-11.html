@@ -1,4 +1,4 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="AI 纪元：从语言模型到智能体文明，十二章小说式技术科普。"><title>模型战争与架构演进 · AI 纪元</title><link rel="stylesheet" href="style.css"><script src="app.js" defer></script></head><body class="reading"><header><a class="brand" href="index.html">AI 纪元<span>THE AI ERA</span></a><div class="controls"><button id="smaller" aria-label="缩小字号">A−</button><button id="larger" aria-label="增大字号">A＋</button><button id="theme" aria-label="切换深浅色">◐</button></div></header><div class="reader-layout"><aside><a href="index.html">← 全书目录</a><p class="eyebrow">本章导航</p><div class="toc">
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="AI 纪元：从语言模型到智能体文明，十二章小说式技术科普。"><title>模型战争与架构演进 · AI 纪元</title><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="repairs.css"><script src="app.js" defer></script><script src="demos.js" defer></script></head><body class="reading"><header><a class="brand" href="index.html">AI 纪元<span>THE AI ERA</span></a><div class="controls"><button id="smaller" aria-label="缩小字号">A−</button><button id="larger" aria-label="增大字号">A＋</button><button id="theme" aria-label="切换深浅色">◐</button></div></header><div class="reader-layout"><aside><a href="index.html">← 全书目录</a><p class="eyebrow">本章导航</p><div class="toc">
 <ul>
 <li><a href="#transformer">第一幕：Transformer 帝国为什么能够统治世界？</a><ul>
 <li><a href="#1-rnn">1. RNN 的历史困境</a></li>
@@ -249,17 +249,17 @@ G. World Model
 <p>“从左到右，依次更新隐藏状态。”</p>
 <h3 id="1-rnn">1. RNN 的历史困境</h3>
 <p>传统 RNN 可以写成：</p>
-<p>[ h_t=f(h_{t-1},x_t) ]</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>h</mi><mi>t</mi></msub><mo>=</mo><mi>f</mi><mo stretchy="false">(</mo><msub><mi>h</mi><mrow><mi>t</mi><mo>−</mo><mn>1</mn></mrow></msub><mo separator="true">,</mo><msub><mi>x</mi><mi>t</mi></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex"> h_t=f(h_{t-1},x_t) </annotation></semantics></math></span></p>
 <p>其中：</p>
 <ul>
 <li>
-<p>(x_t)：当前 Token 的输入表示</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mi>t</mi></msub></mrow><annotation encoding="application/x-tex">x_t</annotation></semantics></math></span>：当前 Token 的输入表示</p>
 </li>
 <li>
-<p>(h_{t-1})：之前的隐藏状态</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>h</mi><mrow><mi>t</mi><mo>−</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">h_{t-1}</annotation></semantics></math></span>：之前的隐藏状态</p>
 </li>
 <li>
-<p>(h_t)：当前隐藏状态</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>h</mi><mi>t</mi></msub></mrow><annotation encoding="application/x-tex">h_t</annotation></semantics></math></span>：当前隐藏状态</p>
 </li>
 </ul>
 <p>陈默说：</p>
@@ -275,7 +275,7 @@ G. World Model
 <p>Q、K、V。</p>
 <p>“Transformer 最重要的变化之一，是让序列中的位置通过 Attention 直接建立联系。”</p>
 <p>经典缩放点积注意力：</p>
-<p>[ \operatorname{Attention}(Q,K,V) = \operatorname{softmax} \left( \frac{QK^\top}{\sqrt{d_k}} \right)V ]</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi mathvariant="normal">Attention</mi><mo>⁡</mo><mo stretchy="false">(</mo><mi>Q</mi><mo separator="true">,</mo><mi>K</mi><mo separator="true">,</mo><mi>V</mi><mo stretchy="false">)</mo><mo>=</mo><mi mathvariant="normal">softmax</mi><mo>⁡</mo><mrow><mo fence="true">(</mo><mfrac><mrow><mi>Q</mi><msup><mi>K</mi><mi mathvariant="normal">⊤</mi></msup></mrow><msqrt><msub><mi>d</mi><mi>k</mi></msub></msqrt></mfrac><mo fence="true">)</mo></mrow><mi>V</mi></mrow><annotation encoding="application/x-tex"> \operatorname{Attention}(Q,K,V) = \operatorname{softmax} \left( \frac{QK^\top}{\sqrt{d_k}} \right)V </annotation></semantics></math></span></p>
 <p>林远看着公式。</p>
 <p>“Query 与 Key 计算相关性，再根据权重聚合 Value。”</p>
 <p>“对。”</p>
@@ -297,11 +297,11 @@ G. World Model
 <p>林远突然问：</p>
 <p>“如果所有 Token 都能相互关注，那序列越长，计算量不是越大吗？”</p>
 <p>陈默点头。</p>
-<p>对于标准全注意力，序列长度为 (n) 时，注意力分数矩阵包含：</p>
-<p>[ n\times n=n^2 ]</p>
+<p>对于标准全注意力，序列长度为 <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span> 时，注意力分数矩阵包含：</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>n</mi><mo>×</mo><mi>n</mi><mo>=</mo><msup><mi>n</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex"> n\times n=n^2 </annotation></semantics></math></span></p>
 <p>个元素。</p>
 <p>因此，注意力相关计算通常具有关于序列长度的二次复杂度。</p>
-<p>“不过不要把这个结论理解成整个 Transformer 在所有情况下都严格是 (O(n^2))。”</p>
+<p>“不过不要把这个结论理解成整个 Transformer 在所有情况下都严格是 <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><msup><mi>n</mi><mn>2</mn></msup><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n^2)</annotation></semantics></math></span>。”</p>
 <p>陈默提醒。</p>
 <p>“前馈网络、投影计算、注意力优化算法和硬件实现都会影响实际开销。”</p>
 <p>“FlashAttention 等技术可以大幅减少中间结果的显存读写，但不会凭空消除标准全注意力的全部二次计算。”</p>
@@ -341,7 +341,7 @@ G. World Model
 <p>“对。”</p>
 <p>“尤其在低批量自回归解码时，权重读取可能成为重要瓶颈。”</p>
 <p>陈默写下一个粗略关系：</p>
-<p>[ T_{\text{decode}}\gtrsim \frac{\text{需要读取的权重字节数}} {\text{有效内存带宽}} ]</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>T</mi><mtext>decode</mtext></msub><mo>≳</mo><mfrac><mtext>需要读取的权重字节数</mtext><mtext>有效内存带宽</mtext></mfrac></mrow><annotation encoding="application/x-tex"> T_{\text{decode}}\gtrsim \frac{\text{需要读取的权重字节数}} {\text{有效内存带宽}} </annotation></semantics></math></span></p>
 <p>“这是便于理解的理想化估算。”</p>
 <p>“真实推理还受到 KV Cache、计算吞吐、通信和内核效率影响。”</p>
 <p>林远问：</p>
@@ -385,17 +385,17 @@ Expert 5
 </code></pre>
 <p>只有选中的专家参与这一部分的计算。</p>
 <p>一个简化表达式：</p>
-<p>[ y=\sum_{i\in \operatorname{TopK}(g(x))} w_i(x)E_i(x) ]</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>y</mi><mo>=</mo><munder><mo>∑</mo><mrow><mi>i</mi><mo>∈</mo><mi mathvariant="normal">TopK</mi><mo>⁡</mo><mo stretchy="false">(</mo><mi>g</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow></munder><msub><mi>w</mi><mi>i</mi></msub><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><msub><mi>E</mi><mi>i</mi></msub><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex"> y=\sum_{i\in \operatorname{TopK}(g(x))} w_i(x)E_i(x) </annotation></semantics></math></span></p>
 <p>其中：</p>
 <ul>
 <li>
-<p>(g(x))：路由器</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>g</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">g(x)</annotation></semantics></math></span>：路由器</p>
 </li>
 <li>
-<p>(E_i(x))：第 (i) 个专家</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>E</mi><mi>i</mi></msub><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">E_i(x)</annotation></semantics></math></span>：第 <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span> 个专家</p>
 </li>
 <li>
-<p>(w_i(x))：对应专家权重</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>w</mi><mi>i</mi></msub><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">w_i(x)</annotation></semantics></math></span>：对应专家权重</p>
 </li>
 </ul>
 <h3 id="2-moe">2. MoE 为什么可能更省计算？</h3>
@@ -496,8 +496,8 @@ GPU 4: Expert 7, 8
 <p>陈默点头。</p>
 <h3 id="1">1. 自回归生成的串行性</h3>
 <p>传统自回归语言模型通常建模：</p>
-<p>[ P(x_1,\ldots,x_n) = \prod_{t=1}^{n} P(x_t\mid x_{&lt;t}) ]</p>
-<p>这意味着生成第 (t) 个 Token 时，依赖前面已经生成的 Token。</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>P</mi><mo stretchy="false">(</mo><msub><mi>x</mi><mn>1</mn></msub><mo separator="true">,</mo><mo>…</mo><mo separator="true">,</mo><msub><mi>x</mi><mi>n</mi></msub><mo stretchy="false">)</mo><mo>=</mo><munderover><mo>∏</mo><mrow><mi>t</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><mi>P</mi><mo stretchy="false">(</mo><msub><mi>x</mi><mi>t</mi></msub><mo>∣</mo><msub><mi>x</mi><mrow><mo>&lt;</mo><mi>t</mi></mrow></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex"> P(x_1,\ldots,x_n) = \prod_{t=1}^{n} P(x_t\mid x_{&lt;t}) </annotation></semantics></math></span></p>
+<p>这意味着生成第 <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span> 个 Token 时，依赖前面已经生成的 Token。</p>
 <p>例如：</p>
 <pre><code>第 1 步：Java
 第 2 步：Java 是
@@ -564,21 +564,21 @@ Java 是 一种 编程 语言 。
 <p>“这就是状态空间模型的重要思想之一。”</p>
 <h3 id="1_1">1. 状态空间模型</h3>
 <p>经典离散状态空间模型可以写成：</p>
-<p>[ h_t=Ah_{t-1}+Bx_t ]</p>
-<p>[ y_t=Ch_t+Dx_t ]</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>h</mi><mi>t</mi></msub><mo>=</mo><mi>A</mi><msub><mi>h</mi><mrow><mi>t</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>+</mo><mi>B</mi><msub><mi>x</mi><mi>t</mi></msub></mrow><annotation encoding="application/x-tex"> h_t=Ah_{t-1}+Bx_t </annotation></semantics></math></span></p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>y</mi><mi>t</mi></msub><mo>=</mo><mi>C</mi><msub><mi>h</mi><mi>t</mi></msub><mo>+</mo><mi>D</mi><msub><mi>x</mi><mi>t</mi></msub></mrow><annotation encoding="application/x-tex"> y_t=Ch_t+Dx_t </annotation></semantics></math></span></p>
 <p>其中：</p>
 <ul>
 <li>
-<p>(h_t)：隐藏状态</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>h</mi><mi>t</mi></msub></mrow><annotation encoding="application/x-tex">h_t</annotation></semantics></math></span>：隐藏状态</p>
 </li>
 <li>
-<p>(x_t)：当前输入</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mi>t</mi></msub></mrow><annotation encoding="application/x-tex">x_t</annotation></semantics></math></span>：当前输入</p>
 </li>
 <li>
-<p>(y_t)：输出</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>y</mi><mi>t</mi></msub></mrow><annotation encoding="application/x-tex">y_t</annotation></semantics></math></span>：输出</p>
 </li>
 <li>
-<p>(A,B,C,D)：状态转移与输入输出映射</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo separator="true">,</mo><mi>B</mi><mo separator="true">,</mo><mi>C</mi><mo separator="true">,</mo><mi>D</mi></mrow><annotation encoding="application/x-tex">A,B,C,D</annotation></semantics></math></span>：状态转移与输入输出映射</p>
 </li>
 </ul>
 <p>陈默解释：</p>
@@ -596,7 +596,7 @@ Java 是 一种 编程 语言 。
 <p>“但 Mamba 的具体数学结构和高效计算方式不同。”</p>
 <h3 id="3-mamba">3. 为什么 Mamba 适合长序列？</h3>
 <p>陈默说：</p>
-<p>“某些选择性状态空间模型可以避免标准全注意力那种显式的 (n\times n) 注意力矩阵。”</p>
+<p>“某些选择性状态空间模型可以避免标准全注意力那种显式的 <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>×</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">n\times n</annotation></semantics></math></span> 注意力矩阵。”</p>
 <p>“因此，它们在长序列处理和缓存开销方面具有潜在优势。”</p>
 <p>“同时，Mamba 通过适合硬件的扫描算法，使训练阶段能够利用并行计算。”</p>
 <h3 id="4-mamba">4. Mamba 的代价</h3>
@@ -764,19 +764,19 @@ Text  → Token Embedding ─┘
 <p>“对。”</p>
 <h3 id="1_3">1. 从语言预测到环境预测</h3>
 <p>语言模型常见目标是：</p>
-<p>[ P(x_{t+1}\mid x_{\le t}) ]</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>P</mi><mo stretchy="false">(</mo><msub><mi>x</mi><mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>∣</mo><msub><mi>x</mi><mrow><mo>≤</mo><mi>t</mi></mrow></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex"> P(x_{t+1}\mid x_{\le t}) </annotation></semantics></math></span></p>
 <p>而动作条件世界模型可以表示为：</p>
-<p>[ P(s_{t+1}\mid s_t,a_t) ]</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>P</mi><mo stretchy="false">(</mo><msub><mi>s</mi><mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>∣</mo><msub><mi>s</mi><mi>t</mi></msub><mo separator="true">,</mo><msub><mi>a</mi><mi>t</mi></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex"> P(s_{t+1}\mid s_t,a_t) </annotation></semantics></math></span></p>
 <p>其中：</p>
 <ul>
 <li>
-<p>(s_t)：当前环境状态</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>s</mi><mi>t</mi></msub></mrow><annotation encoding="application/x-tex">s_t</annotation></semantics></math></span>：当前环境状态</p>
 </li>
 <li>
-<p>(a_t)：执行动作</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>t</mi></msub></mrow><annotation encoding="application/x-tex">a_t</annotation></semantics></math></span>：执行动作</p>
 </li>
 <li>
-<p>(s_{t+1})：下一时刻状态</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>s</mi><mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">s_{t+1}</annotation></semantics></math></span>：下一时刻状态</p>
 </li>
 </ul>
 <p>“当然，真实世界状态通常不能被完整观测。”</p>

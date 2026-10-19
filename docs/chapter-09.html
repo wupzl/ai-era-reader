@@ -1,4 +1,4 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="AI 纪元：从语言模型到智能体文明，十二章小说式技术科普。"><title>Coding Agent 的军备竞赛 · AI 纪元</title><link rel="stylesheet" href="style.css"><script src="app.js" defer></script></head><body class="reading"><header><a class="brand" href="index.html">AI 纪元<span>THE AI ERA</span></a><div class="controls"><button id="smaller" aria-label="缩小字号">A−</button><button id="larger" aria-label="增大字号">A＋</button><button id="theme" aria-label="切换深浅色">◐</button></div></header><div class="reader-layout"><aside><a href="index.html">← 全书目录</a><p class="eyebrow">本章导航</p><div class="toc">
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="AI 纪元：从语言模型到智能体文明，十二章小说式技术科普。"><title>Coding Agent 的军备竞赛 · AI 纪元</title><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="repairs.css"><script src="app.js" defer></script><script src="demos.js" defer></script></head><body class="reading"><header><a class="brand" href="index.html">AI 纪元<span>THE AI ERA</span></a><div class="controls"><button id="smaller" aria-label="缩小字号">A−</button><button id="larger" aria-label="增大字号">A＋</button><button id="theme" aria-label="切换深浅色">◐</button></div></header><div class="reader-layout"><aside><a href="index.html">← 全书目录</a><p class="eyebrow">本章导航</p><div class="toc">
 <ul>
 <li><a href="#harness">第一幕：模型只是士兵，Harness 才是军队</a><ul>
 <li><a href="#1-llm-coding-agent">1. 从 LLM 到 Coding Agent</a></li>
@@ -436,7 +436,7 @@ runTests(target: string)
 <h3 id="1-token">1. 工具定义也消耗 Token</h3>
 <p>假设每个工具的描述、参数 Schema 和使用说明平均占用 500 Token。</p>
 <p>100 个工具就是：</p>
-<p>[ 100\times500=50,000\text{ Token} ]</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mn>100</mn><mo>×</mo><mn>500</mn><mo>=</mo><mn>50</mn><mo separator="true">,</mo><mn>000</mn><mtext> Token</mtext></mrow><annotation encoding="application/x-tex"> 100\times500=50,000\text{ Token} </annotation></semantics></math></span></p>
 <p>林远愣住。</p>
 <p>“光工具定义就占了五万个 Token？”</p>
 <p>“在这个假设下，是的。”</p>
@@ -463,18 +463,7 @@ runTests(target: string)
 <p>原本 100 个工具，每个平均 500 Token。</p>
 <p>现在保留一个 2,000 Token 的工具目录。</p>
 <p>当前任务只加载 5 个工具。</p>
-<p>MCP Lazy Loading Token 实验</p>
-<p>当前加载工具数</p>
-<p>5 / 100</p>
-<p>全量加载</p>
-<h1 id="50000">50,000</h1>
-<p>Token</p>
-<p>按需加载</p>
-<h1 id="4500">4,500</h1>
-<p>Token</p>
-<p>相对节省</p>
-<p>91.0%</p>
-<p>教学模型：每工具 500 Token，目录 2,000 Token。未计入工具搜索调用及额外说明的开销。</p>
+<section class="demo" data-demo="tools" aria-label="MCP Lazy Loading Token 实验"><h3>MCP Lazy Loading Token 实验</h3><label>当前加载工具数（共 100 个）<input aria-label="当前加载工具数（共 100 个）" data-field="loaded" type="range" min="0" max="100" step="1" value="5"></label><div class="demo-result" aria-live="polite"><div><span>当前加载</span><strong data-value="loaded">5 / 100</strong></div><div><span>全量加载</span><strong data-value="full">50,000 Token</strong></div><div><span>按需加载</span><strong data-value="lazy">4,500 Token</strong></div><div><span>相对节省</span><strong data-value="saving">91.0%</strong></div></div><p class="demo-note">按原文参数重建的教学演示。每工具 500 Token，目录 2,000 Token；未计发现调用和结果说明。工具全加载时，目录会成为额外开销。</p></section>
 <p>林远看着数字。</p>
 <p>“只加载五个工具，Token 可以减少很多。”</p>
 <p>陈默点头。</p>

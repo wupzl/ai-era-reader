@@ -1,4 +1,4 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="AI 纪元：从语言模型到智能体文明，十二章小说式技术科普。"><title>真正的 AI 应用工程 · AI 纪元</title><link rel="stylesheet" href="style.css"><script src="app.js" defer></script></head><body class="reading"><header><a class="brand" href="index.html">AI 纪元<span>THE AI ERA</span></a><div class="controls"><button id="smaller" aria-label="缩小字号">A−</button><button id="larger" aria-label="增大字号">A＋</button><button id="theme" aria-label="切换深浅色">◐</button></div></header><div class="reader-layout"><aside><a href="index.html">← 全书目录</a><p class="eyebrow">本章导航</p><div class="toc">
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="AI 纪元：从语言模型到智能体文明，十二章小说式技术科普。"><title>真正的 AI 应用工程 · AI 纪元</title><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="repairs.css"><script src="app.js" defer></script><script src="demos.js" defer></script></head><body class="reading"><header><a class="brand" href="index.html">AI 纪元<span>THE AI ERA</span></a><div class="controls"><button id="smaller" aria-label="缩小字号">A−</button><button id="larger" aria-label="增大字号">A＋</button><button id="theme" aria-label="切换深浅色">◐</button></div></header><div class="reader-layout"><aside><a href="index.html">← 全书目录</a><p class="eyebrow">本章导航</p><div class="toc">
 <ul>
 <li><a href="#demo">第一幕：Demo 为什么总是比生产环境聪明？</a><ul>
 <li><a href="#demo_1">Demo 与生产环境的真正区别</a></li>
@@ -45,8 +45,6 @@
 <li><a href="#_2">灰度发布示意</a></li>
 </ul>
 </li>
-<li><a href="#ai_1">AI 模型灰度发布模拟</a></li>
-<li><a href="#5">5%</a></li>
 <li><a href="#token">第九幕：成本控制——Token 不是免费的</a><ul>
 <li><a href="#1-cost-per-successful-task">1. Cost per Successful Task</a></li>
 <li><a href="#2_4">2. 成本控制手段</a></li>
@@ -58,7 +56,7 @@
 <li><a href="#3-sse">3. SSE 的作用</a></li>
 </ul>
 </li>
-<li><a href="#ai_2">第十一幕：缓存——为什么 AI 缓存比普通缓存更危险？</a><ul>
+<li><a href="#ai_1">第十一幕：缓存——为什么 AI 缓存比普通缓存更危险？</a><ul>
 <li><a href="#1_2">1. 四种常见缓存</a></li>
 <li><a href="#2-semantic-cache">2. Semantic Cache</a></li>
 </ul>
@@ -83,13 +81,13 @@
 <li><a href="#3_2">3. 三条基本原则</a></li>
 </ul>
 </li>
-<li><a href="#ai_3">第十五幕：数据闭环——AI 系统怎样越用越好？</a><ul>
+<li><a href="#ai_2">第十五幕：数据闭环——AI 系统怎样越用越好？</a><ul>
 <li><a href="#1_5">1. 一个完整的数据闭环</a></li>
 <li><a href="#2_7">2. 为什么不能直接拿所有用户数据训练？</a></li>
 <li><a href="#3_3">3. 失败样本分类</a></li>
 </ul>
 </li>
-<li><a href="#ai_4">第十六幕：真正的企业级 AI 平台架构</a><ul>
+<li><a href="#ai_3">第十六幕：真正的企业级 AI 平台架构</a><ul>
 <li><a href="#_5">一条真实请求的完整路径</a></li>
 </ul>
 </li>
@@ -148,8 +146,6 @@
 <li><a href="#_2">灰度发布示意</a></li>
 </ul>
 </li>
-<li><a href="#ai_1">AI 模型灰度发布模拟</a></li>
-<li><a href="#5">5%</a></li>
 <li><a href="#token">第九幕：成本控制——Token 不是免费的</a><ul>
 <li><a href="#1-cost-per-successful-task">1. Cost per Successful Task</a></li>
 <li><a href="#2_4">2. 成本控制手段</a></li>
@@ -161,7 +157,7 @@
 <li><a href="#3-sse">3. SSE 的作用</a></li>
 </ul>
 </li>
-<li><a href="#ai_2">第十一幕：缓存——为什么 AI 缓存比普通缓存更危险？</a><ul>
+<li><a href="#ai_1">第十一幕：缓存——为什么 AI 缓存比普通缓存更危险？</a><ul>
 <li><a href="#1_2">1. 四种常见缓存</a></li>
 <li><a href="#2-semantic-cache">2. Semantic Cache</a></li>
 </ul>
@@ -186,13 +182,13 @@
 <li><a href="#3_2">3. 三条基本原则</a></li>
 </ul>
 </li>
-<li><a href="#ai_3">第十五幕：数据闭环——AI 系统怎样越用越好？</a><ul>
+<li><a href="#ai_2">第十五幕：数据闭环——AI 系统怎样越用越好？</a><ul>
 <li><a href="#1_5">1. 一个完整的数据闭环</a></li>
 <li><a href="#2_7">2. 为什么不能直接拿所有用户数据训练？</a></li>
 <li><a href="#3_3">3. 失败样本分类</a></li>
 </ul>
 </li>
-<li><a href="#ai_4">第十六幕：真正的企业级 AI 平台架构</a><ul>
+<li><a href="#ai_3">第十六幕：真正的企业级 AI 平台架构</a><ul>
 <li><a href="#_5">一条真实请求的完整路径</a></li>
 </ul>
 </li>
@@ -753,14 +749,7 @@ maxModelCost = $2.00
 <p>陈默说。</p>
 <p>“如果任务成功率下降、成本暴涨或安全指标异常，就应该暂停甚至回滚。”</p>
 <h3 id="_2">灰度发布示意</h3>
-<h2 id="ai_1">AI 模型灰度发布模拟</h2>
-<p>新模型流量比例</p>
-<h2 id="5">5%</h2>
-<p>新模型：5%</p>
-<p>旧模型：95%</p>
-<p>当前策略</p>
-<p>小流量验证，重点观察错误、成本和严重质量回归。</p>
-<p>流量比例仅用于展示灰度概念。实际放量应由质量与稳定性指标决定，而不是自动按固定时间增加。</p>
+<section class="demo" data-demo="rollout" aria-label="AI 模型灰度发布模拟"><h3>AI 模型灰度发布模拟</h3><label>新模型流量比例（%）<input aria-label="新模型流量比例（%）" data-field="traffic" type="range" min="0" max="100" step="1" value="5"></label><div class="demo-result" aria-live="polite"><div><span>新模型</span><strong data-value="new">5%</strong></div><div><span>旧模型</span><strong data-value="old">95%</strong></div><div class="traffic-bar" aria-hidden="true"><span style="width:5%"></span></div><p data-value="strategy">小流量验证，重点观察错误、成本和严重质量回归。</p></div><p class="demo-note">按原文参数重建的教学演示。流量不自动增加；实际放量由质量与稳定性指标决定。</p></section>
 <p>林远问：</p>
 <p>“如果新模型的答案更好，但成本高 50%，应该上线吗？”</p>
 <p>陈默回答：</p>
@@ -795,11 +784,11 @@ Top Cost Drivers:
 <p>模型 B 每次任务成本 0.15 美元。</p>
 <p>成功率 90%。</p>
 <p>如果每次尝试独立、成功率稳定且允许重复尝试，那么期望成功成本近似为：</p>
-<p>[ C_{\text{success}}=\frac{C_{\text{attempt}}}{P_{\text{success}}} ]</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>C</mi><mtext>success</mtext></msub><mo>=</mo><mfrac><msub><mi>C</mi><mtext>attempt</mtext></msub><msub><mi>P</mi><mtext>success</mtext></msub></mfrac></mrow><annotation encoding="application/x-tex"> C_{\text{success}}=\frac{C_{\text{attempt}}}{P_{\text{success}}} </annotation></semantics></math></span></p>
 <p>模型 A：</p>
-<p>[ 0.1/0.5=0.20 ]</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mn>0.1</mn><mi mathvariant="normal">/</mi><mn>0.5</mn><mo>=</mo><mn>0.20</mn></mrow><annotation encoding="application/x-tex"> 0.1/0.5=0.20 </annotation></semantics></math></span></p>
 <p>模型 B：</p>
-<p>[ 0.15/0.9\approx0.167 ]</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mn>0.15</mn><mi mathvariant="normal">/</mi><mn>0.9</mn><mo>≈</mo><mn>0.167</mn></mrow><annotation encoding="application/x-tex"> 0.15/0.9\approx0.167 </annotation></semantics></math></span></p>
 <p>“模型 B 单次更贵，但在这个简化假设下，成功任务的期望成本更低。”</p>
 <p>陈默说。</p>
 <p>“实际系统还要考虑失败重试是否独立、任务不可重复的副作用以及人工处理成本。”</p>
@@ -832,7 +821,7 @@ Top Cost Drivers:
 <p>P95 表示大约 95% 的观测请求延迟不超过该值。</p>
 <h3 id="2-ai">2. AI 请求的延迟组成</h3>
 <p>陈默写下：</p>
-<p>[ T_{\text{total}}= T_{\text{queue}}+ T_{\text{retrieval}}+ T_{\text{rerank}}+ T_{\text{prefill}}+ T_{\text{decode}}+ T_{\text{other}} ]</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>T</mi><mtext>total</mtext></msub><mo>=</mo><msub><mi>T</mi><mtext>queue</mtext></msub><mo>+</mo><msub><mi>T</mi><mtext>retrieval</mtext></msub><mo>+</mo><msub><mi>T</mi><mtext>rerank</mtext></msub><mo>+</mo><msub><mi>T</mi><mtext>prefill</mtext></msub><mo>+</mo><msub><mi>T</mi><mtext>decode</mtext></msub><mo>+</mo><msub><mi>T</mi><mtext>other</mtext></msub></mrow><annotation encoding="application/x-tex"> T_{\text{total}}= T_{\text{queue}}+ T_{\text{retrieval}}+ T_{\text{rerank}}+ T_{\text{prefill}}+ T_{\text{decode}}+ T_{\text{other}} </annotation></semantics></math></span></p>
 <p>“这是简化的串行路径。”</p>
 <p>“如果存在并行调用，总延迟需要按照实际依赖关系计算，不能简单把所有阶段相加。”</p>
 <h3 id="3-sse">3. SSE 的作用</h3>
@@ -848,7 +837,7 @@ Top Cost Drivers:
 <p>整个请求完成的时间。</p>
 <p>“流式输出对交互体验很重要。”</p>
 <p>“但如果首 Token 之前的检索和排队已经耗时 15 秒，SSE 也救不了。”</p>
-<h2 id="ai_2">第十一幕：缓存——为什么 AI 缓存比普通缓存更危险？</h2>
+<h2 id="ai_1">第十一幕：缓存——为什么 AI 缓存比普通缓存更危险？</h2>
 <p><img loading="lazy" decoding="async" alt="Semantic Updatable Cache on AlloyDB Omni | Articles" src="https://images.openai.com/static-rsc-4/FrT_NzWJbvm5a5H6P1ogMtoSpyvCtG9KEQoXaslaR1CviDy2PY22TVU0vHTiwar6orTjMLjo-NIXocNDdfRwyucsJkxkfPUilXf3HMVxDgtsDGqBbd15AFBa2ATDal9OhPN9npsibgRutGPRLUpbShi97rOBEIhxCyNJneC-y3M?purpose=inline" /></p>
 <p><a href="https://tekkix.com/articles/ai/2026/02/semantic-updatable-cache-on-alloydb-omni">tekkix.com</a></p>
 <p>林远提出：</p>
@@ -1022,7 +1011,7 @@ public class ModelGatewayService {
 <p>林远点头。</p>
 <p>“也就是说，不能把模型当成安全边界。”</p>
 <p>“正确。”</p>
-<h2 id="ai_3">第十五幕：数据闭环——AI 系统怎样越用越好？</h2>
+<h2 id="ai_2">第十五幕：数据闭环——AI 系统怎样越用越好？</h2>
 <p><img loading="lazy" decoding="async" alt="LLMアプリのフィードバックループ設計｜本番ユーザーシグナルを継続改善につなぐ2026年版" src="https://images.openai.com/static-rsc-4/e6bR7_xFdChDdZszPeLpdz4s75WIf67cHlffKwqHXuPFGEZLM-bvHCYyoKYyNZaAut-Tymx-jq1bgudcXovUqU24gVuMrnwPKtfhqs1-XVumo9fOpUStDu-25ThNGbkysb6_bZuhbQdi6DqhEV5t2IjzNHdrDxPDqGnAPPcIYq0?purpose=inline" /></p>
 <p><a href="https://blackford.co.jp/columns/0088-llm-feedback-loop-design-production-2026">blackford.co.jp</a></p>
 <p>林远终于修复了大部分线上问题。</p>
@@ -1076,7 +1065,7 @@ USER_INTENT_MISMATCH
 <p>“这样我们就能知道系统主要在哪些环节失败。”</p>
 <p>陈默说。</p>
 <p>“而不是把所有错误都归结为‘模型不够聪明’。”</p>
-<h2 id="ai_4">第十六幕：真正的企业级 AI 平台架构</h2>
+<h2 id="ai_3">第十六幕：真正的企业级 AI 平台架构</h2>
 <p>上午七点。</p>
 <p>陈默让林远重新画出整个系统。</p>
 <p>这一次，林远没有把 LLM 放在架构图最中央。</p>
