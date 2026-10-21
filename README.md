@@ -13,3 +13,8 @@
 发布后地址：https://wupzl.github.io/ai-era-reader/
 
 原文技术案例未逐条核实；图片沿用外部链接，加载失败时显示提示。
+
+
+## 项目导航
+
+所有 docs/*.html 页头包含学习书架和项目切换入口，样式位于 docs/shelf-nav.css。更新页面时须保留这两个入口；根首页为 https://wupzl.github.io/ 。
