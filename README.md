@@ -18,3 +18,6 @@
 ## 项目导航
 
 所有 docs/*.html 页头包含学习书架和项目切换入口，样式位于 docs/shelf-nav.css。更新页面时须保留这两个入口；根首页为 https://wupzl.github.io/ 。
+
+
+项目切换菜单已接入 [Agent 帝国：代码审判者](https://wupzl.github.io/coding-agent-reader/)，九章小说式 Coding Agent 工程阅读。
